@@ -1,0 +1,92 @@
+---
+layout: presentation
+title: SQLite Intro
+permalink: /sqlite-intro/
+---
+
+class: center, middle
+
+# SQLite
+Database Design
+
+---
+
+# Agenda
+
+1. Overview
+2. Foo
+3. Foo
+4. Foo
+5. Foo
+6. Foo
+7. Conclusions
+
+---
+
+name: overview
+class: center, middle
+
+# Overview
+
+---
+
+name: installation
+
+## Installation
+- Follow [these instructions](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm) to install on your local machine.
+- Or use `sqlite3` on the CS department's `i6` web server.
+
+---
+
+name: start
+
+## Start
+Run from the command shell... replace `database_name` with a database name of your choosing:
+```bash
+sqlite3 database_name.db
+```
+
+If all goes swell, you are now in the SQLite command prompt.  And if a database with this name doesn't already exist, it will be created.
+
+---
+
+name: quit
+
+## Quit
+To quit, use the `.quit` helper function:
+```sqlite
+sqlite> .quit
+```
+
+Now go and [re-start](#start) again!
+
+---
+
+name: import
+
+## Import data
+Import from a comma-separated values (CSV) file into an SQLite table named `sd`... replace the path to the .csv file with one that works with your file system:
+```sqlite
+sqlite> .mode csv
+sqlite> .import /Users/foobar/Desktop/deena/sd.csv sd
+```
+
+---
+
+## View table schema
+View the `schema` of the `sd` table that was created by the `.import` command:
+```sqlite
+sqlite> .schema sd
+```
+
+---
+
+class: center, middle
+
+# Conclusions
+
+---
+
+# Conclusions
+Thank you. Bye.
+
