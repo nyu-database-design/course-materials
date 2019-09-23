@@ -14,8 +14,8 @@ Database Design
 # Agenda
 
 1. Overview
-2. Foo
-3. Foo
+2. Setup
+3. Simple reads
 4. Foo
 5. Foo
 6. Foo
@@ -30,7 +30,25 @@ class: center, middle
 
 ---
 
-name: installation
+## Features
+A small, lightweight, portable relational database:
+- zero configuration
+- serverless
+- simple file format
+- cross-platform compatible
+- manifest typing
+- small footprint
+- public domain source code
+- industry-proven
+
+---
+
+name: setup
+class: center, middle
+
+# Setup
+
+---
 
 ## Installation
 - Follow [these instructions](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm) to install on your local machine.
@@ -54,29 +72,144 @@ name: quit
 
 ## Quit
 To quit, use the `.quit` helper function:
-```sqlite
-sqlite> .quit
+```sqlite3
+.quit
 ```
 
 Now go and [re-start](#start) again!
 
 ---
 
-name: import
+name: create-table
 
-## Import data
-Import from a comma-separated values (CSV) file into an SQLite table named `sd`... replace the path to the .csv file with one that works with your file system:
-```sqlite
-sqlite> .mode csv
-sqlite> .import /Users/foobar/Desktop/deena/sd.csv sd
+## Create table
+Create a table that will accommodate some sample data on school districts from the 2010 US census:
+```sqlite3
+DROP TABLE IF EXISTS sd;
+CREATE TABLE sd (
+  sd_state text,
+  sd_geoid text,
+  sd_name text,
+  sd_lowestGrade text,
+  sd_highestGrade text,
+  sd_pop_2010 integer,
+  sd_hu_2010 integer,
+  sd_aland real,
+  sd_awater real,
+  sd_aland_sqmi real,
+  sd_awater_sqmi real,
+  sd_intptlat real,
+  sd_intptlong real,
+  PRIMARY KEY(sd_geoid)
+);
 ```
 
 ---
 
 ## View table schema
-View the `schema` of the `sd` table that was created by the `.import` command:
+Viewing the `schema` of the `sd` table shows the command used to create it:
 ```sqlite
-sqlite> .schema sd
+.schema sd
+```
+
+---
+
+name: import-data
+
+## Import data
+Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US census data on school districts into an SQLite table named `sd`... replace the path to the .csv file with one that works with your file system:
+```sqlite
+.mode csv
+.import /Users/foobar/some_directory/sd.csv sd
+```
+
+---
+
+## Drop table
+Delete the `sd` table:
+```sqlite
+drop table sd
+```
+
+Now go [create it](#create-table) and [import data into it](#import-data) again!
+
+---
+
+## Use a script
+Saving the commands to create and import data into [an SQL script](../files/sd_setup_script.sql) can save time and effort.  Change the file path to whatever path works on your system:
+```sqlite
+.read /Users/foobar/some_directory/sd_setup_script.sql
+```
+
+---
+
+name: simple-reads
+class: center, middle
+
+# Simple reads
+
+---
+
+## All school districts
+Show all fields of all records.... there are a lot.
+```sqlite3
+select * from sd;
+```
+
+---
+
+## School districts in New York State
+The `where` clause filters results to only those within New York.... there are a lot.
+```sqlite3
+select * from sd where sd_state = "NY";
+```
+
+---
+
+## Show only school district names
+Each records contains many fields.  Limit to just the name of each school district:
+```sqlite3
+select sd_name from sd where sd_state = "NY";
+```
+
+Multiple fields can be selected by supplying a comma-separated list, such as `sd_name, sd_state`.
+
+---
+
+## Sort the results
+Sort the records by school district name in reverse alphabetic order:
+```sqlite3
+select sd_name from sd where sd_state = "NY" order by sd_name desc;
+```
+
+`asc` is used to indicate ascending order.
+
+---
+
+## Limit the results
+Show only the first 5 in the reverse-alphabetic list of New York school districts:
+```sqlite3
+select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5;
+```
+
+---
+
+## Offset the results
+Show the second and third `pages` with 5 results each:
+```sqlite3
+select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offset 5;
+```
+
+```sqlite3
+select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offset 10;
+```
+
+---
+
+## School districts in New York State
+The `where` clause filters the results to only those that match:
+```sqlite3
+select * from sd where sd_state = "NY";
 ```
 
 ---
