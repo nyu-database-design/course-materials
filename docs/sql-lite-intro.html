@@ -348,7 +348,7 @@ select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offse
 ## Smallest school districts
 The 10 smallest school districts in the country:
 ```sqlite3
-select sd_name, sd_state, sd_pop_2010 from sd order by sd_pop_2010 desc limit 10;
+select sd_name, sd_state, sd_pop_2010 from sd order by sd_pop_2010 asc limit 10;
 ```
 
 ---
@@ -431,7 +431,7 @@ select sd_state, count(sd_geoid) from sd group by sd_state;
 
 ---
 
-## Counting school districts per state in of descending quantity
+## Counting school districts per state in descending order
 The state name and the number of school districts in each state, in descending order:
 ```sqlite3
 select sd_state, count(sd_geoid) from sd group by sd_state order by count(sd_geoid) desc;
@@ -444,7 +444,7 @@ select sd_state, count(sd_geoid) as num_districts from sd group by sd_state orde
 
 ---
 
-## Calculating the 3 most populated states
+## Calculating the 3 most populous states
 Sort states by aggregate population in descending order, then limit to the first 3 records.
 ```sqlite3
 select sd_state, sum(sd_pop_2010) as pop from sd group by sd_state order by pop desc limit 3;
@@ -452,7 +452,7 @@ select sd_state, sum(sd_pop_2010) as pop from sd group by sd_state order by pop 
 
 ---
 
-## Calculating the 3 least populated states
+## Calculating the 3 least populous states
 Sort states by aggregate population in ascending order, then limit to the first 3 records.
 ```sqlite3
 select sd_state, sum(sd_pop_2010) as pop from sd group by sd_state order by pop asc limit 3;
@@ -473,7 +473,7 @@ Let's take what we've learned a step further.
 ---
 
 ## All of New England
-New England is made of several states.  Let's find the top ten largest school districts in this combined region using an `in` clause:
+New England is made of several states.  Let's find the top ten largest school districts in this combined region using an `in` operator:
 ```sqlite3
 select sd_name, sd_state, sd_pop_2010 from sd where sd_state in ("ME", "VT", "NH", "MA", "RI") ORDER BY sd_pop_2010 desc limit 10;
 ```
