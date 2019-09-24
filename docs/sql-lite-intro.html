@@ -16,9 +16,9 @@ Database Design
 1. Overview
 2. Setup
 3. Simple reads
-4. Foo
-5. Foo
-6. Foo
+4. Functions
+5. Grouping
+6. Combinations
 7. Conclusions
 
 ---
@@ -59,19 +59,23 @@ class: center, middle
 name: start
 
 ## Start
-Run from the command shell... replace `database_name` with a database name of your choosing:
+Run from the command shell. 
+
+Replace `database_name` with a database name of your choosing:
 ```bash
 sqlite3 database_name.db
 ```
 
-If all goes swell, you are now in the SQLite command prompt.  And if a database with this name doesn't already exist, it will be created.
+If all goes swell, you are now in the SQLite command prompt.  
+
+And if a database with this name didn't previously exist, it has now been created.
 
 ---
 
 name: quit
 
 ## Quit
-To quit, use the `.quit` helper function:
+To quit SQLite, use the `.quit` helper function:
 ```sqlite3
 .quit
 ```
@@ -83,7 +87,22 @@ Now go and [re-start](#start) again!
 name: create-table
 
 ## Create table
-Create a table that will accommodate some sample data on school districts from the 2010 US census:
+We need a table in SQLite that will accommodate data on [school districts from the 2010 US census](https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2010.html), including each district's...
+- name
+- state
+- lowest grade taught
+- highest grade taught
+- population
+- number of households
+- land area
+- water area
+- geocoordinates (latitude & longitude)
+
+---
+
+## Create table
+Create a table to accommodate the US Census school district data:
+
 ```sqlite3
 DROP TABLE IF EXISTS sd;
 CREATE TABLE sd (
@@ -103,6 +122,8 @@ CREATE TABLE sd (
   PRIMARY KEY(sd_geoid)
 );
 ```
+
+The primary key, the unique identifier of each record, is set to be the `sd_geoid` field.
 
 ---
 
@@ -167,7 +188,7 @@ select * from sd where sd_state = "NY";
 ---
 
 ## Show only school district names
-Each records contains many fields.  Limit to just the name of each school district:
+Each records contains many fields.  Limit to just the `name` of each school district:
 ```sqlite3
 select sd_name from sd where sd_state = "NY";
 ```
@@ -182,7 +203,7 @@ Sort the records by school district name in reverse alphabetic order:
 select sd_name from sd where sd_state = "NY" order by sd_name desc;
 ```
 
-`asc` is used to indicate ascending order.
+`asc` can be used to indicate ascending order.
 
 ---
 
@@ -206,10 +227,174 @@ select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offse
 
 ---
 
-## School districts in New York State
-The `where` clause filters the results to only those that match:
+## Smallest school districts
+The 10 smallest school districts in the country:
 ```sqlite3
-select * from sd where sd_state = "NY";
+select sd_name, sd_state, sd_pop_2010 from sd order by sd_pop_2010 desc limit 10;
+```
+
+---
+
+name: functions
+class: center, middle
+
+# Functions
+
+---
+
+## Concept
+There are a variety of [built-in aggregate functions](https://sqlite.org/lang_aggfunc.html) available to be used in queries. These are used to calculate aggregate statistics from the records returned by any query.
+
+---
+
+## Counting records
+Calculate how many school districts exist in the US and Puerto Rico using the `count()` function.
+```sqlite3
+select count(sd_geoid) from sd;
+```
+
+The primary key field, `sd_geoid` is guaranteed to be unique for each record, while other fields may not be.
+
+---
+
+## Counting records in a filtered result set
+Count the number of school districts in New York State by filtering results with a `where` clause.
+```sqlite3
+select count(sd_geoid) from sd where sd_state = "NY";
+```
+
+---
+
+## Calculating average
+Calculate the average population of school districts across the US, using the `avg()` function.
+```sqlite3
+select avg(sd_pop_2010) from sd;
+```
+
+This will return a floating point number. There are no half people, so we could round the result using the `round()` function, as in `round( avg(sd_pop_2010) )`.
+
+---
+
+## Calculating sum
+Calculate the total population in the country, using the `sum()` function.
+```sqlite3
+select sum(sd_pop_2010) from sd;
+```
+
+---
+
+name: grouping
+class: center, middle
+
+# Grouping
+
+---
+
+## Concept
+Grouping records together by some attributes they share in common allows us to calculate aggregate statistics.
+
+---
+
+## Counting school districts per state
+Counting the number of school districts per state requires us to group together all school districts in each state:
+```sqlite3
+select count(sd_geoid) from sd group by sd_state;
+```
+
+---
+
+## Counting school districts per state... better
+The previous query showed us the numbers, but not which state they represented.
+
+View the state name *and* the number of school districts in each state:
+```sqlite3
+select sd_state, count(sd_geoid) from sd group by sd_state;
+```
+
+---
+
+## Counting school districts per state in of descending quantity
+The state name and the number of school districts in each state, in descending order:
+```sqlite3
+select sd_state, count(sd_geoid) from sd group by sd_state order by count(sd_geoid) desc;
+```
+
+Note that the clause, `order by count(sd_geoid)` treats the count as if it were like any other field to sort by.  We can make this easier to write by using an alias:
+```sqlite3
+select sd_state, count(sd_geoid) as num_districts from sd group by sd_state order by num_districts desc;
+```
+
+---
+
+## Calculating the 3 most populated states
+Sort states by aggregate population in descending order, then limit to the first 3 records.
+```sqlite3
+select sd_state, sum(sd_pop_2010) as pop from sd group by sd_state order by pop desc limit 3;
+```
+
+---
+
+## Calculating the 3 least populated states
+Sort states by aggregate population in ascending order, then limit to the first 3 records.
+```sqlite3
+select sd_state, sum(sd_pop_2010) as pop from sd group by sd_state order by pop asc limit 3;
+```
+
+---
+
+name: combinations
+class: center, middle
+
+# Combinations
+
+---
+
+## Concept
+Let's take what we've learned a step further.
+
+---
+
+## All of New England
+New England is made of several states.  Let's find the top ten largest school districts in this combined region using an `in` clause:
+```sqlite3
+select sd_name, sd_state, sd_pop_2010 from sd where sd_state in ("ME", "VT", "NH", "MA", "RI") ORDER BY sd_pop_2010 desc limit 10;
+```
+
+---
+
+## Highest population density school districts
+Which school districts have the highest population density?
+```sqlite3
+select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd order by density desc limit 10;
+```
+
+---
+
+## Lowest population density school districts
+Which school districts have the lowest population density?
+```sqlite3
+select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd order by density asc limit 10;
+```
+
+This query will return a bunch of school districts with the name including the text, "School District Not Defined"... let's exclude these:
+```sqlite3
+select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd where sd_name not like "%not defined%" order by density asc limit 10;
+```
+
+---
+
+## Highest population density states
+Which states have the highest population density?
+```sqlite3
+select sd_state, round( sum(sd_pop_2010) / sum(sd_aland_sqmi) ) as density from sd group by sd_state order by density desc limit 10;
+```
+
+---
+
+## Lowest population density states
+Which states have the lowest population density?
+```sqlite3
+select sd_state, round( sum(sd_pop_2010) / sum(sd_aland_sqmi) ) as density from sd group by sd_state order by density asc limit 10;
 ```
 
 ---
