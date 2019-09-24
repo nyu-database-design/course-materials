@@ -190,6 +190,7 @@ We will work with data on [school districts from the 2010 US census](https://www
 - land area
 - water area
 - geocoordinates (latitude & longitude)
+- ... and a unique identification number
 
 We need a table in SQLite that will accommodate this.
 
@@ -392,7 +393,7 @@ Calculate how many school districts exist in the US and Puerto Rico using the `c
 select count(sd_geoid) from sd;
 ```
 
-The primary key field, `sd_geoid` is guaranteed to be unique for each record, while other fields may not be.
+The primary key field, `sd_geoid`, is guaranteed to be unique for each record, while other fields may not be.
 
 ---
 
