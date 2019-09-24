@@ -30,8 +30,6 @@ class: center, middle
 
 ---
 
-template: overview
-
 ## Features
 A small, lightweight, portable relational database:
 - zero configuration
@@ -46,14 +44,11 @@ A small, lightweight, portable relational database:
 ---
 
 name: setup
-template: overview
 class: center, middle
 
 # Setup
 
 ---
-
-template: overview
 
 ## Installation
 - Follow [these instructions](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm) to install on your local machine.
@@ -62,7 +57,6 @@ template: overview
 ---
 
 name: start
-template: overview
 
 ## Start
 Run from the command shell. 
@@ -79,7 +73,6 @@ And if a database with this name didn't previously exist, it has now been create
 ---
 
 name: quit
-template: overview
 
 ## Quit
 To quit SQLite, use the `.quit` helper function:
@@ -92,7 +85,6 @@ Now go and [re-start](#start) again!
 ---
 
 name: create-table
-template: overview
 
 ## Create table
 We need a table in SQLite that will accommodate data on [school districts from the 2010 US census](https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2010.html), including each district's...
@@ -107,8 +99,6 @@ We need a table in SQLite that will accommodate data on [school districts from t
 - geocoordinates (latitude & longitude)
 
 ---
-
-template: overview
 
 ## Create table
 Create a table to accommodate the US Census school district data:
@@ -137,8 +127,6 @@ The primary key, the unique identifier of each record, is set to be the `sd_geoi
 
 ---
 
-template: overview
-
 ## View table schema
 Viewing the `schema` of the `sd` table shows the command used to create it:
 ```sqlite
@@ -148,7 +136,6 @@ Viewing the `schema` of the `sd` table shows the command used to create it:
 ---
 
 name: import-data
-template: overview
 
 ## Import data
 Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US census data on school districts into an SQLite table named `sd`... replace the path to the .csv file with one that works with your file system:
@@ -159,8 +146,6 @@ Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US 
 
 ---
 
-template: overview
-
 ## Drop table
 Delete the `sd` table:
 ```sqlite
@@ -170,8 +155,6 @@ drop table sd
 Now go [create it](#create-table) and [import data into it](#import-data) again!
 
 ---
-
-template: overview
 
 ## Use a script
 Saving the commands to create and import data into [an SQL script](../files/sd_setup_script.sql) can save time and effort.  Change the file path to whatever path works on your system:
@@ -188,8 +171,6 @@ class: center, middle
 
 ---
 
-template: simple-reads
-
 ## All school districts
 Show all fields of all records.... there are a lot.
 ```sqlite3
@@ -198,8 +179,6 @@ select * from sd;
 
 ---
 
-template: simple-reads
-
 ## School districts in New York State
 The `where` clause filters results to only those within New York.... there are a lot.
 ```sqlite3
@@ -207,8 +186,6 @@ select * from sd where sd_state = "NY";
 ```
 
 ---
-
-template: simple-reads
 
 ## Show only school district names
 Each records contains many fields.  Limit to just the `name` of each school district:
@@ -220,8 +197,6 @@ Multiple fields can be selected by supplying a comma-separated list, such as `sd
 
 ---
 
-template: simple-reads
-
 ## Sort the results
 Sort the records by school district name in reverse alphabetic order:
 ```sqlite3
@@ -232,8 +207,6 @@ select sd_name from sd where sd_state = "NY" order by sd_name desc;
 
 ---
 
-template: simple-reads
-
 ## Limit the results
 Show only the first 5 in the reverse-alphabetic list of New York school districts:
 ```sqlite3
@@ -241,8 +214,6 @@ select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5;
 ```
 
 ---
-
-template: simple-reads
 
 ## Offset the results
 Show the second and third `pages` with 5 results each:
@@ -256,8 +227,6 @@ select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offse
 
 ---
 
-template: simple-reads
-
 ## Smallest school districts
 The 10 smallest school districts in the country:
 ```sqlite3
@@ -266,8 +235,6 @@ select sd_name, sd_state, sd_pop_2010 from sd order by sd_pop_2010 desc limit 10
 
 ---
 
-template: simple-reads
-
 name: functions
 class: center, middle
 
@@ -275,14 +242,10 @@ class: center, middle
 
 ---
 
-template: functions
-
 ## Concept
 There are a variety of [built-in aggregate functions](https://sqlite.org/lang_aggfunc.html) available to be used in queries. These are used to calculate aggregate statistics from the records returned by any query.
 
 ---
-
-template: functions
 
 ## Counting records
 Calculate how many school districts exist in the US and Puerto Rico using the `count()` function.
@@ -294,8 +257,6 @@ The primary key field, `sd_geoid` is guaranteed to be unique for each record, wh
 
 ---
 
-template: functions
-
 ## Counting records in a filtered result set
 Count the number of school districts in New York State by filtering results with a `where` clause.
 ```sqlite3
@@ -303,8 +264,6 @@ select count(sd_geoid) from sd where sd_state = "NY";
 ```
 
 ---
-
-template: functions
 
 ## Calculating average
 Calculate the average population of school districts across the US, using the `avg()` function.
@@ -316,8 +275,6 @@ This will return a floating point number. There are no half people, so we could 
 
 ---
 
-template: functions
-
 ## Calculating sum
 Calculate the total population in the country, using the `sum()` function.
 ```sqlite3
@@ -327,21 +284,16 @@ select sum(sd_pop_2010) from sd;
 ---
 
 name: grouping
-template: functions
 class: center, middle
 
 # Grouping
 
 ---
 
-template: functions
-
 ## Concept
 Grouping records together by some attributes they share in common allows us to calculate aggregate statistics.
 
 ---
-
-template: functions
 
 ## Counting school districts per state
 Counting the number of school districts per state requires us to group together all school districts in each state:
@@ -350,8 +302,6 @@ select count(sd_geoid) from sd group by sd_state;
 ```
 
 ---
-
-template: functions
 
 ## Counting school districts per state... better
 The previous query showed us the numbers, but not which state they represented.
@@ -362,8 +312,6 @@ select sd_state, count(sd_geoid) from sd group by sd_state;
 ```
 
 ---
-
-template: functions
 
 ## Counting school districts per state in of descending quantity
 The state name and the number of school districts in each state, in descending order:
@@ -378,8 +326,6 @@ select sd_state, count(sd_geoid) as num_districts from sd group by sd_state orde
 
 ---
 
-template: functions
-
 ## Calculating the 3 most populated states
 Sort states by aggregate population in descending order, then limit to the first 3 records.
 ```sqlite3
@@ -387,8 +333,6 @@ select sd_state, sum(sd_pop_2010) as pop from sd group by sd_state order by pop 
 ```
 
 ---
-
-template: functions
 
 ## Calculating the 3 least populated states
 Sort states by aggregate population in ascending order, then limit to the first 3 records.
@@ -405,14 +349,10 @@ class: center, middle
 
 ---
 
-template: combinations
-
 ## Concept
 Let's take what we've learned a step further.
 
 ---
-
-template: combinations
 
 ## All of New England
 New England is made of several states.  Let's find the top ten largest school districts in this combined region using an `in` clause:
@@ -422,8 +362,6 @@ select sd_name, sd_state, sd_pop_2010 from sd where sd_state in ("ME", "VT", "NH
 
 ---
 
-template: combinations
-
 ## Highest population density school districts
 Which school districts have the highest population density?
 ```sqlite3
@@ -431,8 +369,6 @@ select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd 
 ```
 
 ---
-
-template: combinations
 
 ## Lowest population density school districts
 Which school districts have the lowest population density?
@@ -447,8 +383,6 @@ select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd 
 
 ---
 
-template: combinations
-
 ## Highest population density states
 Which states have the highest population density?
 ```sqlite3
@@ -456,8 +390,6 @@ select sd_state, round( sum(sd_pop_2010) / sum(sd_aland_sqmi) ) as density from 
 ```
 
 ---
-
-template: combinations
 
 ## Lowest population density states
 Which states have the lowest population density?
@@ -467,14 +399,11 @@ select sd_state, round( sum(sd_pop_2010) / sum(sd_aland_sqmi) ) as density from 
 
 ---
 
-name: conclusions
 class: center, middle
 
 # Conclusions
 
 ---
-
-template: conclusions
 
 # Conclusions
 Thank you. Bye.
