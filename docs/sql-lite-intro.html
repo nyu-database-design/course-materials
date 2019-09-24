@@ -179,8 +179,6 @@ class: center, middle
 
 ---
 
-name: create-table
-
 ## Create table
 We will work with data on [school districts from the 2010 US census](https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2010.html) This includes each district's...
 - name
@@ -196,6 +194,8 @@ We will work with data on [school districts from the 2010 US census](https://www
 We need a table in SQLite that will accommodate this.
 
 ---
+
+name: create-table
 
 ## Create table
 Create a table to accommodate the US Census school district data:
@@ -262,10 +262,28 @@ Now go [create it](#create-table) and [import data into it](#import-data) again!
 ---
 
 ## Use a script
-Saving the commands to create and import data into [an SQL script](../files/sqlite/sd_setup_script.sql) can save time and effort.  Change the file path to whatever path works on your system:
+Saving the commands to create and import data into [an SQL script](../files/sqlite/sd_setup_script.sql) can save time and effort - you can re-create and re-import data at any time by simply executing the script.
+
+Change the file path to whatever path works on your system:
 ```sqlite
 .read /Users/foobar/some_directory/sd_setup_script.sql
 ```
+
+---
+
+## Share a database
+If you want to copy a database or share it with someone (or yourself), simply pass around a copy of [the database file](../files/sqlite/sd.db) with the data in it.
+
+And then [quit](#quit) and [re-start](#start) SQLite using that database file.  No need to create tables from scratch or import anything.
+```sqlite 3
+.quit
+```
+
+```bash
+sqlite3 sd.db
+```
+
+Being a portable, small footprint, simple file format database has its advantages.
 
 ---
 
