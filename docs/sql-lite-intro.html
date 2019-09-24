@@ -234,7 +234,7 @@ To view a list of any tables that exist in this database, use the `.tables` func
 
 ## View table schema
 Viewing the `schema` of the `sd` table shows the command used to create it:
-```sqlite
+```sqlite3
 .schema sd
 ```
 
@@ -244,7 +244,7 @@ name: import-data
 
 ## Import data
 Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US census data on school districts into an SQLite table named `sd`... replace the path to the .csv file with one that works with your file system:
-```sqlite
+```sqlite3
 .mode csv
 .import /Users/foobar/some_directory/sd.csv sd
 ```
@@ -253,7 +253,7 @@ Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US 
 
 ## Drop table
 Delete the `sd` table:
-```sqlite
+```sqlite3
 drop table sd
 ```
 
@@ -265,7 +265,7 @@ Now go [create it](#create-table) and [import data into it](#import-data) again!
 Saving the commands to create and import data into [an SQL script](../files/sqlite/sd_setup_script.sql) can save time and effort - you can re-create and re-import data at any time by simply executing the script.
 
 Change the file path to whatever path works on your system:
-```sqlite
+```sqlite3
 .read /Users/foobar/some_directory/sd_setup_script.sql
 ```
 
@@ -275,7 +275,7 @@ Change the file path to whatever path works on your system:
 If you want to copy a database or share it with someone (or yourself), simply pass around a copy of [the database file](../files/sqlite/sd.db) with the data in it.
 
 And then [quit](#quit) and [re-start](#start) SQLite using that database file.  No need to create tables from scratch or import anything.
-```sqlite 3
+```sqlite3
 .quit
 ```
 
