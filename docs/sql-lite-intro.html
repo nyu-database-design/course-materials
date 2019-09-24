@@ -15,11 +15,13 @@ Database Design
 
 1. [Overview](#overview)
 2. [Setup](#setup)
-3. [Simple reads](#simple-reads)
-4. [Functions](#functions)
-5. [Grouping](#grouping)
-6. [Combinations](#combinations)
-7. [Conclusions](#conclusions)
+3. [CRUD](#crud)
+4. [Import data](#import-data)
+5. [Simple reads](#simple-reads)
+6. [Functions](#functions)
+7. [Grouping](#grouping)
+8. [Combinations](#combinations)
+9. [Conclusions](#conclusions)
 
 ---
 
@@ -84,10 +86,103 @@ Now go and [re-start](#start) again!
 
 ---
 
+name: crud
+class: center, middle
+
+# CRUD
+
+---
+
+## Overview
+Data operations fall into one of four types:
+- **C**reate - creating new data
+- **R**ead - viewing existing data
+- **U**pdate - updating existing data
+- **D**elete - deleting existing data
+
+These operations are affectionately known as data CRUD.
+
+---
+
+## Definition
+
+"crud" definition from [wordnik.com](https://www.wordnik.com/words/crud):
+> n.	A coating or an incrustation of filth or refuse.
+>
+> n.	Something loathsome, despicable, or worthless.
+
+Welcome to the world of data!
+
+---
+
+## Create
+
+Create operations are enacted with one of two techniques:
+- creating new records in a table using the `insert` command
+- importing records from a file into a table using the `.import` function
+
+```sqlite3
+insert into students (first_name, last_name, net_id) values ("Foo", "Barstein", "fb1258");
+```
+
+```sqlite3
+.import /Users/foobar/some_directory/students.csv students
+```
+
+---
+
+## Read
+
+Read operations are performed with the `select` command
+
+```sqlite3
+select first_name from students where net_id="fb1258";
+```
+
+---
+
+## Update
+
+Update operations are performed with the `update` command
+
+```sqlite3
+update students set first_name="Baz" where net_id="fb1258";
+```
+
+Updates to the overall schema of the table can be done with the `alter table` command
+```sqlite3
+alter table students add column n_number int;
+```
+
+---
+
+## Delete
+
+Delete can be one of a few types:
+- Delete a particular record using the `delete` command
+- Drop an entire table using the `drop table` command
+
+```sqlite3
+delete from students where net_id="fb1258";
+```
+
+```sqlite3
+drop table students;
+```
+
+---
+
+name: import-data
+class: center, middle
+
+# Import data
+
+---
+
 name: create-table
 
 ## Create table
-We need a table in SQLite that will accommodate data on [school districts from the 2010 US census](https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2010.html), including each district's...
+We will work with data on [school districts from the 2010 US census](https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2010.html) This includes each district's...
 - name
 - state
 - lowest grade taught
@@ -97,6 +192,8 @@ We need a table in SQLite that will accommodate data on [school districts from t
 - land area
 - water area
 - geocoordinates (latitude & longitude)
+
+We need a table in SQLite that will accommodate this.
 
 ---
 
@@ -124,6 +221,14 @@ CREATE TABLE sd (
 ```
 
 The primary key, the unique identifier of each record, is set to be the `sd_geoid` field.
+
+---
+
+## View list of tables
+To view a list of any tables that exist in this database, use the `.tables` function.
+```sqlite3
+.tables
+```
 
 ---
 
@@ -161,6 +266,19 @@ Saving the commands to create and import data into [an SQL script](../files/sd_s
 ```sqlite
 .read /Users/foobar/some_directory/sd_setup_script.sql
 ```
+
+---
+
+## Dot functions
+You have no-doubt noticed our use of some `dot functions`, such as:
+- .quit - quit SQLite
+- .tables - view a list of tables in the database
+- .schema ?table name? - show the schema of a table 
+- .mode ?mode? - change the way data is formatted on screen, either as `csv` or `columns`
+- .import ?CSV file? ?table name? - import a data file into a table
+- .read ?SQL script? - run an SQL script file
+
+SQLite comes with several handy 
 
 ---
 
