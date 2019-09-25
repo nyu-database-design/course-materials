@@ -1,4 +1,4 @@
-baseurl: /software-engineering
-title: Software Engineering
+baseurl: /database-design
+title: Database Design
 description: >
-  Making software
+  Design and operations of relational and NoSQL database
