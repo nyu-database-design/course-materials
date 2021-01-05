@@ -12,3 +12,4 @@ Slides are auto-generated from the materials in the `docs` folder using Git Page
 - Install [Jekyll](https://jekyllrb.com/) globally
 - `cd` into the `docs` directory
 - run `jekyll serve`
+- a `server address` will be displayed - visit this address in your web browser
