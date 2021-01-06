@@ -1,0 +1,498 @@
+---
+layout: presentation
+title: Plain Text Data Formats
+permalink: /plain-text-data-formats/
+---
+
+class: center, middle
+
+# Plain Text Data Formats
+Database Design
+
+---
+
+# Agenda
+
+1. [Overview](#overview)
+1. [Plain text](#plain-text)
+1. [Comma-Separated Values (CSV)](#csv)
+1. [JavaScript Object Notation (JSON)](#json)
+1. [eXtensible Markup Language (XML)](#xml)
+1. [Conclusions](#conclusions)
+
+---
+
+name: overview
+
+# Overview
+
+---
+
+template: overview
+
+## Intro
+There are boundless possibilities when it comes to representing *structured data* as plain text.
+
+--
+
+In reality, there are just a few common formats that meet most needs.
+
+--
+
+- Comma-Separated Values (CSV)
+
+--
+
+- Javascript Object Notation (JSON)
+
+--
+
+- eXtensible Markup Lanauge (XML)
+
+--
+
+Each of these formats attempts to make data both *human-readable* and *machine-readable*.
+
+--
+
+We will take a quick look at each.
+
+---
+
+name: plain-text
+
+# Plain text
+
+---
+
+template: plain-text
+
+## Meaning
+What do we mean by "*plain text*"?
+
+--
+
+- As you've probably heard, all computer data, including all text, is *ultimately stored as numbers* in the computer's processor, memory, and storage.
+
+--
+
+- Plain text, for our purposes, means that computer data which contains only numeric codes in the [ASCII](https://en.wikipedia.org/wiki/ASCII) or [Unicode](https://en.wikipedia.org/wiki/Unicode) encoding schemes and nothing else.
+
+--
+
+- ASCII and Unicode offer standardized widely-supported encoding schemes that indicate *which number represents which character*.
+
+--
+
+- For example, the ASCII standard specifies that an `a` character is represented by the number 97, `b` is 98, `c` is 99, and so on.
+
+--
+
+- So any computer data that contains only a set of these codes, and no other numbers not in these encoding schemes, is "plain text" data.
+
+---
+
+template: plain-text
+
+## Creating
+How do we create plain text data?
+
+--
+
+- A *plain text editor* is an application intended to be used to create plain text files.
+
+--
+
+- Windows' Notepad and Apple's TextEdit are *not good* plain text editors - both can and will store non-plain-text data into the files they make.
+
+--
+
+- Microsoft Word, Apple Pages, and Google Docs are *not good* plain text editors.
+
+--
+
+- Almost all computer programming editors and integrated development environments are **good** plain text editors.
+
+---
+
+template: plain-text
+
+## Saving
+How to save a file with just plain text in it.
+
+--
+
+- When saving any file, *always include a file extension* in the filename.  This helps the operating system understand what kind of data is in the file and what application it should launch to open it.
+
+--
+
+- A file with *unstructured plain text* is often saved with the `.txt` extension.
+
+--
+
+- A file with *structured plain text* is saved with an extension that matches its structure
+--
+, e.g.:
+    - `.csv` for files containing comma-separated-values data
+--
+    - `.json` for files containing Javascript Object Notation data
+--
+    - `.xml` for files containing eXtensible Markup Language data
+--
+    - ... and so on
+
+--
+
+- A filename such as `diabetes_rates_by_state.csv` is a **good filename**, whereas `diabetes_rates_by_state` is not.
+
+---
+
+template: plain-text
+
+## Opening
+How do you open a plain text file?
+
+--
+
+- When you double click on a plain text file and it opens in Windows' Notepad or Mac's TextEdit, *quit those applications immediately* and fix your process!
+
+--
+
+- *Use a good plain text editor* instead.
+
+--
+
+- Open your good plain text editor and from there open the file using the `File`->`Open...` menu.
+
+--
+
+- It's also possible to *change which application is opened by default* when you double-click on a file with a certain extension... look it up.
+
+---
+
+template: plain-text
+
+## One more note about file extensions
+Annoyingly perhaps, both Windows and Mac OSX hide file extensions by default.
+
+--
+
+- It is **urgent** that you change this setting on your own computer so that file extensions are always visible.
+
+--
+
+- [Research how to do this](https://duckduckgo.com/?q=show+all+file+extensions+mac+and+windows&t=brave&ia=web) for your operating system.
+
+---
+
+name: csv
+
+# Comma-Separated Values (CSV)
+
+---
+
+template: csv
+
+## Basic concept
+When text is formatted as *comma-separated values*, a series of values is separated by commas*!*
+
+--
+
+- *Line breaks* separate series of related values.
+
+--
+
+- For example, three lines could be used to represent three different works of nonsense literature:
+
+ ```csv
+ Carroll,Lewis,Jabberwocky,1871
+ Lear,Edward,The Jumblies,1910
+ Bishop,Elizabeth,The Man-Moth,1946
+ ```
+--
+
+- Optionally, the first line of a CSV file can contain *headings*:
+
+ ```csv
+ Last name,First name,Title,Year
+ Carroll,Lewis,Jabberwocky,1871
+ Lear,Edward,The Jumblies,1910
+ Bishop,Elizabeth,The Man-Moth,1946
+ ```
+
+---
+
+template: csv
+
+## Consistency
+CSV files are used with a fixed schema - a consistent set of fields that are present in each line of the text.
+
+--
+
+- In our example, the *text before the first comma* is always the author's last name, the following *text before the next comma* is the author's first name, and so on.
+```csv
+Carroll,Lewis,Jabberwocky,1871
+Lear,Edward,The Jumblies,1910
+Bishop,Elizabeth,The Man-Moth,1946
+```
+
+--
+
+- Inconsistently-ordered fields would be unusable by a machine and possibly by a human as well:
+```csv
+Carroll,Lewis,Jabberwocky,1871
+1910,Edward,Lear,The Jumblies
+The Man-Moth,1946,Bishop,Elizabeth
+```
+---
+
+template: csv
+ 
+## Variation
+A variation of the CSV format is the *Tab-Separated Values (TSV)* format.
+
+--
+
+- An example of three lines of tab-separated values used to represent three different works of nonsense literature:
+
+ ```csv
+ Carroll    Lewis   Jabberwocky 1871
+ Lear   Edward  The Jumblies    1910
+ Bishop Elizabeth   The Man-Moth  1946
+ ```
+--
+
+- While *commas are the most common* separators for this kind of format, tabs, colons `:`, semi-colons `;`, and pipes `|` are not uncommon.
+ 
+---
+
+name: json
+
+# Javascript Object Notation (JSON)
+
+---
+
+template: json
+
+## A slightly more flexible format
+Javascript Object Notation (JSON) is a competitor format to CSV for representing *structured and less structured data* in text.
+
+--
+
+- For example, the following might be a JSON representation of one work of nonsense literature:
+
+--
+
+ ```json
+ {
+     "lastName": "Carroll",
+     "firstName": "Lewis",
+     "title": "Jaberwocky",
+     "year": 1871
+ }
+ ```
+--
+
+- Unlike in CSV format, *line breaks are not meaningful* in JSON format and are used solely for human readability.
+
+--
+
+ ```json
+ {"last_name": "Carroll", "first_name": "Lewis", "title": "Jaberwocky", "year": 1871}
+ ```
+
+---
+
+template: json
+ 
+## Multiple data series
+JSON format is valid Javascript programming code.  So it may not be a surprise that JSON supports arrays/lists of data series.
+
+--
+
+- For example, three works of nonsense literature might be represented:
+
+```json
+[
+    {"lastName": "Carroll", "firstName": "Lewis", "title": "Jaberwocky", "year": 1871},
+    {"lastName": "Lear", "firstName": "Edward", "title": "The Jumblies", "year": 1910},
+    {"lastName": "Bishop", "firstName": "Elizabeth", "title": "The Man-Moth", "year": 1946}
+]
+```
+
+--
+
+- The *square brackets* indicate an array. `[ ... ]` 
+
+--
+
+- *Commas* separate the elements of the array. `[ ... , ... , ... ]`
+
+--
+
+- The *line breaks* are for human-readability only.
+
+---
+
+template: json
+ 
+## Nesting
+JSON can support a hierarchical order of data, also known as *nesting* of one object within another.
+
+--
+
+- For example, one could nest the *firstName* and *lastName* fields within an *author* field.
+
+```json
+{
+    "author": {
+        "lastName": "Carroll", 
+        "firstName": "Lewis", 
+    },
+    "title": "Jaberwocky", 
+    "year": 1871
+}
+```
+
+--
+
+- This would not be possible with CSV format.
+
+---
+
+template: json
+ 
+## Less structured data
+While JSON, like CSV, is used most commonly for *structured data*, where all series of data have the same fields, this is not a requirement.
+
+--
+
+- For example, some data about three people, with no consistent set of fields:
+
+--
+
+```json
+[
+    {"name": "Bob", "age": 10},
+    {"last_name": "Lear", "first_name": "Edward", "occupation": "naturalist"},
+    {"zodiac": "Libra", "first_name": "Juliette", "favorite_animal": "Koala"}
+]
+```
+
+---
+
+name: xml
+
+# eXtensible Markup Language (XML)
+
+---
+
+template: xml
+
+## Structured data
+Like CSV and JSON, *XML* can be used to represent *structured data*.
+
+--
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<nonsense_works>
+    <work>
+        <lastName>Carroll</lastName>
+        <firstName>Lewis</firstName>
+        <title>Jabberwocky</title>
+        <year>1871</year>
+    </work>
+    <work>
+        <lastName>Lear</lastName>
+        <firstName>Edward</firstName>
+        <title>The Jumblies</title>
+        <year>1910</year>
+    </work>
+    <work>
+        <lastName>Bishop</lastName>
+        <firstName>Elizabeth</firstName>
+        <title>The Man-Moth</title>
+        <year>1946</year>
+    </work>
+</nonsense_works>
+```
+
+---
+
+template: xml
+
+## Nesting
+As with JSON, XML supports nesting of data, such as placing the `lastName` and `firstName` fields within an `author` field.
+
+--
+
+```xml
+    <work>
+        <author>
+            <lastName>Carroll</lastName>
+            <firstName>Lewis</firstName>
+        </author>
+        <title>Jabberwocky</title>
+        <year>1871</year>
+    </work>
+```
+
+---
+
+template: xml
+
+## For less-structured data
+Like, JSON, XML also allows for representing *loosely-structured data* with inconsistent fields:
+
+--
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<people>
+    <person>
+        <name>Bob</name>
+        <age>10</age>
+    </person>
+    <person>
+        <lastName>Lear</lastName>
+        <firstName>Edward</firstName>
+        <occupation>naturalist</occupation>
+    </person>
+    <person>
+        <zodiac>Libra</zodiac>
+        <firstName>Juliette</firstName>
+        <favoriteAnimal>Koala</favoriteAnimal>
+    </person>
+</people>
+```
+
+---
+
+template: xml
+
+## Similarity to other markup languages
+There is a wide variety of subsets of XML for specific purposes.
+
+--
+
+- *eXtensible Hypertext Markup Language (XHTML)* - until recently the most common language for marking up web page content.  
+    - The current version, `HTML 5` is not a direct subset of XML, but retains many of the same features as XML.
+
+--
+
+- *Real Simple Syndication (RSS)* - used for marking up episodic blog and podcast content (see [example](https://www.cloudwards.net/how-to-set-up-an-rss-feed/))
+
+--
+
+- *Scalable Vector Graphics (SVG)* - a text-based format for representing vector graphics (see [examples](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes))
+
+---
+
+name: conclusions
+
+# Conclusions
+
+--
+
+Thank you.  Bye.
