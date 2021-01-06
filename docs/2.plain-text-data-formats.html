@@ -15,6 +15,7 @@ Database Design
 
 1. [Overview](#overview)
 1. [Plain text](#plain-text)
+1. [Fixed-width text](#fixed-width)
 1. [Comma-Separated Values (CSV)](#csv)
 1. [JavaScript Object Notation (JSON)](#json)
 1. [eXtensible Markup Language (XML)](#xml)
@@ -84,7 +85,7 @@ What do we mean by "*plain text*"?
 
 --
 
-- For example, the ASCII standard specifies that an `a` character is represented by the number 97, `b` is 98, `c` is 99, and so on.
+- For example, the [ASCII standard](https://duckduckgo.com/?q=ascii+chart&t=brave&ia=answer&iax=answer) specifies that an `a` character is represented by the number 97, `b` is 98, `c` is 99, and so on.
 
 --
 
@@ -185,6 +186,41 @@ Annoyingly perhaps, both Windows and Mac OSX hide file extensions by default.
 
 ---
 
+name: fixed-width
+
+# Fixed-width text
+
+---
+
+template: fixed-width
+
+## Basic concept
+Back in the days when paper ruled, it was useful to print data in nicely-aligned tables that were easy to follow on paper.  
+
+--
+
+- Thus was born the fixed-width formatting of text, where data in each column consumes a consistent amount of horizontal space. E.g.:
+
+```bash
+Year   Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec    J-D D-N    DJF  MAM  JJA  SON  Year
+1880   -29  -18  -11  -20  -12  -23  -21   -9  -16  -23  -20  -23    -19 ***   ****  -14  -18  -20  1880
+1881   -16  -17    4    4    2  -20   -7   -3  -14  -21  -22  -11    -10 -11    -18    3  -10  -19  1881
+1882    14   15    3  -19  -16  -26  -21   -6  -10  -25  -16  -25    -11 -10      6  -10  -17  -17  1882
+```
+
+--
+
+- This example comes from [NASA's records of land and ocean surface temperatures](https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.txt), which are [perhaps shockingly] still published in fixed-width text format.
+
+--
+
+- This data is *very print-friendly*, but *machine-unfriendly* - it looks good on paper, but is unnecessarily difficult for a computer program to *parse*.
+
+--
+
+
+---
+
 name: csv
 
 # Comma-Separated Values (CSV)
@@ -225,7 +261,7 @@ When text is formatted as *comma-separated values*, a series of values is separa
 template: csv
 
 ## Consistency
-CSV files are used with a fixed schema - a consistent set of fields that are present in each line of the text.
+CSV files are used with a *fixed schema* - a consistent set of fields that are present in each line of the text.
 
 --
 
@@ -238,7 +274,7 @@ Bishop,Elizabeth,The Man-Moth,1946
 
 --
 
-- Inconsistently-ordered fields would be unusable by a machine and possibly by a human as well:
+- Inconsistently-ordered fields would be unusable by a machine and possibly by a human as well - a CSV would never look like this:
 ```csv
 Carroll,Lewis,Jabberwocky,1871
 1910,Edward,Lear,The Jumblies
@@ -253,7 +289,7 @@ A variation of the CSV format is the *Tab-Separated Values (TSV)* format.
 
 --
 
-- An example of three lines of tab-separated values used to represent three different works of nonsense literature:
+- An example of three lines of tab-separated values used to represent three different works of nonsense literature (the spaces between values are tabs in this case):
 
  ```csv
  Carroll    Lewis   Jabberwocky 1871
@@ -293,7 +329,7 @@ Javascript Object Notation (JSON) is a competitor format to CSV for representing
  ```
 --
 
-- Unlike in CSV format, *line breaks are not meaningful* in JSON format and are used solely for human readability.
+- Unlike in CSV format, *line breaks, tabs, and spaces are not meaningful* in JSON format and are used solely for human readability.
 
 --
 
@@ -304,7 +340,7 @@ Javascript Object Notation (JSON) is a competitor format to CSV for representing
 ---
 
 template: json
- 
+
 ## Multiple data series
 JSON format is valid Javascript programming code.  So it may not be a surprise that JSON supports arrays/lists of data series.
 
@@ -330,7 +366,7 @@ JSON format is valid Javascript programming code.  So it may not be a surprise t
 
 --
 
-- The *line breaks* are for human-readability only.
+- The *line breaks, tabs, and spaces* are for human-readability only.
 
 ---
 
@@ -443,7 +479,7 @@ As with JSON, XML supports nesting of data, such as placing the `lastName` and `
 template: xml
 
 ## For less-structured data
-Like, JSON, XML also allows for representing *loosely-structured data* with inconsistent fields:
+Like, JSON, XML also allows for representing *loosely-structured data* with inconsistent fields, although this is not common:
 
 --
 
@@ -493,6 +529,23 @@ name: conclusions
 
 # Conclusions
 
+---
+
+template: conclusions
+
+## Comparisons
+A few points of comparisons among the various plain text data formats:
+
 --
+
+- CSV, JSON, and XML all support structured data
+
+--
+
+- JSON (and in theory XML, but not in practice) supports loosely structured data
+
+---
+
+template: conclusions
 
 Thank you.  Bye.
