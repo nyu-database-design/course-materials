@@ -19,6 +19,7 @@ Database Design
 1. [Comma-Separated Values (CSV)](#csv)
 1. [JavaScript Object Notation (JSON)](#json)
 1. [eXtensible Markup Language (XML)](#xml)
+1. [HyperText Markup Language (HTML)](#html)
 1. [Conclusions](#conclusions)
 
 ---
@@ -434,25 +435,48 @@ Like CSV and JSON, *XML* can be used to represent *structured data*.
 <?xml version="1.0" encoding="UTF-8"?>
 <nonsense_works>
     <work>
-        <lastName>Carroll</lastName>
-        <firstName>Lewis</firstName>
+        <last_name>Carroll</last_name>
+        <first_name>Lewis</first_name>
         <title>Jabberwocky</title>
         <year>1871</year>
     </work>
     <work>
-        <lastName>Lear</lastName>
-        <firstName>Edward</firstName>
+        <last_name>Lear</last_name>
+        <first_name>Edward</first_name>
         <title>The Jumblies</title>
         <year>1910</year>
     </work>
     <work>
-        <lastName>Bishop</lastName>
-        <firstName>Elizabeth</firstName>
+        <last_name>Bishop</last_name>
+        <first_name>Elizabeth</first_name>
         <title>The Man-Moth</title>
         <year>1946</year>
     </work>
 </nonsense_works>
 ```
+
+---
+
+template: xml
+
+## Tags and markup
+XML tags (code words betweeen `<` and `>` signs) are used to annotate the data and explain its meaning.
+
+--
+
+- For example, the title of each work in the preceeding example is clearly surrounded by `title` *tags*:  
+```xml
+<work>
+        <last_name>Bishop</last_name>
+        <first_name>Elizabeth</first_name>
+        <title>The Man-Moth</title>
+        <year>1946</year>
+</work>
+```
+
+--
+
+- This way of annotating a document with tags is called *markup*.
 
 ---
 
@@ -466,8 +490,8 @@ As with JSON, XML supports nesting of data, such as placing the `lastName` and `
 ```xml
     <work>
         <author>
-            <lastName>Carroll</lastName>
-            <firstName>Lewis</firstName>
+            <last_name>Carroll</last_name>
+            <first_name>Lewis</first_name>
         </author>
         <title>Jabberwocky</title>
         <year>1871</year>
@@ -491,14 +515,14 @@ Like, JSON, XML also allows for representing *loosely-structured data* with inco
         <age>10</age>
     </person>
     <person>
-        <lastName>Lear</lastName>
-        <firstName>Edward</firstName>
+        <last_name>Lear</last_name>
+        <first_name>Edward</first_name>
         <occupation>naturalist</occupation>
     </person>
     <person>
         <zodiac>Libra</zodiac>
-        <firstName>Juliette</firstName>
-        <favoriteAnimal>Koala</favoriteAnimal>
+        <first_name>Juliette</first_name>
+        <favorite_animal>Koala</favorite_animal>
     </person>
 </people>
 ```
@@ -512,8 +536,12 @@ There is a wide variety of subsets of XML for specific purposes.
 
 --
 
-- *eXtensible Hypertext Markup Language (XHTML)* - until recently the most common language for marking up web page content.  
+- *Hypertext Markup Language (HTML)* - the language used for marking up almost all web page content (see [example](#html-example))
+
+--
     - The current version, `HTML 5` is not a direct subset of XML, but retains many of the same features as XML.
+--
+    - the previous version, `XHTML` (eXtensible HyperText Markup Language) was a direct subset of XML and followed all XML rules.
 
 --
 
@@ -522,6 +550,84 @@ There is a wide variety of subsets of XML for specific purposes.
 --
 
 - *Scalable Vector Graphics (SVG)* - a text-based format for representing vector graphics (see [examples](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes))
+
+---
+
+name: html
+
+# HyperText Markup Language (HTML)
+
+---
+
+template: html
+
+## Web publishing
+Unlike CSV, JSON, and XML, Hypertext Markup Language (HTML) is *not a general-purpose data format*.  
+
+--
+
+- HTML is used almost exclusively to define and structure *content published to web pages*.
+
+--
+
+- HTML today is not a sub-set of XML, but *shares much in common with XML*.
+
+--
+
+- Given that web pages are so important today and hold much of the world's data, HTML, despite its obvious flaws, has become *an important plain text data format*.
+
+---
+
+template: html
+name: html-example
+
+## Example
+An example of a simple HTML document.
+
+```html
+<doctype html>
+<html lang="en">
+    <head>
+        <title>Famous Works of Nonsense Literature</title>
+    </head>
+    <body>
+        <section>
+            <h1>Famous Works of Nonsense Literature</h1>
+            <article>
+                <h1>Jabberwocky</h1>
+                <p>by Lewis Carroll<br />1871</p>
+            </article>
+            <article>
+                <h1>The Jumblies</h1>
+                <p>by Edward Lear<br />1910</p>
+            </article>
+            <article>
+                <h1>The Man-Moth</h1>
+                <p>by Elizabeth Bishop<br />1946</p>
+            </article>
+        </section>
+    </body>
+</html>
+```
+
+---
+
+template: html
+
+## Challenges
+Whereas CSV, JSON, and XML are most often used for packaging data with little consideration to aesthetics, the same cannot be said of HTML.
+
+--
+
+- HTML is *primarily used for publishing web content in a visually-pleasing manner* (to visually-able humans).
+
+--
+
+- HTML *does not require a consistent repeated data structure*, and often does not have one in practice.
+
+--
+
+- There are drastic differences in the way HTML is written from one web page to the next, making it *difficult to parse*.
 
 ---
 
@@ -543,6 +649,10 @@ A few points of comparisons among the various plain text data formats:
 --
 
 - JSON (and in theory XML, but not in practice) supports loosely structured data
+
+--
+
+- HTML is its own unique creature that is *not going away anytime soon*. We must live with its many flaws, and perhaps even learn to love them.
 
 ---
 
