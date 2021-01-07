@@ -21,6 +21,7 @@ Database Design
 1. [Comma-Separated Values (CSV)](#csv)
 1. [Javascript Object Notation (JSON)](#json)
 1. [The pandas in the room](#pandas)
+1. [HyperText Markup Language (HTML)](#html)
 1. [Conclusions](#conclusions)
 
 ---
@@ -504,6 +505,83 @@ print( df['title'] ) # output all titles
 --
 
 - pandas can do much more than this.
+
+---
+
+name: html
+
+# HyperText Markup Language
+
+--
+
+## Warning
+While HyperText Markup Language (HTML) is one of the most common sources of loosely-structured and unstructured data today, it is *difficult to parse manually* due to its idiosyncratic syntax.
+
+--
+
+- Don't try to parse HTML manually... it's too much work.
+
+--
+
+- Use a readymade module such as [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) instead.
+
+---
+
+template: html
+
+## Extraction with Beautiful Soup
+Take, for example, the following HTML file named `nonsense.html`:
+
+--
+
+```html
+<doctype html>
+<html lang="en">
+    <head>
+        <title>Famous Works of Nonsense Literature</title>
+    </head>
+    <body>
+        <section>
+            <h1>Famous Works of Nonsense Literature</h1>
+            <article>
+                <h2>Jabberwocky</h2>
+                <p>by Lewis Carroll<br />1871</p>
+            </article>
+            <article>
+                <h2>The Jumblies</h2>
+                <p>by Edward Lear<br />1910</p>
+            </article>
+            <article>
+                <h2>The Man-Moth</h2>
+                <p>by Elizabeth Bishop<br />1946</p>
+            </article>
+        </section>
+    </body>
+</html>
+```
+
+---
+
+template: html
+
+## Extraction with Beautiful Soup
+The following Python program will *extract the titles* of each work of nonsense literature.
+
+--
+
+```python
+from bs4 import BeautifulSoup
+
+f = open('nonsense.html', 'r') # open the file in read mode
+contents = f.read() # returns the entire contents of the file as a string
+soup = BeautifulSoup(contents, 'lxml') # use Beautiful Soup to parse the html
+
+# find all h1 tags and iterate through them
+for tag in soup.find_all('h1'):
+
+    # print out the contents of each h1 tag
+    print( tag.text )
+```
 
 ---
 
