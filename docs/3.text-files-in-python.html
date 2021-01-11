@@ -22,6 +22,7 @@ Database Design
 1. [Javascript Object Notation (JSON)](#json)
 1. [The pandas in the room](#pandas)
 1. [HyperText Markup Language (HTML)](#html)
+1. [Data Munging](#munging)
 1. [Conclusions](#conclusions)
 
 ---
@@ -335,33 +336,56 @@ Behind the scenes, plain text files contain only *ASCII* or *Unicode* codes, i.e
 
 --
 
-- One day, you will open a document that is supposed to shows plain text, but you will see *garbled characters* and become confused.
+- One day, you will open a file or web site that is supposed to show plain text. But you will see *garbled characters* and become confused.
 ```bash
 ÉGÉìÉRÅ[ÉfÉBÉìÉOÇÕìÔÇµÇ≠Ç»Ç¢
 ```
 
 --
 
-- If you have written a program to read this file, it will most likely *crash*.
+- One day you will write a program that is supposed to open and read the contents of a file.  But it will *crash* and output something confusing about encodings.
 
 --
 
-- There is one explanation: *the program you have used to open this file is assuming the wrong encoding*.
+- There is one explanation: *the program you have used to open the file is assuming the wrong encoding*.
 
 ---
 
 template: encoding
 
-## Specify an encoding
-Most applications (editors, web browsers, etc) allow you to *select the encoding* in which to open the file.  Try a few until you find the correct one.
+## Determining a file's encoding
+Determining a file's encoding can be a bit tricky, but there are a few common techniques.
 
 --
 
-Python's default encoding when opening a file depends on the computer it's running on.  
+- The UNIX `file` command can be used to guess the encoding in a given file, althought it's not always accurate, e.g. try `file somefile.txt` and see what is output.
+
+--
+
+- Most applications (editors, web browsers, etc) allow you to *select the encoding* in which to open the file.  Try a few until you find one that looks right!
+
+--
+
+- The Python module, `charade` is designed to help detect a file's character encoding. Running `charade.detect(some_string)` will return the proposed encoding as well as a confidence level between 0 and 1 on how sure `charade` is about its verdict.
+
+--
+
+Read more about the wonderful world of encodings [here](https://kunststube.net/encoding/).
+
+---
+
+template: encoding
+
+## Dealing with encodings in Python
+
+--
+
+Python's default encoding when opening a file depends on the computer it's running on.
 
 --
 
 - *UTF-8*, one of several encodings in the *Unicode* standard, is often the encoding you want (but not always).
+
 --
 
 ```python
@@ -372,9 +396,34 @@ f = open('amazing_data.txt', 'r', encoding='utf_8') # open in read mode with the
 
 - See the full set of [character encodings supported by Python](https://docs.python.org/3.8/library/codecs.html#standard-encodings).
 
+---
+
+template: encoding
+
+## A program's own encoding
+Most computer programs are assumed to be written in ASCII.  However, you may want to include non-ASCII characters in your code.
+
 --
 
-Read more about the wonderful world of encodings [here](https://kunststube.net/encoding/).
+- At the top of a program, you can indicate the encoding used by the code itself.
+
+--
+
+```python
+# -*- coding: utf-8 -*-
+
+# define a string with some non-ASCII characters... in this case Li Ba's poem, "Thoughts In Silent Night"
+thoughts_in_silent_night = '''
+李白《静夜思》
+床前明月光，
+疑是地上霜。
+举头望明月，
+低头思故乡。
+'''
+
+# print out the poem
+print(thoughts_in_silent_night)
+```
 
 ---
 
@@ -484,7 +533,7 @@ name: pandas
 
 --
 
-- It allows for easy reading of both CSV and JSON data files.
+- It allows for easy reading of both CSV and JSON data files, as well as most other common formats.
 
 --
 
@@ -504,7 +553,7 @@ print( df['title'] ) # output all titles
 
 --
 
-- pandas can do much more than this.
+- pandas can do much more than this, but it cannot do everything.
 
 ---
 
@@ -582,6 +631,52 @@ for tag in soup.find_all('h1'):
     # print out the contents of each h1 tag
     print( tag.text )
 ```
+
+---
+
+name: munging
+
+# Data Munging
+
+--
+
+## Definition
+
+> Data Wrangling, sometimes referred to as Data Munging, is the process of transforming and mapping data from one "raw" data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.
+>
+> -[Wikipedia](https://en.wikipedia.org/wiki/Data_wrangling)
+
+--
+
+- Pay special attention to that last sentence!
+
+---
+
+template: munging
+
+## Common issues
+
+While the meaning and values in data sets vary wildly from one to another, the issues a data analyst encounters when first trying to use the data are usually quite predictable.
+
+--
+
+- *determining the character encoding* - embarrassingly not as straightforward as one might expect
+
+--
+
+- *cleaning up data scraped from the web* - e.g. unescaping [html entities](http://www.entitycode.com/#common-content) and escape characters, removing html code altogether from the data
+
+--
+
+- *deciding what to do about missing values* - e.g. ignore them, invalidate the entire data series, fill them in with averages, etc
+
+--
+
+- *normalizing the data* - e.g. standardize capitalization and standardize the text used to indicate the same value, such as 'NYC' and 'New York City'
+
+--
+
+- *validating the data* - i.e. does it pass the *smell test* and seem to have reasonable values and the expected range of values in each field
 
 ---
 
