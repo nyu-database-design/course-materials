@@ -51,7 +51,8 @@ name: setup
 --
 
 ## Installation
-- Follow [these instructions](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm) to install on your local machine.
+- OS X comes with SQLite installed
+- Otherwise, follow [these instructions](https://www.tutorialspoint.com/sqlite/sqlite_installation.htm) to install on your local machine.
 - Or use `sqlite3` on the CS department's `i6` web server.
 
 ---
@@ -120,19 +121,72 @@ Welcome to the world of data!
 
 template: crud
 
-## Create
+## Create (tables)
 
-Create operations are enacted with one of two techniques:
-- creating new records in a table using the `insert` command
-- importing records from a file into a table using the `.import` function
+Before any data can be added to the database, a *table* must be created using the `create table` command, including
 
+- the name of the table
+
+- a list of fields
+
+- the data type assigned to each field, e.g. `INTEGER`, `REAL` (floating point), `NUMERIC`, `TEXT`, or `BLOB` (no data type assigned), 
+
+- an indication of which field is the *primary key*.
+
+We will write these and other `CRUD` commands in the `SQL` language, which is common among relational databases.
+
+---
+
+template: crud
+
+## Create (tables... continued)
+
+An example of a table to hold student information:
 ```sqlite3
-insert into students (first_name, last_name, net_id) values ("Foo", "Barstein", "fb1258");
+create table students (
+  id INTEGER PRIMARY KEY,
+  first_name TEXT,
+  last_name TEXT,
+  email TEXT,
+  city TEXT,
+  state TEXT,
+  country TEXT
+);
 ```
 
+- The `primary key` setting specifies which field holds the unique identifier of each row - in this case the `id` field.
+
+---
+
+template: crud
+
+## Create rows manually
+
+One can create new records in a table using the `insert` command
 ```sqlite3
-.import /Users/foobar/some_directory/students.csv students
+insert into students (first_name, last_name, email, city, state, country) values ("Foo", "Barstein", "fb1258@nyu.edu", "Dallas", "Texas", "United States");
 ```
+  - Notice that the `id` value is not specified - it will be automatically supplied by the database if we don't specify
+
+---
+
+template: crud
+
+## Create rows by importing a data file
+One can import records from a file into a table using the `.import` function
+
+```sqlite3
+.mode csv
+.import /Users/foobar/some_directory/student_list.csv students
+```
+
+- SQLite natively imports *CSV* files... just make sure to turn on `csv` mode first to avoid potential problems.
+
+- *JSON* files are not natively supported and will have to be *transformed* into a supported format prior to import.
+
+- Download a [CSV file for this example](../files/sqlite/student_list.csv).  You will need to do a bit of *data munging* on the file - simply remove the first line with the headings.
+
+
 
 ---
 
@@ -143,8 +197,14 @@ template: crud
 Read operations are performed with the `select` command
 
 ```sqlite3
-select first_name from students where net_id="fb1258";
+select first_name from students where city="Grand Rapids";
 ```
+
+- The command, `.mode csv` will make the output look like a CSV file.  `.mode list` will return to the default.  There are other useful modes.
+
+- The command, `.separator ";"` will set the separator between fields to a semi-colon `;` - change it to whatever character you prefer.
+
+- These two commands (`.mode` and `.separator`) can be useful for transforming the data into a format that is easily imported into another tools or programs.
 
 ---
 
@@ -155,12 +215,14 @@ template: crud
 Update operations are performed with the `update` command
 
 ```sqlite3
-update students set first_name="Baz" where net_id="fb1258";
+update students set first_name="Baz" where id=15;
 ```
+
+--
 
 Updates to the overall schema of the table can be done with the `alter table` command
 ```sqlite3
-alter table students add column n_number int;
+alter table students add column photo blob;
 ```
 
 ---
@@ -171,12 +233,13 @@ template: crud
 
 Delete can be one of a few types:
 - Delete a particular record using the `delete` command
-- Drop an entire table using the `drop table` command
-
 ```sqlite3
-delete from students where net_id="fb1258";
+delete from students where first_name="Baz" and last_name="Trownson";
 ```
 
+--
+
+- Drop an entire table using the `drop table` command
 ```sqlite3
 drop table students;
 ```
@@ -202,7 +265,7 @@ We will work with data on [school districts from the 2010 US census](https://www
 - land area
 - water area
 - geocoordinates (latitude & longitude)
-- ... and a unique identification number
+- ... and a unique identifier for each row to serve as the *primary key*
 
 We need a table in SQLite that will accommodate this.
 
@@ -218,7 +281,7 @@ Create a table to accommodate the US Census school district data:
 DROP TABLE IF EXISTS sd;
 CREATE TABLE sd (
   sd_state text,
-  sd_geoid text,
+  sd_geoid text PRIMARY KEY,
   sd_name text,
   sd_lowestGrade text,
   sd_highestGrade text,
@@ -229,8 +292,7 @@ CREATE TABLE sd (
   sd_aland_sqmi real,
   sd_awater_sqmi real,
   sd_intptlat real,
-  sd_intptlong real,
-  PRIMARY KEY(sd_geoid)
+  sd_intptlong real
 );
 ```
 
@@ -322,7 +384,7 @@ You have no-doubt noticed our use of some *dot functions*, such as:
 - `.quit` - quit SQLite
 - `.tables` - view a list of tables in the database
 - `.schema [table name]` - show the schema of a table 
-- `.mode [mode]` - change the way data is formatted on screen, either as `csv` or `columns`
+- `.mode [mode]` - change the way data is formatted on screen, e.g `csv`, `list`, `markdown`, and more
 - `.import [CSV file] [table name]` - import a data file into a table
 - `.read [SQL script filepath]` - run an SQL script file
 
@@ -376,7 +438,7 @@ Sort the records by school district name in reverse alphabetic order:
 select sd_name from sd where sd_state = "NY" order by sd_name desc;
 ```
 
-`asc` can be used to indicate ascending order.
+`asc` or `desc` can be used to indicate ascending or descending order.
 
 ---
 

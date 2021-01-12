@@ -15,6 +15,7 @@ Database Design
 
 1. [Overview](#overview)
 1. [Typical Example](#example)
+1. [Imposing Criteria](#criteria)
 1. [Conclusions](#conclusions)
 
 ---
@@ -254,9 +255,13 @@ In doing such a simple calculation, we have made a series of assumptions that we
 
 ---
 
-template: example
+name: criteria
 
-## Adding criteria
+# Imposing Criteria
+
+--
+
+## Analyzing a subset of records
 What if we wanted to count only *total COVID-19 cases in New York's Hudson Valley region*, which is composed of 11 of New York State's 62 counties..
 
 --
@@ -277,7 +282,7 @@ What if we wanted to count only *total COVID-19 cases in New York's Hudson Valle
 
 ---
 
-template: example
+template: criteria
 
 ## Filtering records
 To calculate *total COVID-19 case counts in New York's Hudson Valley region*, we will go step-by-step, rather than try to do everything at once.
@@ -290,10 +295,10 @@ To calculate *total COVID-19 case counts in New York's Hudson Valley region*, we
 
 ---
 
-template: example
+template: criteria
 
 ## Filtering records (continued)
-Now add a formula into the `Case count` field corresponding to the first county: `=SUMIF( B, H2, E )`.  Note the use of `SUMIF` to add criteria.
+Now add a formula into the `Case count` field corresponding to the first county: `=SUMIF( B:B, H2, E:E )`.  Note the use of `SUMIF` to add criteria.
 
 --
 
@@ -313,7 +318,7 @@ Now add a formula into the `Case count` field corresponding to the first county:
 
 ---
 
-template: example
+template: criteria
 
 ## Filtering records (continued again)
 We now have total case counts for each county of interest.  If we add them all up, we will have *total case counts for the entire Hudson Valley*.
@@ -324,11 +329,9 @@ We now have total case counts for each county of interest.  If we add them all u
 
 ![Extraction summation](../files/data_formats/spreadsheet_extraction_column_total.png)
 
---
-
 ---
 
-template: example
+template: criteria
 
 ## Mashing up data sets
 We know how many COVID-19 cases there have been in the Hudson Valley... but what percent of the population does this represent?
@@ -341,7 +344,7 @@ We know how many COVID-19 cases there have been in the Hudson Valley... but what
 
 ---
 
-template: example
+template: criteria
 
 ## Results
 Our data and initial analysis suggest that *more than 20% of the population in New York's Hudson Valley have had COVID-19*... that's 1 in every 5 people.
