@@ -385,7 +385,7 @@ You have no-doubt noticed our use of some *dot functions*, such as:
 - `.tables` - view a list of tables in the database
 - `.schema [table name]` - show the schema of a table 
 - `.mode [mode]` - change the way data is formatted on screen, e.g `csv`, `list`, `markdown`, and more
-- `.import [CSV file] [table name]` - import a data file into a table
+- `.import [CSV filepath] [table name]` - import a data file into a table
 - `.read [SQL script filepath]` - run an SQL script file
 
 Replace the terms in square brackets with the real values (and delete the square brackets).
@@ -487,6 +487,7 @@ template: functions
 ## Concept
 There are a variety of [built-in aggregate functions](https://sqlite.org/lang_aggfunc.html) available to be used in queries. These are used to calculate aggregate statistics from the records returned by any query.
 
+- These are similar to the statistical functions built into spreadsheet software:, `SUM()`, `AVERAGE()`, `MIN()`, `MAX()`, `COUNT()`, etc.
 ---
 
 template: functions
@@ -497,7 +498,9 @@ Calculate how many school districts exist in the US and Puerto Rico using the `c
 select count(sd_geoid) from sd;
 ```
 
-The primary key field, `sd_geoid`, is guaranteed to be unique for each record, while other fields may not be.
+- The `COUNT()` function returns the number of values in the *field* indicated as an argument.
+
+- The primary key field, `sd_geoid`, is guaranteed to be unique for each record, while other fields may not be.
 
 ---
 
@@ -509,6 +512,8 @@ Count the number of school districts in New York State by filtering results with
 select count(sd_geoid) from sd where sd_state = "NY";
 ```
 
+- We have thus applied a filter - the `COUNT()` function will only count those rows that match the criteria indicated in the `WHERE` clause.
+
 ---
 
 template: functions
@@ -519,7 +524,9 @@ Calculate the average population of school districts across the US, using the `a
 select avg(sd_pop_2010) from sd;
 ```
 
-This will return a floating point number. There are no half people, so we could round the result using the `round()` function, as in `round( avg(sd_pop_2010) )`.
+- The `AVG()` function will return a floating point number. 
+
+- In actuality, there are no half people or 1/4 people.  So we could round the result using the `round()` function, as in `round( avg(sd_pop_2010) )`.
 
 ---
 
@@ -529,6 +536,11 @@ template: functions
 Calculate the total population in the country, using the `sum()` function.
 ```sqlite3
 select sum(sd_pop_2010) from sd;
+```
+
+And, of course, we could calculate the total population of just Minnesota by filtering this query with a `WHERE` clause:
+```sqlite3
+select sum(sd_pop_2010) from sd where sd_state = "MN";
 ```
 
 ---
@@ -554,6 +566,7 @@ Counting the number of school districts per state requires us to group together 
 select count(sd_geoid) from sd group by sd_state;
 ```
 
+- Thus we don't count the number of unique geoids in the entire table.  This performs a separate count for each group.
 ---
 
 template: grouping
@@ -576,7 +589,7 @@ The state name and the number of school districts in each state, in descending o
 select sd_state, count(sd_geoid) from sd group by sd_state order by count(sd_geoid) desc;
 ```
 
-Note that the clause, `order by count(sd_geoid)` treats the count as if it were like any other field to sort by.  We can make this easier to write by using an alias:
+Note that the clause, `order by count(sd_geoid)` treats the count as if it were like any other field to sort by.  We can make this less redundant to write by using an *alias* for the result of the count:
 ```sqlite3
 select sd_state, count(sd_geoid) as num_districts from sd group by sd_state order by num_districts desc;
 ```
