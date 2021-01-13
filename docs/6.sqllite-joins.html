@@ -294,8 +294,14 @@ select jobs.id, jobs.title, agencies.title from jobs left join agencies on jobs.
 - You will see all the jobs listed, with their corresponding agencies, just like in an inner join.
 
 - If you look at the job with the `id=1`, which we updated to refer to a non-existant agency, you will see it listed - this is different from an inner join. 
+```sqlite3
+select jobs.id, jobs.title, agencies.title from jobs left join agencies on jobs.agency_id=agencies.id where jobs.id=1;
+```
 
 - Thus *left joins* are not concerned with referential integrity.
+
+- The table mentioned first in the query, `jobs` shows up on the *left*, with related records from the second table, `agencies`, attached to the right... thus the term, *left join*.
+
 
 ---
 
