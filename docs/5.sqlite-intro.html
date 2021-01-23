@@ -271,6 +271,10 @@ We will work with data on [school districts from the 2010 US census](https://www
 
 We need a table in SQLite that will accommodate this.
 
+--
+
+- Note: 2010 was the last year that *population* and *housing unit* counts where included in these "Gazetteer" data sets.
+
 ---
 
 template: import-data
@@ -310,6 +314,10 @@ To view a list of any tables that exist in this database, use the `.tables` func
 .tables
 ```
 
+--
+
+- Try it to make sure the table was created.
+
 ---
 
 template: import-data
@@ -319,6 +327,10 @@ Viewing the `schema` of the `sd` table shows the command used to create it:
 ```sqlite3
 .schema sd
 ```
+--
+
+- Try it to make sure the table was created *correctly*.
+
 
 ---
 
@@ -342,6 +354,8 @@ Delete the `sd` table:
 drop table sd
 ```
 
+--
+
 Now go [create it](#create-table) and [import data into it](#import-data) again!
 
 ---
@@ -355,6 +369,10 @@ Change the file path to whatever path works on your system:
 ```sqlite3
 .read /Users/foobar/some_directory/sd_setup_script.sql
 ```
+
+--
+
+- An SQL script is simply a file with a series of SQL commands that will run when read into the database.
 
 ---
 
@@ -408,6 +426,8 @@ Show all fields of all records.... there are a lot.
 select * from sd;
 ```
 
+- The `*` here means *all fields*.
+
 ---
 
 template: simple-reads
@@ -423,7 +443,7 @@ select * from sd where sd_state = "NY";
 template: simple-reads
 
 ## Show only school district names
-Each records contains many fields.  Limit to just the `name` of each school district:
+Each records contains many fields.  Limit to just the *name* of each school district, stored in a field named, `sd_name`:
 ```sqlite3
 select sd_name from sd where sd_state = "NY";
 ```
@@ -440,7 +460,7 @@ Sort the records by school district name in reverse alphabetic order:
 select sd_name from sd where sd_state = "NY" order by sd_name desc;
 ```
 
-`asc` or `desc` can be used to indicate ascending or descending order.
+- `asc` or `desc` can be used to indicate ascending or descending order.
 
 ---
 
@@ -452,19 +472,27 @@ Show only the first 5 in the reverse-alphabetic list of New York school district
 select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5;
 ```
 
+- the `limit` clause controls the number of results that are displayed.
 ---
 
 template: simple-reads
 
 ## Offset the results
-Show the second and third `pages` with 5 results each:
+Show the second *page* of results...
+
 ```sqlite3
 select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offset 5;
 ```
 
+... and the third *page*:
+
 ```sqlite3
 select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offset 10;
 ```
+
+- the `limit` clause controls how many results are displayed
+
+- the `offset` clause indicates which row in the results to start from
 
 ---
 
@@ -475,6 +503,12 @@ The 10 smallest school districts in the country:
 ```sqlite3
 select sd_name, sd_state, sd_pop_2010 from sd order by sd_pop_2010 asc limit 10;
 ```
+
+- the `order` clause indicates by which field to order results
+
+- the `asc` option indicates to order in ascending order
+
+- the `limit` clause controls the number of results displayed
 
 ---
 
