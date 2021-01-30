@@ -1,0 +1,734 @@
+---
+layout: presentation
+title: Python Blast
+permalink: /python-blast/
+---
+
+class: center, middle
+
+# Python Blast
+Database Design
+
+---
+
+# Agenda
+
+1. [Overview](#overview)
+1. [Values, variables & literals](#values)
+1. [Conditionals](#conditionals)
+1. [Functions](#functions)
+1. [Loops](#loops)
+1. [Strings](#strings)
+1. [Lists & tuples](#lists)
+1. [Dictionaries](#dictionaries)
+1. [Functions](#functions)
+1. [Conclusions](#conclusions)
+
+---
+
+name: overview
+
+# Overview
+
+--
+
+## Concept
+A fast and furious blast through programming in Python.
+
+---
+
+name: values
+
+# Values, variables & literals
+
+--
+
+## Values
+What is a **value**?
+
+--
+
+> The representation of some element that can be manipulated by a program.
+> 
+> -Wikipedia
+
+---
+
+template: values
+
+## Data types
+Python supports **values** in a variety of types:
+
+--
+
+- integers, e.g. `4` and `-4`
+
+--
+
+- floating point numbers, e.g. `3.14` and `-3.14`
+
+--
+
+- boolean values, e.g. `True` and `False`
+
+--
+
+- strings, e.g. `"My name is Inigo Montoya!"` and `'You killed my father.'`
+
+---
+
+template: values
+
+## Data structures
+Python also includes some built-in data structures that can group a bunch of **values**.
+
+--
+
+- lists, e.g. `[ 'platypus', 'meerkat', 'echidna' ]`
+
+--
+
+- tuples, e.g. `( 'platypus', 'meerkat', 'echidna' )`
+
+--
+
+- dictionaries, e.g. `{ 'first_name': 'Foo', 'last_name': 'Barstein', 'age': 15 }`
+
+---
+
+template: values
+
+## Obtaining a value
+Values can be obtained by any of the following:
+
+--
+
+- writing a literal, e.g. `4` or `3.14` or `False` or `"My name is Inigo Montoya"`
+
+--
+
+- evaluating an expression, e.g. `2 + 2` or `4.14 - 1` or `5 == 3` or `"My name is " + "Inigo Montoya"`
+
+--
+
+- calling a function that returns a value, e.g. `round(4.12)` or `float("3.14")` or `"flop".isupper()` or `input("What's your name?")`
+
+--
+
+- referencing a variable's value, e.g. `foo` or `bar` or `baz` or `bum`, assuming those variables have already been assigned values.
+
+---
+
+template: values
+
+## Variable
+A variable is a labeled reference to a **value**.
+
+--
+
+```python
+foo = 4
+```
+
+--
+
+```python
+bar = 3.14
+```
+
+--
+
+```python
+baz = False
+```
+
+--
+
+```python
+bum = "My name is Inigo Montoya!"
+```
+
+--
+
+The **signifiers** on the left of the `=` sign are assigned the **value** on the right.
+
+---
+
+name: conditionals
+
+# Conditionals
+
+--
+
+## Designing truth
+With conditional logic, a given block of code can be designed to run only if certain conditions are met.
+
+--
+
+```python
+import datetime
+today = datetime.datetime.today().weekday() # the day of the week as an int
+if today == 1:
+    print("Oh, Monday!")
+```
+
+--
+
+```python
+if input("What's your name?") == "My name is Inigo Montoya!":
+    print("Oh, no!")
+```
+
+--
+
+```python
+elif 3.14 == 4:
+    print("You're never going to get this!")
+```
+
+--
+
+```python
+else:
+    print("You might get this!")
+```
+
+Indentation is important.
+
+---
+
+name: functions
+
+# Functions
+
+--
+
+## Reusable blocks of code
+Functions allow blocks of code to be reused throughout a program without rewriting the block of code more than once.
+
+--
+
+```python
+import random
+
+def random_fortune():
+    possible_fortunes = [
+        "See the light at the end of the tunnel.",
+        "There is time to be practical now.",
+        "Nothing is as good or bad as it appears.",
+        "Be calm when confronting an emergency crisis."
+    ]
+    random_index = random.randint( len(possible_fortunes) - 1 )
+    print( possible_fortunes[ random_index ] )
+```
+
+--
+
+In order for the block of code within the function definition to be executed, the function must be explicitly called from somewhere else in the code.
+
+--
+
+```python
+random_fortune()
+```
+
+---
+
+template: functions
+
+## Return values
+All functions return a value.  Sometimes that value is useful, sometimes not, depending upon the intended use of the function.
+
+--
+
+By default, Python functions return `None` - a special value of the otherwise-useless data type `NoneType`.
+
+--
+
+```python
+useless = random_fortune()
+print(useless) # outputs None, since that's what random_fortune() returned
+```
+
+--
+
+```python
+useless = print("Wow, I love programming!") # prints out, "Wow, I love programming!"
+print(useless) # prints out None, since that's what the print function returned
+```
+
+--
+
+```python
+print( "Your random fortune is: " + random_fortune() )
+# first prints out a random fortune message, e.g. "There is time to be practical now."
+# then prints out "Your random fortune is: None", since random_fortune() returned None
+```
+
+---
+
+template: functions
+
+## Useful return values
+Explicitly declare a function's return value to override the default `None`.
+
+--
+
+```python
+def random_fortune():
+    possible_fortunes = [
+        "See the light at the end of the tunnel.",
+        "There is time to be practical now.",
+        "Nothing is as good or bad as it appears.",
+        "Be calm when confronting an emergency crisis."
+    ]
+    random_index = random.randint( len(possible_fortunes) - 1 )
+    return possible_fortunes[ random_index ]
+```
+
+--
+
+The return value can now be used elsewhere in the code.
+
+--
+
+```python
+print( "Your random fortune is: " + random_fortune() )
+# prints out "Your random fortune is: There is time to be practical now.", or another random fortune
+```
+
+---
+
+name: loops
+
+# Loops
+
+--
+
+## Iterating
+Loops allow a block of code to be executed several times in sequence, if desired.  There are two types: `for` and `while`.
+
+--
+
+```python
+strange_animals = ['platypus', 'meerkat', 'echidna']
+```
+
+--
+
+```python
+for strange_animal in strange_animals:
+    print( strange_animal )
+```
+
+--
+
+```python
+i = 0
+while i < len(strange_animals):
+    strange_animal = strange_animals[i]
+    print( strange_animals )
+    i = i + 1
+```
+
+---
+
+name: strings
+
+# Strings
+
+--
+
+## Manipulating text
+There are lots of built-in Python functions related to text.
+
+--
+```python
+animal = "platypus"
+```
+
+--
+
+- `animal.upper()` - returns a new uppercase version of the string
+- `animal.lower()` - returns a new lowercase version of the string
+- `animal.title()` - returns a new title case version of the string
+
+--
+- `animal.isupper()` - returns `True` or `False`
+- `animal.islower()` - returns `True` or `False`
+- `animal.istitle()` - returns `True` or `False`
+
+--
+- `animal.isalpha()` - returns `True` or `False`
+- `animal.isnumeric()` - returns `True` or `False`
+- `animal.isalnum()` - returns `True` or `False`
+
+---
+
+template: strings
+
+## Indexing characters
+Individual characters within a string can be accessed by index numbers.
+
+--
+```python
+animal = "platypus"
+```
+
+--
+- `animal[0]` - evaluates to `p`
+- `animal[1]` - evaluates to `l`
+- `animal[2]` - evaluates to `a`
+- ... and so on.
+
+--
+
+Negative index numbers start from the end of the string and go backwards.
+
+--
+
+
+- `animal[-1]` - evaluates to `s`
+- `animal[-2]` - evaluates to `u`
+- `animal[-3]` - evaluates to `p`
+- ... and so on.
+
+---
+
+template: strings
+
+## Slicing
+A new string can be generated from a slice of an existing string.
+
+--
+
+```python
+animal = "platypus"
+```
+
+--
+
+- `animal[ 0 : 4 ]` - evaluates to `'plat'`
+
+--
+
+- `animal[ 3 : 7 ]` - evaluates to `'laty'`
+
+--
+
+- `animal[ -5 : -2 ]` - evaluates to `'typ'`
+
+--
+
+- `animal[ : 4 ]` - evaluates to `'plat'`
+
+--
+
+- `animal[ -5 : ]` - evaluates to `'typus'`
+
+--
+
+- `animal[ : ]` - evaluates to `'platypus'`
+
+--
+
+- `animal[ 0 : 8 : 2 ]` - evaluates to `'payu'`
+
+--
+
+- `animal[ 7 : 3 : -1 ]` - evaluates to `'ytal'`
+
+---
+
+name: lists
+
+# Lists & tuples
+
+--
+
+## Modifier functions
+There are lots of built-in Python functions related to modifying what is stored in lists.
+
+--
+
+```python
+animals = [ 'platypus', 'meerkat', 'echidna' ]
+```
+
+--
+
+- `animals.sort()` - sorts the values in the list into ascending order
+
+--
+
+- `animals.reverse()` - reverses the order of the values in the list
+
+--
+
+- `animals.append('kiwi')` - adds a new value to the end of the list
+
+--
+
+- `animals.pop()` - removes the last value from the list
+
+--
+
+- `animals.remove('platypus')` - removes the indicated value from the list, regardless of where it occurs
+
+--
+
+- `animals.insert('platypus', 2)` - adds a new value at the indicated index position
+
+---
+
+template: lists
+
+## Indexing list values
+Individual values within a list can be accessed by index numbers.
+
+--
+```python
+animals = [ 'platypus', 'meerkat', 'echidna' ]
+```
+
+--
+- `animals[0]` - evaluates to `'platypus'`
+- `animals[1]` - evaluates to `'meerkat'`
+- `animals[2]` - evaluates to `'echidna'`
+
+--
+
+Negative index numbers start from the end of the string and go backwards.
+
+--
+
+
+- `animals[-1]` - evaluates to `'echidna'`
+- `animals[-2]` - evaluates to `'meerkat'`
+- `animals[-3]` - evaluates to `'platypus'`
+
+--
+
+Any existing list index can have its value reassigned.
+
+--
+
+- `animal[2] = 'kiwi'`
+
+---
+
+template: lists
+
+## Slicing
+A new list can be generated from a slice of an existing list.
+
+--
+
+```python
+fibonacci_sequence = [ 0, 1, 1, 2, 3, 5, 8, 13, 21 ]
+```
+
+--
+
+- `fibonacci_sequence[ 0 : 4 ]` - evaluates to `[ 0, 1, 1, 2 ]`
+
+--
+
+- `fibonacci_sequence[ 4 : 7 ]` - evaluates to `[ 3, 5, 8 ]`
+
+--
+
+- `fibonacci_sequence[ -5 : -2 ]` - evaluates to `[ 3, 5, 8 ]`
+
+--
+
+- `fibonacci_sequence[ : 4 ]` - evaluates to `[ 0, 1, 1, 2 ]`
+
+--
+
+- `fibonacci_sequence[ 7 : ]` - evaluates to `[ 13, 21 ]`
+
+--
+
+- `fibonacci_sequence[ : ]` - evaluates to `[ 0, 1, 1, 2, 3, 5, 8, 13, 21]`
+
+--
+
+- `fibonacci_sequence[ 0 : 8 : 2 ]` - evaluates to `[ 0, 1, 3, 8 ]`
+
+---
+
+template: lists
+
+## Tuples
+Tuples are a list-like data structure that is immutable.
+
+--
+
+```python
+fibonacci_sequence = ( 0, 1, 1, 2, 3, 5, 8, 13, 21 )
+```
+
+--
+
+- tuples can be indexed, e.g. `fibonacci_sequence[2]`
+
+--
+
+- tuples can be sliced, e.g. `fibonacci_sequence[ 2 : 5 ]`
+
+--
+
+- tuples cannot be modified, e.g. `fibonacci_sequence[2] = 11` will fail
+
+--
+
+- tuples do not have modifier functions, e.g. `fibonacci_sequence.reverse()` will fail
+---
+
+name: dictionaries
+
+# Dictionaries
+
+--
+
+## Key-value pairs
+Dictionaries establish a relationship between a **key** and a **value**.
+
+--
+
+```python
+person = { 
+    'first_name': 'Foo', 
+    'last_name': 'Barstein', 
+    'age': 15 
+}
+```
+
+--
+
+A value can then be looked up by its corresponding key.
+
+--
+
+```python
+print( "Hello " + person['first_name'] + "!")
+```
+
+--
+
+And any key can have its value reassigned.
+
+--
+
+```python
+person['last_name'] = 'Bazberger'
+```
+
+--
+
+Even new keys, e.g. `person['is_over_21'] = True`
+
+---
+
+template: dictionaries
+
+## Lists of keys, lists of values
+It is possible to extract a list of the keys in a dictionary using a dictionary's `.keys()` function.
+
+--
+
+```python
+person = { 
+    'first_name': 'Foo', 
+    'last_name': 'Barstein', 
+    'age': 15 
+}
+```
+
+--
+
+```python
+list_of_keys = list( person.keys() )
+```
+
+--
+
+Similarly, it is possible to generate a list of the values in the dictionary.
+
+--
+
+```python
+list_of_values = list( person.values() )
+```
+
+---
+
+template: dictionaries
+
+## Looping through keys or values
+There are several ways to loop through the keys or values of a dictionary.
+
+--
+
+```python
+person = { 
+    'first_name': 'Foo', 
+    'last_name': 'Barstein', 
+    'age': 15 
+}
+```
+
+--
+
+Loop through just the keys.
+
+```python
+for key in person.keys():
+    print(key)
+```
+
+--
+
+Loop through just the values.
+
+```python
+for value in person.values():
+    print(value)
+```
+
+---
+
+template: dictionaries
+
+## Looping through keys and values
+One can also loop through the keys and the values at once using a dictionary's `.items()` function.
+
+--
+
+--
+
+```python
+person = { 
+    'first_name': 'Foo', 
+    'last_name': 'Barstein', 
+    'age': 15 
+}
+```
+
+--
+
+```python
+for key, value in person.items():
+    print(key, '-', value)
+```
+
+---
+
+name: conclusions
+
+# Conclusions
+
+--
+
+Thank you.  Bye.
