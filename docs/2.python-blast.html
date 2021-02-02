@@ -334,6 +334,36 @@ while i < len(strange_animals):
 
 ---
 
+template: loops
+
+## Infinite loops
+
+A `while` loop will iterate infinitely, unless the boolean condition upon which it rests evaluates to a logical `False`.
+
+--
+
+```python
+some_condition = True
+while some_condition:
+    response = input('Hey')
+```
+
+--
+
+- usually (but not always) it is desireable to have a loop terminate at some point.
+
+--
+
+```python
+some_condition = True
+while some_condition:
+    response = input('Hey')
+    some_condition = response == 'Hey'
+
+```
+
+---
+
 name: strings
 
 # Strings
@@ -446,6 +476,34 @@ name: lists
 # Lists & tuples
 
 --
+
+## Concept
+A list is a group of values, all bundled up together.
+```python
+animals = [ 'platypus', 'meerkat', 'echidna' ]
+```
+
+--
+
+- Any type of value can be stored in a list.
+
+--
+
+```python
+random_assortment = [ 
+    'gorgonzola', 
+    12, 
+    False, 
+    2.99, 
+    { 'this': 'that' }, 
+    [1,2,3],
+    None
+]
+```
+
+---
+
+template: lists
 
 ## Modifier functions
 There are lots of built-in Python functions related to modifying what is stored in lists.
