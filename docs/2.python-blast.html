@@ -19,7 +19,8 @@ Database Design
 1. [Functions](#functions)
 1. [Loops](#loops)
 1. [Strings](#strings)
-1. [Lists & tuples](#lists)
+1. [Lists](#lists)
+1. [Tuples](#tuples)
 1. [Dictionaries](#dictionaries)
 1. [Functions](#functions)
 1. [Conclusions](#conclusions)
@@ -328,7 +329,7 @@ for strange_animal in strange_animals:
 i = 0
 while i < len(strange_animals):
     strange_animal = strange_animals[i]
-    print( strange_animals )
+    print( strange_animal )
     i = i + 1
 ```
 
@@ -358,7 +359,7 @@ while some_condition:
 some_condition = True
 while some_condition:
     response = input('Hey')
-    some_condition = response == 'Hey'
+    some_condition = response != 'Hey'
 
 ```
 
@@ -473,7 +474,7 @@ animal = "platypus"
 
 name: lists
 
-# Lists & tuples
+# Lists
 
 --
 
@@ -617,10 +618,16 @@ fibonacci_sequence = [ 0, 1, 1, 2, 3, 5, 8, 13, 21 ]
 
 ---
 
-template: lists
+name: tuples
+
+# Tuples
+
+---
+
+template: tuples
 
 ## Tuples
-Tuples are a list-like data structure that is immutable.
+Tuples are a [list](#lists)-like data structure that is immutable.
 
 --
 
@@ -643,6 +650,7 @@ fibonacci_sequence = ( 0, 1, 1, 2, 3, 5, 8, 13, 21 )
 --
 
 - tuples do not have modifier functions, e.g. `fibonacci_sequence.reverse()` will fail
+
 ---
 
 name: dictionaries
