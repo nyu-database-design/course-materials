@@ -22,7 +22,6 @@ Database Design
 1. [Lists](#lists)
 1. [Tuples](#tuples)
 1. [Dictionaries](#dictionaries)
-1. [Functions](#functions)
 1. [Conclusions](#conclusions)
 
 ---
@@ -297,6 +296,33 @@ The return value can now be used elsewhere in the code.
 ```python
 print( "Your random fortune is: " + random_fortune() )
 # prints out "Your random fortune is: There is time to be practical now.", or another random fortune
+```
+
+---
+
+template: functions
+
+## Paramaters and arguments
+
+Functions can be designed with parameters - unassigned variables (i.e. variables with no value).
+
+--
+
+```python
+def add( x, y ):
+    sum = x + y
+    return sum # how can you return the sum of two unassigned variables?!
+```
+
+--
+
+`x` and `y` do have values assigned to them when the function is called with arguments.
+
+--
+
+```python
+result = sum( 10, 20 )
+print( result ) # prints 30
 ```
 
 ---
