@@ -468,7 +468,7 @@ Let's print out the title of each work using the `csv` module:
 import csv
 
 f = open('nonsense.csv', 'r')
-csv_reader = csv.reader(f)
+csv_reader = csv.DictReader(f)
 
 for line in csv_reader:
     print( line["Title"] )
