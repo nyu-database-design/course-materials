@@ -48,7 +48,7 @@ Microsoft Excel, Apple Numbers, Google Sheets, and their spreadsheet software il
 template: overview
 
 ## Programming environment
-Behind the scenes in any spreadsheet software is a sophisticated *programming environment* which can be accessed by simply calling *built-in functions* from the text within a data cell. 
+Behind the scenes in any spreadsheet software is a sophisticated *programming environment* which can be accessed most simply by calling *built-in functions* from the text within a data cell. 
 
 --
 
@@ -59,9 +59,40 @@ Behind the scenes in any spreadsheet software is a sophisticated *programming en
 template: overview
 
 ## Programming environment
-Users who are familiar with high-level computer programming concepts can write *custom functions* using the spreadsheet softwares' *Integrated Development Environments* (IDEs).
+Users who are familiar with high-level computer programming concepts can write *custom functions* using a spreadsheet software's *Integrated Development Environment* (IDE).
 
 ![Spreadsheet integrated development environment](../files/data_formats/spreadsheet_ide.png)
+
+---
+
+template: overview
+
+## Programming environment
+THe following spreadsheet softwares have integrated IDEs:
+
+--
+
+- **Microsfot Excel** has the Visual Basic for Applications Editor (VBA editor) .
+    - Access from the `Developer` menu.  
+    - Programs are written in the Visual Basic programming language.
+
+--
+
+- **Google Sheets** has the Script Editor.
+    - Access from the `Tools`->`Script Editor` menu.
+    - Programs are written in Javascript.
+
+--
+
+- **Apple Numbers** integrates with Apple's automation language, AppleScript.
+    - Access via Apple's Script Editor app.
+    - Programs are written in AppleScript.
+
+--
+
+- **Libre Calc** provides several scripting options.
+    - Access in the `Tools`->`Customize` menu.
+    - Program can written in Javascript, Python, LibreOffice Basic, and BeanShell.
 
 ---
 
@@ -220,7 +251,9 @@ Upon further inspection, it seem that each row in the data set represents the *c
 
 --
 
-- So we have misunderstood the meaning of the data - *a very very common problem*.
+- So we have misunderstood the meaning of the data 
+--
+- *a very very common problem*!
 
 --
 
@@ -233,6 +266,7 @@ Upon further inspection, it seem that each row in the data set represents the *c
 ---
 
 template: example
+name: assumptions
 
 ## Assumptions
 In doing such a simple calculation, we have made a series of assumptions that we should be aware of, in case they prove to be false.
@@ -270,11 +304,11 @@ What if we wanted to count only *total COVID-19 cases in New York's Hudson Valle
 
 --
 
-- Remember, the counts are cumulative. So let's copy just the records for the most recent date and *put them into their own sheet*.  This will speed up the program massively and can now be shared in a web-based spreadsheet - see [here](https://docs.google.com/spreadsheets/d/1ddVWvL9O4uFPir5XGVP21n0_jhZItq--Fu7psPE4mrM/edit?usp=sharing).
+- Remember, the counts are cumulative. So let's copy just the records for the most recent date and *put them into their own sheet*.  This will speed up the program massively and is now small enough to be shared in a web-based spreadsheet - see [here](https://docs.google.com/spreadsheets/d/1ddVWvL9O4uFPir5XGVP21n0_jhZItq--Fu7psPE4mrM/edit?usp=sharing).
 
 --
 
-- We could manually add up the case counts for the 11 counties of interest, but that would be very time consuming.
+- We could manually go through and add up the case counts for the 11 counties of interest, but that would be very time consuming.
 
 --
 
@@ -347,11 +381,15 @@ We know how many COVID-19 cases there have been in the Hudson Valley... but what
 template: criteria
 
 ## Results
+The completed spreadsheet is available [here](https://docs.google.com/spreadsheets/d/1f4Qm0OIbeynTZbXUujslEX5L3FXJ5bi2GOXguJFMLQw/edit?usp=sharing).
+
 Our data and initial analysis suggest that *more than 20% of the population in New York's Hudson Valley have had COVID-19*... that's 1 in every 5 people.
 
 --
 
-- Does this smell good?  Look over the numbers and do a sanity check.
+- Does this smell good?
+    - Look over the numbers and do a sanity check.  
+    - Compare your results to other sources of information and analysis.
 
 --
 
@@ -359,7 +397,7 @@ Our data and initial analysis suggest that *more than 20% of the population in N
 
 --
 
-- What other assumptions might this result depend upon?
+- What other assumptions might this result depend upon that we did not [originally consider](#assumptions).
 
 ---
 
