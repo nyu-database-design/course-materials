@@ -16,6 +16,7 @@ Database Design
 1. [Overview](#overview)
 1. [Typical Example](#example)
 1. [Imposing Criteria](#criteria)
+1. [Further Exploration](#further-exploration)
 1. [Conclusions](#conclusions)
 
 ---
@@ -480,11 +481,13 @@ Look up documentation and try it out.
 
 name: further-exploration
 
-## Further Exploration
+# Further Exploration
 
 --
 
-### Time series
+template: further-exploration
+
+## Time series
 It might be interesting to see how COVID-19 case counts vary over time.
 
 --
@@ -493,11 +496,11 @@ It might be interesting to see how COVID-19 case counts vary over time.
 
 --
 
-- Similarly to how we counted cases within the Hudson Valley, we could calculate cases for each date using `SUMIF`, where we filter by only those rows that match a specific date.
+- Similarly to how we counted cases within the Hudson Valley, we could calculate cases for each date using `SUMIF` or `SUMIFS`, where we filter by only those rows that match a specific date.
 
 --
 
-- If we wanted to show case counts over time for only the Hudson Valley, we would use `SUMIFS` to apply three criteria: 
+- If we wanted to show case counts over time for only counties in the Hudson Valley, we would use `SUMIFS` to apply three criteria: 
 
 --
 
@@ -507,15 +510,59 @@ It might be interesting to see how COVID-19 case counts vary over time.
 --
     -  matching the state of New York
 
+---
+
+template: further-exploration
+
+## Time series
+In order to easily do a time series analysis, it helps to line up our fixed values nicely.
+
+![Set up for time series](../files/spreadsheets/covid-19-time-series-setup.png)
+
 --
 
-- Besides total case counts over time, how would we calculate the change in case counts over time?
+- Then fill in the empty data cells with formulae in the following pattern:
+```excel
+=SUMIFS($E:$E, $C:$C, "New York", $A:$A, J$3,  $B:$B, $I4)
+```
+
+--
+
+- Where `E` is the case count column, `C` is the state column, and `A` is the date column, `$J3` is the cell with our desired date, `B` is the county name column, and `$I4` is the cell with our desired county name.
 
 ---
 
 template: further-exploration
 
-### Visualizations
+## Time series
+At the end, we can easily click the spreadsheet's line chart button to produce:
+
+![Hudson Valley COVID-19 cumulative cases per month](../files/spreadsheets/covid-19-time-series-chart.png)
+
+---
+
+template: further-exploration
+
+## Time series
+We have produced an easy-to-understand chart of cumulative case counts in the Hudson Valley since the start of the pandemic.
+
+--
+
+- Rather than cumulative counts, how would we calculate the change in case counts over time?
+
+--
+
+- Hint, you will simply have to subtract the previous month's cumulative case count from each month.
+
+--
+
+- [Download an example Excel file](../files/spreadsheets/covid-19-us-counties.xslx) to see these explorations for yourself.
+
+---
+
+template: further-exploration
+
+## Visualizations
 Visualizations can help people infer insights that may not be obvious by staring at numbers.  
 
 --
@@ -550,7 +597,7 @@ Spreadsheets are remarkably good at generating simple visualizations, such as:
 
 template: further-exploration
 
-### Pivot tables
+## Pivot tables
 Pivot tables are a very powerful feature of spreadsheets that allow us to group together records based on one or more shared field values, and then automatically perform aggregate statistics on each group.
 
 --
