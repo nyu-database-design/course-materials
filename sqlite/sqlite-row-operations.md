@@ -44,7 +44,7 @@ VALUES (
 
 ### Notes
 
-The following examples assume you have a CSV-formatted text file named `viking_metal_bands.csv` in your current working directory. Download the [sample CSV text file used in these examples](./viking_metal_bands.csv)
+The following examples assume you have a CSV-formatted text file named `viking_metal_bands.csv` in your current working directory. Download the [sample CSV text file used in these examples](./example_data/viking_metal_bands.csv)
 
 ### Commands
 

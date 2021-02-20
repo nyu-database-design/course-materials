@@ -371,6 +371,17 @@ Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US 
 .import /Users/foobar/some_directory/sd.csv sd
 ```
 
+--
+
+Note that SQL cannot import if the fields in the table do not exactly match the fields in the CSV data.
+
+To import in such cases, we must do a workaround:
+
+1. Create a temporary table whose fields exactly match those of the CSV.
+1. Import from the CSV file into this temporary table.
+1. Copy the data from the temporary table into the permanent table.
+1. Drop the temporary table.
+
 ---
 
 template: import-data
