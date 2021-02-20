@@ -246,15 +246,15 @@ DROP TABLE temp_table;
 
 # create a temporary table with fields that exactly match the CSV
 CREATE TABLE temp_table (
-	 agency_id INTEGER,
-	 title TEXT
+	 title TEXT,
+	 agency_id INTEGER
 );
 
 # import the CSV file into the temporary table
 .import ./agencies_data.csv temp_table
 
 # copy the data into the permanent table
-INSERT INTO agencies (agency_id, title) SELECT * FROM temp_table;
+INSERT INTO agencies (title, agency_id) SELECT * FROM temp_table;
 
 # drop the temporary table
 DROP TABLE temp_table;
