@@ -1,4 +1,4 @@
-# Inner Joins
+# SQLite Inner Joins
 
 The `JOIN` keyword is used in an SQL statement to query data from two tables based on fields that the two tables share in common. Such connections between fields in multiple tables are some of the insights that often become apparent during the database design phase of a project, through the processes of **data normalization** and **entity relationship diagramming**.
 
@@ -107,10 +107,7 @@ In this example, we delete everything except the following columns:
 
 ### Step 2
 
-Run the following Python script (download it [here](./example_data/munge_nyc_jobs.py)) to separate the data into two data
-files: one for agencies and one for jobs. This script will ultimately
-create two new text files, `jobs_data.csv` and `agencies_data.csv`, with the
-scrubbed data in them..
+Run the following Python script (download it [here](./example_data/munge_nyc_jobs.py)) to separate the data into two data files: one for agencies and one for jobs. This script will ultimately create two new text files, `jobs_data.csv` and `agencies_data.csv`, with the scrubbed data in them..
 
 ```python
 #PART 1: OPEN ORIGINAL DATA FILE

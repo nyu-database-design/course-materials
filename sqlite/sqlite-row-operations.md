@@ -1,3 +1,5 @@
+# SQLite Row Operations
+
 This document outlines the classic Create, Read, Update, and Delete (CRUD) methods available in the SQL language for manipulating records in a relational database.
 
 ## Create a new row in a table
