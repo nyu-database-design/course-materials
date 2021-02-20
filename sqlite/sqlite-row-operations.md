@@ -25,7 +25,7 @@ VALUES (
 );
 ```
 
-The following query uses the LOWER() function to convert the strings to lowercase before saving in the table.
+The following query uses the `LOWER()` function to convert the strings to lowercase before saving in the table.
 
 - Such string processing can be useful to make sure all data is stored in a standardized format.
 
