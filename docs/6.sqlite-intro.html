@@ -7,6 +7,7 @@ permalink: /sqlite-intro/
 class: center, middle
 
 # SQLite
+
 Database Design
 
 ---
@@ -32,7 +33,9 @@ name: overview
 --
 
 ## Features
-A small, lightweight, portable *relational database*:
+
+A small, lightweight, portable _relational database_:
+
 - zero configuration
 - serverless
 - simple file format
@@ -51,11 +54,12 @@ name: setup
 --
 
 ## Installation
+
 How to install and run SQLite:
 
 - OS X comes with SQLite installed, although not necessarily the latest version.
 
-- To install or upgrade, download the latest *Source code* [here](https://sqlite.org/download.html) - pick the *"amalgamation" with "configure" script*.  Unzip the file and follow the instructions in the file named `README.txt`.
+- To install or upgrade, download the latest _Source code_ [here](https://sqlite.org/download.html) - pick the _"amalgamation" with "configure" script_. Unzip the file and follow the instructions in the file named `README.txt`.
 
 ---
 
@@ -63,14 +67,16 @@ template: setup
 name: start
 
 ## Start
-Run from the command shell. 
+
+Run from the command shell.
 
 Replace `database_name` with a database name of your choosing:
+
 ```bash
 sqlite3 database_name.db
 ```
 
-- If all goes swell, you are now in the SQLite command prompt.  
+- If all goes swell, you are now in the SQLite command prompt.
 
 - And if a database with this name didn't previously exist, it has now been created.
 
@@ -80,7 +86,9 @@ template: setup
 name: quit
 
 ## Quit
+
 To quit SQLite, use the `.quit` helper function:
+
 ```sqlite3
 .quit
 ```
@@ -98,7 +106,9 @@ name: crud
 template: crud
 
 ## Overview
+
 Data operations fall into one of four types:
+
 - **C**reate - creating new data
 - **R**ead - viewing existing data
 - **U**pdate - updating existing data
@@ -113,9 +123,10 @@ template: crud
 ## Definition
 
 "crud" definition from [wordnik.com](https://www.wordnik.com/words/crud):
-> n.	A coating or an incrustation of filth or refuse.
+
+> n. A coating or an incrustation of filth or refuse.
 >
-> n.	Something loathsome, despicable, or worthless.
+> n. Something loathsome, despicable, or worthless.
 
 Welcome to the world of data!
 
@@ -125,15 +136,15 @@ template: crud
 
 ## Create (tables)
 
-Before any data can be added to the database, a *table* must be created using the `create table` command, including
+Before any data can be added to the database, a _table_ must be created using the `create table` command, including
 
 - the name of the table
 
 - a list of fields
 
-- the data type assigned to each field, e.g. `INTEGER`, `REAL` (floating point), `NUMERIC`, `TEXT`, or `BLOB` (no data type assigned), 
+- the data type assigned to each field, e.g. `INTEGER`, `REAL` (floating point), `NUMERIC`, `TEXT`, or `BLOB` (no data type assigned),
 
-- an indication of which field is the *primary key*.
+- an indication of which field is the _primary key_.
 
 We will write these and other `CRUD` commands in the `SQL` language, which is common among relational databases.
 
@@ -144,6 +155,7 @@ template: crud
 ## Create (tables... continued)
 
 An example of a table to hold student information:
+
 ```sqlite3
 create table students (
   id INTEGER PRIMARY KEY,
@@ -152,7 +164,8 @@ create table students (
   email TEXT,
   city TEXT,
   state TEXT,
-  country TEXT
+  country TEXT,
+  created DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -165,16 +178,19 @@ template: crud
 ## Create rows manually
 
 One can create new records in a table using the `insert` command
+
 ```sqlite3
 insert into students (first_name, last_name, email, city, state, country) values ("Foo", "Barstein", "fb1258@nyu.edu", "Dallas", "Texas", "United States");
 ```
-  - Notice that the `id` value is not specified - it will be automatically supplied by the database if we don't specify
+
+- Notice that the `id` value is not specified - it will be automatically supplied by the database if we don't specify
 
 ---
 
 template: crud
 
 ## Create rows by importing a data file
+
 One can import records from a file into a table using the `.import` function
 
 ```sqlite3
@@ -182,13 +198,11 @@ One can import records from a file into a table using the `.import` function
 .import /Users/foobar/some_directory/student_list.csv students
 ```
 
-- SQLite natively imports *CSV* files... just make sure to turn on `csv` mode first to avoid potential problems.
+- SQLite natively imports _CSV_ files... just make sure to turn on `csv` mode first to avoid potential problems.
 
-- *JSON* files are not natively supported and will have to be *transformed* into a supported format prior to import.
+- _JSON_ files are not natively supported and will have to be _transformed_ into a supported format prior to import.
 
-- Download a [CSV file for this example](../files/sqlite/student_list.csv).  You will need to do a bit of *data munging* on the file - simply remove the first line with the headings.
-
-
+- Download a [CSV file for this example](../files/sqlite/student_list.csv). You will need to do a bit of _data munging_ on the file - simply remove the first line with the headings.
 
 ---
 
@@ -202,7 +216,7 @@ Read operations are performed with the `select` command
 select first_name from students where city="Grand Rapids";
 ```
 
-- The command, `.mode csv` will make the output look like a CSV file.  `.mode list` will return to the default.  There are other useful modes.
+- The command, `.mode csv` will make the output look like a CSV file. `.mode list` will return to the default. There are other useful modes.
 
 - The command, `.separator ";"` will set the separator between fields to a semi-colon `;` - change it to whatever character you prefer.
 
@@ -223,6 +237,7 @@ update students set first_name="Baz" where id=15;
 --
 
 Updates to the overall schema of the table can be done with the `alter table` command
+
 ```sqlite3
 alter table students add column photo blob;
 ```
@@ -234,7 +249,9 @@ template: crud
 ## Delete
 
 Delete can be one of a few types:
+
 - Delete a particular record using the `delete` command
+
 ```sqlite3
 delete from students where first_name="Baz" and last_name="Trownson";
 ```
@@ -242,6 +259,7 @@ delete from students where first_name="Baz" and last_name="Trownson";
 --
 
 - Drop an entire table using the `drop table` command
+
 ```sqlite3
 drop table students;
 ```
@@ -257,7 +275,9 @@ name: import-data
 template: import-data
 
 ## Find raw data
+
 We will work with data on [school districts from the 2010 US census](https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2010.html) This includes each district's...
+
 - name
 - state
 - lowest grade taught
@@ -267,13 +287,13 @@ We will work with data on [school districts from the 2010 US census](https://www
 - land area
 - water area
 - geocoordinates (latitude & longitude)
-- ... and a unique identifier for each row to serve as the *primary key*
+- ... and a unique identifier for each row to serve as the _primary key_
 
 We need a table in SQLite that will accommodate this.
 
 --
 
-- Note: 2010 was the last year that *population* and *housing unit* counts where included in these "Gazetteer" data sets.
+- Note: 2010 was the last year that _population_ and _housing unit_ counts where included in these "Gazetteer" data sets.
 
 ---
 
@@ -281,6 +301,7 @@ template: import-data
 name: create-table
 
 ## Create table
+
 Create a table to accommodate the US Census school district data:
 
 ```sqlite3
@@ -302,14 +323,16 @@ CREATE TABLE sd (
 );
 ```
 
-The *primary key*, the unique identifier of each record, is set to be the `sd_geoid` field, which represents unique locations in [the US Census' GEOID standard](https://www.census.gov/programs-surveys/geography/guidance/geo-identifiers.html), and is not to be confused with [the word geoid](https://en.wikipedia.org/wiki/Geoid).
+The _primary key_, the unique identifier of each record, is set to be the `sd_geoid` field, which represents unique locations in [the US Census' GEOID standard](https://www.census.gov/programs-surveys/geography/guidance/geo-identifiers.html), and is not to be confused with [the word geoid](https://en.wikipedia.org/wiki/Geoid).
 
 ---
 
 template: import-data
 
 ## View list of tables
+
 To view a list of any tables that exist in this database, use the `.tables` function.
+
 ```sqlite3
 .tables
 ```
@@ -323,14 +346,16 @@ To view a list of any tables that exist in this database, use the `.tables` func
 template: import-data
 
 ## View table schema
+
 Viewing the `schema` of the `sd` table shows the command used to create it:
+
 ```sqlite3
 .schema sd
 ```
+
 --
 
-- Try it to make sure the table was created *correctly*.
-
+- Try it to make sure the table was created _correctly_.
 
 ---
 
@@ -338,7 +363,9 @@ template: import-data
 name: import-data-really
 
 ## Import data
+
 Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US census data on school districts into an SQLite table named `sd`... replace the path to the .csv file with one that works with your file system:
+
 ```sqlite3
 .mode csv
 .import /Users/foobar/some_directory/sd.csv sd
@@ -349,7 +376,9 @@ Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US 
 template: import-data
 
 ## Drop table
+
 Delete the `sd` table:
+
 ```sqlite3
 drop table sd
 ```
@@ -363,9 +392,11 @@ Now go [create it](#create-table) and [import data into it](#import-data) again!
 template: import-data
 
 ## Use a script
+
 Saving the commands to create and import data into [an SQL script](../files/sqlite/sd_setup_script.sql) can save time and effort - you can re-create and re-import data at any time by simply executing the script.
 
 Change the file path to whatever path works on your system:
+
 ```sqlite3
 .read /Users/foobar/some_directory/sd_setup_script.sql
 ```
@@ -379,16 +410,19 @@ Change the file path to whatever path works on your system:
 template: import-data
 
 ## Share a database
+
 If you want to copy a database or share it with someone (or yourself), simply pass around a copy of [the database file](../files/sqlite/sd.db) with the data in it.
 
-And then [quit](#quit) and [re-start](#start) SQLite using that database file.  No need to create tables from scratch or import anything.
+And then [quit](#quit) and [re-start](#start) SQLite using that database file. No need to create tables from scratch or import anything.
 
 Quit
+
 ```sqlite3
 .quit
 ```
 
 Restart
+
 ```bash
 sqlite3 sd.db
 ```
@@ -400,10 +434,12 @@ Being a portable, small footprint, simple file format, cross-platform database s
 template: import-data
 
 ## Dot functions
-You have no-doubt noticed our use of some *dot functions*, such as:
+
+You have no-doubt noticed our use of some _dot functions_, such as:
+
 - `.quit` - quit SQLite
 - `.tables` - view a list of tables in the database
-- `.schema [table name]` - show the schema of a table 
+- `.schema [table name]` - show the schema of a table
 - `.mode [mode]` - change the way data is formatted on screen, e.g `csv`, `list`, `markdown`, and more
 - `.import [CSV filepath] [table name]` - import a data file into a table
 - `.read [SQL script filepath]` - run an SQL script file
@@ -421,19 +457,23 @@ name: simple-reads
 template: simple-reads
 
 ## All school districts
+
 Show all fields of all records.... there are a lot.
+
 ```sqlite3
 select * from sd;
 ```
 
-- The `*` here means *all fields*.
+- The `*` here means _all fields_.
 
 ---
 
 template: simple-reads
 
 ## School districts in New York State
+
 The `where` clause filters results to only those within New York.... there are a lot.
+
 ```sqlite3
 select * from sd where sd_state = "NY";
 ```
@@ -443,7 +483,9 @@ select * from sd where sd_state = "NY";
 template: simple-reads
 
 ## Show only school district names
-Each records contains many fields.  Limit to just the *name* of each school district, stored in a field named, `sd_name`:
+
+Each records contains many fields. Limit to just the _name_ of each school district, stored in a field named, `sd_name`:
+
 ```sqlite3
 select sd_name from sd where sd_state = "NY";
 ```
@@ -455,7 +497,9 @@ Multiple fields can be selected by supplying a comma-separated list, such as `sd
 template: simple-reads
 
 ## Sort the results
+
 Sort the records by school district name in reverse alphabetic order:
+
 ```sqlite3
 select sd_name from sd where sd_state = "NY" order by sd_name desc;
 ```
@@ -467,24 +511,28 @@ select sd_name from sd where sd_state = "NY" order by sd_name desc;
 template: simple-reads
 
 ## Limit the results
+
 Show only the first 5 in the reverse-alphabetic list of New York school districts:
+
 ```sqlite3
 select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5;
 ```
 
 - the `limit` clause controls the number of results that are displayed.
+
 ---
 
 template: simple-reads
 
 ## Offset the results
-Show the second *page* of results...
+
+Show the second _page_ of results...
 
 ```sqlite3
 select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offset 5;
 ```
 
-... and the third *page*:
+... and the third _page_:
 
 ```sqlite3
 select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offset 10;
@@ -499,7 +547,9 @@ select sd_name from sd where sd_state = "NY" order by sd_name desc limit 5 offse
 template: simple-reads
 
 ## Smallest school districts
+
 The 10 smallest school districts in the country:
+
 ```sqlite3
 select sd_name, sd_state, sd_pop_2010 from sd order by sd_pop_2010 asc limit 10;
 ```
@@ -521,20 +571,24 @@ name: functions
 template: functions
 
 ## Concept
+
 There are a variety of [built-in aggregate functions](https://sqlite.org/lang_aggfunc.html) available to be used in queries. These are used to calculate aggregate statistics from the records returned by any query.
 
 - These are similar to the statistical functions built into spreadsheet software:, `SUM()`, `AVERAGE()`, `MIN()`, `MAX()`, `COUNT()`, etc.
+
 ---
 
 template: functions
 
 ## Counting records
+
 Calculate how many school districts exist in the US and Puerto Rico using the `count()` function.
+
 ```sqlite3
 select count(sd_geoid) from sd;
 ```
 
-- The `COUNT()` function returns the number of values in the *field* indicated as an argument.
+- The `COUNT()` function returns the number of values in the _field_ indicated as an argument.
 
 - The primary key field, `sd_geoid`, is guaranteed to be unique for each record, while other fields may not be.
 
@@ -543,7 +597,9 @@ select count(sd_geoid) from sd;
 template: functions
 
 ## Counting records in a filtered result set
+
 Count the number of school districts in New York State by filtering results with a `where` clause.
+
 ```sqlite3
 select count(sd_geoid) from sd where sd_state = "NY";
 ```
@@ -555,26 +611,31 @@ select count(sd_geoid) from sd where sd_state = "NY";
 template: functions
 
 ## Calculating average
+
 Calculate the average population of school districts across the US, using the `avg()` function.
+
 ```sqlite3
 select avg(sd_pop_2010) from sd;
 ```
 
-- The `AVG()` function will return a floating point number. 
+- The `AVG()` function will return a floating point number.
 
-- In actuality, there are no half people or 1/4 people.  So we could round the result using the `round()` function, as in `round( avg(sd_pop_2010) )`.
+- In actuality, there are no half people or 1/4 people. So we could round the result using the `round()` function, as in `round( avg(sd_pop_2010) )`.
 
 ---
 
 template: functions
 
 ## Calculating sum
+
 Calculate the total population in the country, using the `sum()` function.
+
 ```sqlite3
 select sum(sd_pop_2010) from sd;
 ```
 
 And, of course, we could calculate the total population of just Minnesota by filtering this query with a `WHERE` clause:
+
 ```sqlite3
 select sum(sd_pop_2010) from sd where sd_state = "MN";
 ```
@@ -590,6 +651,7 @@ name: grouping
 template: grouping
 
 ## Concept
+
 Grouping records together by some attributes they share in common allows us to calculate aggregate statistics.
 
 ---
@@ -597,20 +659,25 @@ Grouping records together by some attributes they share in common allows us to c
 template: grouping
 
 ## Counting school districts per state
+
 Counting the number of school districts per state requires us to group together all school districts in each state:
+
 ```sqlite3
 select count(sd_geoid) from sd group by sd_state;
 ```
 
-- Thus we don't count the number of unique geoids in the entire table.  This performs a separate count for each group.
+- Thus we don't count the number of unique geoids in the entire table. This performs a separate count for each group.
+
 ---
 
 template: grouping
 
 ## Counting school districts per state... better
+
 The previous query showed us the numbers, but not which state they represented.
 
-View the state name *and* the number of school districts in each state:
+View the state name _and_ the number of school districts in each state:
+
 ```sqlite3
 select sd_state, count(sd_geoid) from sd group by sd_state;
 ```
@@ -620,12 +687,15 @@ select sd_state, count(sd_geoid) from sd group by sd_state;
 template: grouping
 
 ## Counting school districts per state in descending order
+
 The state name and the number of school districts in each state, in descending order:
+
 ```sqlite3
 select sd_state, count(sd_geoid) from sd group by sd_state order by count(sd_geoid) desc;
 ```
 
-Note that the clause, `order by count(sd_geoid)` treats the count as if it were like any other field to sort by.  We can make this less redundant to write by using an *alias* for the result of the count:
+Note that the clause, `order by count(sd_geoid)` treats the count as if it were like any other field to sort by. We can make this less redundant to write by using an _alias_ for the result of the count:
+
 ```sqlite3
 select sd_state, count(sd_geoid) as num_districts from sd group by sd_state order by num_districts desc;
 ```
@@ -635,7 +705,9 @@ select sd_state, count(sd_geoid) as num_districts from sd group by sd_state orde
 template: grouping
 
 ## Calculating the 3 most populous states
+
 Sort states by aggregate population in descending order, then limit to the first 3 records.
+
 ```sqlite3
 select sd_state, sum(sd_pop_2010) as pop from sd group by sd_state order by pop desc limit 3;
 ```
@@ -645,7 +717,9 @@ select sd_state, sum(sd_pop_2010) as pop from sd group by sd_state order by pop 
 template: grouping
 
 ## Calculating the 3 least populous states
+
 Sort states by aggregate population in ascending order, then limit to the first 3 records.
+
 ```sqlite3
 select sd_state, sum(sd_pop_2010) as pop from sd group by sd_state order by pop asc limit 3;
 ```
@@ -661,6 +735,7 @@ name: combinations
 template: combinations
 
 ## Concept
+
 Let's take what we've learned a step further.
 
 ---
@@ -668,7 +743,9 @@ Let's take what we've learned a step further.
 template: combinations
 
 ## All of New England
-New England is made of several states.  Let's find the top ten largest school districts in this combined region using an `in` operator:
+
+New England is made of several states. Let's find the top ten largest school districts in this combined region using an `in` operator:
+
 ```sqlite3
 select sd_name, sd_state, sd_pop_2010 from sd where sd_state in ("ME", "VT", "NH", "MA", "RI") ORDER BY sd_pop_2010 desc limit 10;
 ```
@@ -678,7 +755,9 @@ select sd_name, sd_state, sd_pop_2010 from sd where sd_state in ("ME", "VT", "NH
 template: combinations
 
 ## Highest population density school districts
+
 Which school districts have the highest population density?
+
 ```sqlite3
 select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd order by density desc limit 10;
 ```
@@ -688,12 +767,15 @@ select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd 
 template: combinations
 
 ## Lowest population density school districts
+
 Which school districts have the lowest population density?
+
 ```sqlite3
 select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd order by density asc limit 10;
 ```
 
 This query will return a bunch of school districts with the name including the text, "School District Not Defined"... let's exclude these:
+
 ```sqlite3
 select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd where sd_name not like "%not defined%" order by density asc limit 10;
 ```
@@ -703,7 +785,9 @@ select sd_name, sd_state, round(sd_pop_2010 / sd_aland_sqmi) as density from sd 
 template: combinations
 
 ## Highest population density states
+
 Which states have the highest population density?
+
 ```sqlite3
 select sd_state, round( sum(sd_pop_2010) / sum(sd_aland_sqmi) ) as density from sd group by sd_state order by density desc limit 10;
 ```
@@ -713,17 +797,17 @@ select sd_state, round( sum(sd_pop_2010) / sum(sd_aland_sqmi) ) as density from 
 template: combinations
 
 ## Lowest population density states
+
 Which states have the lowest population density?
+
 ```sqlite3
 select sd_state, round( sum(sd_pop_2010) / sum(sd_aland_sqmi) ) as density from sd group by sd_state order by density asc limit 10;
 ```
 
 ---
 
-
 # Conclusions
 
 --
 
 Thank you. Bye.
-
