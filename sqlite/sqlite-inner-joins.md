@@ -29,11 +29,13 @@ Inner joins are queries that return only those rows from two tables where there 
 For example, take these tables, scraped together from [NYC Jobs data available from the NYC Open Data project](https://data.cityofnewyork.us/Business/NYC-Jobs/kpav-sd4t).
 
 A table representing job listings at NYC government agencies. Note the agency_id field as a foreign key:
+
 ![A table representing job listings at NYC government agencies. Note the
 agency_id field as a foreign
 key](./example_data/example_nyc_jobs_table.png)
 
 A table representing NYC government agencies. Note the agency_id field as the primary key:
+
 ![A table representing NYC government agencies. Note the agency_id field
 as the primary
 key](./example_data/example_nyc_agencies_table.png)
