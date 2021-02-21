@@ -171,6 +171,8 @@ create table students (
 
 - The `primary key` setting specifies which field holds the unique identifier of each row - in this case the `id` field.
 
+- The current date and time will be automatically plugged into the `created` field with every new record.
+
 ---
 
 template: crud
@@ -183,7 +185,9 @@ One can create new records in a table using the `insert` command
 insert into students (first_name, last_name, email, city, state, country) values ("Foo", "Barstein", "fb1258@nyu.edu", "Dallas", "Texas", "United States");
 ```
 
-- Notice that the `id` value is not specified - it will be automatically supplied by the database if we don't specify
+- Notice that the `id` value is not specified - it will be automatically supplied by the database if we don't specify.
+
+- Notice also that the `created` value is not specified - it will be automatically supplied with the current date and time.
 
 ---
 
@@ -191,18 +195,71 @@ template: crud
 
 ## Create rows by importing a data file
 
-One can import records from a file into a table using the `.import` function
+One can import records from a file into a table. First set up the environment:
 
 ```sqlite3
 .mode csv
-.import /Users/foobar/some_directory/student_list.csv students
+.headers on
 ```
 
 - SQLite natively imports _CSV_ files... just make sure to turn on `csv` mode first to avoid potential problems.
 
+- If the first line of your CSV data file is column headers, include the `.headers on` command. Otherwise, turn it off with `.headers off`
+
 - _JSON_ files are not natively supported and will have to be _transformed_ into a supported format prior to import.
 
-- Download a [CSV file for this example](../files/sqlite/student_list.csv). You will need to do a bit of _data munging_ on the file - simply remove the first line with the headings.
+- Download a [CSV file for this example](../files/sqlite/student_list.csv).
+
+---
+
+template: crud
+
+## Create rows by importing a data file (continued)
+
+Our `students` table has a `created` field that does not exist in the CSV data.
+_SQLite will not import from a CSV file into a table whose fields do not exactly match the fields in the CSV data._
+
+So let's import the CSV into a temporary table that matches the CSV exactly:
+
+```sqlite3
+create table temp_table (
+  id INTEGER PRIMARY KEY,
+  first_name TEXT,
+  last_name TEXT,
+  email TEXT,
+  city TEXT,
+  state TEXT,
+  country TEXT,
+);
+```
+
+Then import the CSV into this `temp_table`:
+
+```sql
+.import /Users/foobar/some_directory/student_list.csv temp_table
+```
+
+---
+
+template: crud
+
+## Create rows by importing a data file (continued again)
+
+Now, let's copy the data from `temp_table` into our permanent `students` table:
+
+```sql
+INSERT INTO students
+(id, first_name, last_name, email, city, state, country)
+SELECT * FROM temp_table;
+```
+
+The CSV data has now been copied, with the automatic addition of the `created` field in the `students` table.
+
+Now we can drop the temporary table.
+
+```sql
+DROP TABLE temp_table;
+```
 
 ---
 
@@ -216,7 +273,7 @@ Read operations are performed with the `select` command
 select first_name from students where city="Grand Rapids";
 ```
 
-- The command, `.mode csv` will make the output look like a CSV file. `.mode list` will return to the default. There are other useful modes.
+- The command, `.mode csv` will make the output look like a CSV file. `.mode list` will return to the default. `.mode markdown` will make the output appear as a valid Markdown table.
 
 - The command, `.separator ";"` will set the separator between fields to a semi-colon `;` - change it to whatever character you prefer.
 
@@ -368,6 +425,7 @@ Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US 
 
 ```sqlite3
 .mode csv
+.headers on
 .import /Users/foobar/some_directory/sd.csv sd
 ```
 
@@ -452,6 +510,7 @@ You have no-doubt noticed our use of some _dot functions_, such as:
 - `.tables` - view a list of tables in the database
 - `.schema [table name]` - show the schema of a table
 - `.mode [mode]` - change the way data is formatted on screen, e.g `csv`, `list`, `markdown`, and more
+- `.headers [on or off]` - if `on`, any imported CSV file is assumed to have column headers in the first row
 - `.import [CSV filepath] [table name]` - import a data file into a table
 - `.read [SQL script filepath]` - run an SQL script file
 
