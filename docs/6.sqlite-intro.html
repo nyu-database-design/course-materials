@@ -204,7 +204,7 @@ One can import records from a file into a table. First set up the environment:
 
 - SQLite natively imports _CSV_ files... just make sure to turn on `csv` mode first to avoid potential problems.
 
-- If the first line of your CSV data file is column headers, include the `.headers on` command. Otherwise, turn it off with `.headers off`
+- the `.headers on` command tells SQLite to display the column headers once you read the data
 
 - _JSON_ files are not natively supported and will have to be _transformed_ into a supported format prior to import.
 
@@ -233,10 +233,10 @@ create table temp_table (
 );
 ```
 
-Then import the CSV into this `temp_table`:
+Then import the CSV into this `temp_table`, informing SQLite to `skip` the first row with headers in the file:
 
 ```sql
-.import /Users/foobar/some_directory/student_list.csv temp_table
+.import --skip 1 /Users/foobar/some_directory/student_list.csv temp_table
 ```
 
 ---
@@ -424,7 +424,6 @@ Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US 
 
 ```sqlite3
 .mode csv
-.headers on
 .import /Users/foobar/some_directory/sd.csv sd
 ```
 
@@ -509,7 +508,7 @@ You have no-doubt noticed our use of some _dot functions_, such as:
 - `.tables` - view a list of tables in the database
 - `.schema [table name]` - show the schema of a table
 - `.mode [mode]` - change the way data is formatted on screen, e.g `csv`, `list`, `markdown`, and more
-- `.headers [on or off]` - if `on`, any imported CSV file is assumed to have column headers in the first row
+- `.headers [on or off]` - whether to show the column headers above the data when displayed
 - `.import [CSV filepath] [table name]` - import a data file into a table
 - `.read [SQL script filepath]` - run an SQL script file
 
