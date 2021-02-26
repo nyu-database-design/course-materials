@@ -223,7 +223,6 @@ So let's import the CSV into a temporary table that matches the CSV exactly:
 
 ```sqlite3
 create table temp_table (
-  id INTEGER PRIMARY KEY,
   first_name TEXT,
   last_name TEXT,
   email TEXT,
@@ -249,7 +248,7 @@ Now, let's copy the data from `temp_table` into our permanent `students` table:
 
 ```sql
 INSERT INTO students
-(id, first_name, last_name, email, city, state, country)
+(first_name, last_name, email, city, state, country)
 SELECT * FROM temp_table;
 ```
 
