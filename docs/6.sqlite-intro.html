@@ -208,7 +208,7 @@ One can import records from a file into a table. First set up the environment:
 
 - _JSON_ files are not natively supported and will have to be _transformed_ into a supported format prior to import.
 
-- Download a [CSV file for this example](../files/sqlite/student_list.csv).
+- Download a [CSV file for this example](../files/sqlite/students.csv).
 
 ---
 
@@ -235,7 +235,7 @@ create table temp_table (
 Then import the CSV into this `temp_table`, informing SQLite to `skip` the first row with headers in the file:
 
 ```sql
-.import --skip 1 /Users/foobar/some_directory/student_list.csv temp_table
+.import --skip 1 /Users/foobar/some_directory/students.csv temp_table
 ```
 
 ---
