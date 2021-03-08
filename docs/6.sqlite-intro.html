@@ -419,11 +419,11 @@ name: import-data-really
 
 ## Import data
 
-Import from a [comma-separated values (CSV) file](../files/sqlite/sd.csv) of US census data on school districts into an SQLite table named `sd`... replace the path to the .csv file with one that works with your file system:
+Import from a [comma-separated values (CSV) file](../files/sqlite/school_districts.csv) of US census data on school districts into an SQLite table named `sd`... replace the path to the .csv file with one that works with your file system:
 
 ```sqlite3
 .mode csv
-.import /Users/foobar/some_directory/sd.csv sd
+.import /Users/foobar/some_directory/school_districts.csv sd
 ```
 
 --
@@ -459,12 +459,12 @@ template: import-data
 
 ## Use a script
 
-Saving the commands to create and import data into [an SQL script](../files/sqlite/sd_setup_script.sql) can save time and effort - you can re-create and re-import data at any time by simply executing the script.
+Saving the commands to create and import data into [an SQL script](../files/sqlite/school_districts_setup.sql) can save time and effort - you can re-create and re-import data at any time by simply executing the script.
 
 Change the file path to whatever path works on your system:
 
 ```sqlite3
-.read /Users/foobar/some_directory/sd_setup_script.sql
+.read /Users/foobar/some_directory/school_districts_setup.sql
 ```
 
 --

@@ -1,0 +1,526 @@
+---
+layout: presentation
+title: Database Normalization
+permalink: /normalization/
+---
+
+class: center, middle
+
+# Normalization
+
+Database Design
+
+---
+
+# Agenda
+
+1. [Overview](#overview)
+1. [First Normal Form](#first)
+1. [Second Normal Form](#second)
+1. [Third Normal Form](#third)
+1. [Fourth Normal Form](#fourth)
+1. [Conclusions](#conclusions)
+
+---
+
+name: overview
+
+# Overview
+
+--
+
+## Introduction
+
+What are the normal forms in relational database design theory?
+
+- Guidelines for _how to design records_.
+
+--
+
+- They are _general in nature_, and apply to any relational database system.
+
+--
+
+- They are _designed to prevent rendundancy, ambiguity, update anomalies, and data inconsistencies_.
+
+--
+
+- They _tend to penalize retrieval_ (i.e. reading with `SELECT` statements), since data which may have been retrievable from one record in an unnormalized design may have to be retrieved from several records using a **join** in the normalized form.
+
+--
+
+- There is _no obligation to fully normalize_ all records when actual performance requirements are taken into account.
+
+---
+
+template: overview
+
+## Redundancy
+
+One of the goals of normalization is to avoid data redundancy - the repetition of facts in multiple places within the data.
+
+--
+
+An example table to hold `students`' grades', with lots of redundancy.
+
+| id  | name           | email                      | assessment_title | grade |
+| :-- | :------------- | :------------------------- | :--------------- | :---- |
+| 1   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
+| 2   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
+| 3   | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
+| ... | ...            | ...                        | ...              | ...   |
+
+---
+
+template: overview
+
+## Anomalies
+
+Another goal is to avoid **anomalies**, which come in three types.
+
+- Insertion anomalies
+
+- Update anomalies
+
+- Deletion anomalies
+
+---
+
+template: overview
+
+## Insertion anomalies
+
+Insertion anomalies occur when we are not able to insert certain attributes in the database without the presence of other attributes.
+
+--
+
+- For example, if we wanted to add a new student to our records, but couldn't do so because they hadn't yet taken any assessments, and we had mistakenly made the `assessment_title` and `grade` fields `NOT NULL`.
+
+| id  | name           | email                      | assessment_title | grade |
+| :-- | :------------- | :------------------------- | :--------------- | :---- |
+| 1   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
+| 2   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
+| 3   | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
+| ... | ...            | ...                        | ...              | ...   |
+
+---
+
+template: overview
+
+## Update anomalies
+
+Update anomalies occur when a correct update of a record requires other actions, such as addition, deletion or both, in order to retain data integrity.
+
+--
+
+- For example, if we wanted to change `John I. Rivero`'s email address, but it requires us to update multiple records.
+
+| id  | name           | email                      | assessment_title | grade |
+| :-- | :------------- | :------------------------- | :--------------- | :---- |
+| 1   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
+| 2   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
+| 3   | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
+| ... | ...            | ...                        | ...              | ...   |
+
+---
+
+template: overview
+
+## Deletion anomalies
+
+Deletion anomalies occur when you delete a record, but because of the design of the tables, you accidentally delete information you shouldn't have.
+
+--
+
+- For example, if `Helen C. Gonzalez` has only taken one assessment, Quiz #1, but we decide to drop that grade. Deleting that record would remove her email address entirely from our student data.
+
+| id  | name              | email                         | assessment_title | grade |
+| :-- | :---------------- | :---------------------------- | :--------------- | :---- |
+| 4   | Mary G. Dickinson | MaryGDickinson@jourrapide.com | Quiz #1          | 95    |
+| 5   | JSandra B. Kile   | SandraBKile@teleworm.us       | Quiz #2          | 78    |
+| 6   | Helen C. Gonzalez | HelenCGonzalez@teleworm.us    | Quiz #1          | 82    |
+| ... | ...               | ...                           | ...              | ...   |
+
+---
+
+name: first
+
+# First Normal Form
+
+--
+
+## Introduction
+
+First normal form deals with the **shape** of a record type.
+
+--
+
+- All records in a table must contain _the same number of fields_.
+
+--
+
+- In other words, all tables in relational database systems have a _fixed schema_.
+
+--
+
+- A fixed schema is generally a requirement of modern relational database systems, and requires no extra work.
+
+--
+
+- All values in a given field should also be _singular values_.
+
+---
+
+name: second
+
+# Second Normal Form
+
+--
+
+## Introduction
+
+Second and third normal forms both deal with **the relationship between non-key and key fields**.
+
+--
+
+- Each record in second and third normal forms _must satisfy first normal form_.
+
+--
+
+- A non-key field _must provide a fact about the entity uniquely identified by the primary key_.
+
+--
+
+- It is not allowed for a non-key field to provide a fact about only a part of that entity or about some other unrelated entity.
+
+--
+
+- The fact could be a one-to-many relationship, such as the department of an employee, or a one-to-one relationship, such as the spouse of an employee.
+
+---
+
+template: second
+
+## Applicability
+
+Second normal form _only applies to tables whose primary key is composed of two or more fields_.
+
+--
+
+```sql
+CREATE TABLE (
+    part TEXT NOT NULL
+    warehouse TEXT NOT NULL
+    quantity INTEGER
+    warehouse-address TEXT
+    PRIMARY KEY (part, warehouse)
+)
+```
+
+--
+
+- While today it is possible to create such **composite keys**, it is increasingly uncommon, in preference for singular **surrogate key** fields containing an auto-incrementing arbitrary integer.
+
+--
+
+- Nevertheless, we will explore it.
+
+---
+
+template: second
+
+## Example
+
+Take, for example, the following table showing parts inventories in various warehouses:
+
+--
+
+| **part**                                                        | **warehouse** | quantity | warehouse-address                |
+| :-------------------------------------------------------------- | :------------ | :------- | :------------------------------- |
+| Baby Bed Crib Screws Hardware Replacement Kit, cSeao 25-Set     | Avenel, NJ    | 2441     | 275 Omar Ave, Avenel, NJ 07001   |
+| Prime-Line N 7534 Bi-Fold Door Hardware Repair Kit              | Florence, NJ  | 1121     | 309 Cedar Ln, Florence, NJ 08518 |
+| HIMIKI Tailgate Hardware Rebuild Kit w/Handle Bezel Latch Cable | Avenel, NJ    | 3567     | 275 Omar Ave, Avenel, NJ 07001   |
+| ...                                                             | ...           | ...      | ...                              |
+
+--
+
+The composite primary key is composed of **part** and **warehouse**, meaning that the combination of those two fields is guaranteed to be unique for each record.
+
+---
+
+template: second
+
+## Problems
+
+This example does not meet the requirements of second normal form.
+
+--
+
+- The field `warehouse-address` is a fact about the `warehouse` only, not a fact about the `part`/`warehouse` combined entity that this table is about.
+
+--
+
+- This is unfortunate, since it requires the address of each warehouse to be repeated however many times there are parts in that warehouse.
+
+--
+
+- This **data redundancy** makes maintaining the data difficult. Updating a warehouses address would have to be done across many records, not just in a singular place.
+
+--
+
+- If there were no parts stored in a given warehouse, there would be nowhere in the database to store the address of that warehouse.
+
+---
+
+template: second
+
+## Solutions
+
+In order to normalize these records, we could easily split the data into two tables.
+
+--
+
+One table for `parts`:
+
+| **part**                                                        | warehouse_id | quantity |
+| :-------------------------------------------------------------- | :----------- | :------- |
+| Baby Bed Crib Screws Hardware Replacement Kit, cSeao 25-Set     | 1            | 2441     |
+| Prime-Line N 7534 Bi-Fold Door Hardware Repair Kit              | 2            | 1121     |
+| HIMIKI Tailgate Hardware Rebuild Kit w/Handle Bezel Latch Cable | 1            | 3567     |
+| ...                                                             | ...          | ...      |
+
+--
+
+And another for `warehouses`:
+
+| **id** | address                          |
+| :----- | :------------------------------- |
+| 1      | 275 Omar Ave, Avenel, NJ 07001   |
+| 2      | 309 Cedar Ln, Florence, NJ 08518 |
+| ...    | ...                              |
+
+---
+
+name: third
+
+# Third Normal Form
+
+--
+
+## Introduction
+
+As with second normal form, third normal forms deals with **the relationship between non-key and key fields**.
+
+--
+
+- Records in third normal form must _satisfy second normal form_.
+
+--
+
+- Third normal form is _violated when a non-key field is a fact about another non-key field_.
+
+--
+
+- Whereas second normal form is only applicable to tables with composite primary keys, third normal form applies to all tables.
+
+---
+
+template: third
+
+## Example
+
+Take, for example, a table about `employees` at a company.
+
+| employee            | department | location          |
+| :------------------ | :--------- | :---------------- |
+| Henry K. Brinkman   | Accounting | Fort Myers, FL    |
+| Darlene R. Gonzalez | Marketing  | Jackson, MS       |
+| Abigail W. Wagner   | Sales      | Pleasantville, NJ |
+| ...                 | ...        | ...               |
+
+---
+
+template: third
+
+## Problems
+
+This example does not meet the requirements of third normal form.
+
+--
+
+- The `employee` field is the key. If each department is located in one place, then the `location` field is a fact about the `department`, in addition to being a fact about the `employee`.
+
+--
+
+- The department's location is repeated in the record of every employee assigned to that department. If the location of the department changes, every such record must be updated.
+
+--
+
+- Because of the **redundancy**, the data might become inconsistent, with different records showing different locations for the same department.
+
+--
+
+- If a department has no employees, there may be no record in which to keep the department's location.
+
+---
+
+template: third
+
+## Solution
+
+As with violations of second normal form, the solution to a violation of third normal form is typically to split the data into multiple tables.
+
+--
+
+One table for `employees`:
+
+| **employee**        | department_id |
+| :------------------ | :------------ |
+| Henry K. Brinkman   | 1             |
+| Darlene R. Gonzalez | 2             |
+| Abigail W. Wagner   | 3             |
+| ...                 | ...           |
+
+--
+
+And another for `departments`:
+
+| **id** | department | location          |
+| :----- | :--------- | :---------------- |
+| 1      | Accounting | Fort Myers, FL    |
+| 2      | Marketing  | Jackson, MS       |
+| 3      | Sales      | Pleasantville, NJ |
+| ...    | ...        | ...               |
+
+---
+
+name: fourth
+
+# Fourth Normal Form
+
+--
+
+## Introduction
+
+Fourth normal form is concerned with multi-valued facts, which we'll show by example. In order for a record to meet fourth normal form, it must:
+
+--
+
+- satisfy the requirements of third normal form.
+
+--
+
+- **not** contain more than one independent **multi-valued facts** about an entity.
+
+---
+
+template: fourth
+
+## Example
+
+For example, consider a situation where we intend to store employee's skills and foreign language abilities.
+
+--
+
+A single employee who has multiple skills and/or multiple languages (two multi-valued facts about them) might [erroneously] be represented with two or more multi-valued fact fields.
+
+--
+
+| **id** | employee          | skill | language |
+| :----- | :---------------- | :---- | :------- |
+| 1      | Henry K. Brinkman | cook  |          |
+| 2      | Henry K. Brinkman | type  |          |
+| 3      | Henry K. Brinkman |       | French   |
+| 4      | Henry K. Brinkman |       | German   |
+| 5      | Henry K. Brinkman |       | Greek    |
+| ...    | ...               | ...   | ...      |
+
+--
+
+- In this representation, in addition to **data redundancy**, there is **ambiguity** in the meaning of the null values - does the employee lack those abilities, are they not applicable, or are they unknown?
+
+---
+
+template: fourth
+
+## Another Possibility
+
+That same data, with two or more multi-value fact fields might be represented a few different ways, including:
+
+| **id** | employee          | skill | language |
+| :----- | :---------------- | :---- | :------- |
+| 1      | Henry K. Brinkman | cook  | French   |
+| 2      | Henry K. Brinkman | type  | German   |
+| 3      | Henry K. Brinkman | type  | Greek    |
+| ...    | ...               | ...   | ...      |
+
+--
+
+- In this representation, we have removed the null values, but we still have **redundancy** and therefore difficulty maintaining data.
+
+--
+
+- Note that the `skill` and `language` fields are said in our description of the data to be **independent**. Thus, this model is forbidden by the fourth normal form. However, if these fields were dependent upon one-another, this model would be allowed by the fourth normal form.
+
+---
+
+template: fourth
+
+## Solution
+
+The solution to remove redundancy, ambiguity, and anomalies, as with previous normal forms, is to split the data up into multiple tables.
+
+--
+
+One for employees:
+
+| **id** | employee            |
+| :----- | :------------------ |
+| 1      | Henry K. Brinkman   |
+| 2      | Darlene R. Gonzalez |
+| 3      | Abigail W. Wagner   |
+| ...    | ...                 |
+
+---
+
+template: fourth
+
+## Solution (continued)
+
+The solution, as with previous normal forms, is to split the data up into multiple tables.
+
+Another for skills:
+
+| **id** | employee_id | skill |
+| :----- | :---------- | :---- |
+| 1      | 1           | cook  |
+| 2      | 1           | type  |
+| 3      | 1           | type  |
+| ...    | ...         | ...   |
+
+---
+
+template: fourth
+
+## Solution (continued again)
+
+The solution, as with previous normal forms, is to split the data up into multiple tables.
+
+And a third for languages:
+
+| **id** | employee_id | language |
+| :----- | :---------- | :------- |
+| 1      | 1           | French   |
+| 2      | 1           | German   |
+| 3      | 1           | Greek    |
+| ...    | ...         | ...      |
+
+---
+
+name: conclusions
+
+# Conclusions
+
+--
+
+Thank you. Bye.
