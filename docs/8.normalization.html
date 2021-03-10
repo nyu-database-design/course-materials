@@ -41,7 +41,7 @@ What are the normal forms in relational database design theory?
 
 --
 
-- They are _designed to prevent rendundancy, ambiguity, update anomalies, and data inconsistencies_.
+- They are _designed to prevent rendundancy, ambiguity, anomalies, and data inconsistencies_.
 
 --
 
@@ -63,12 +63,12 @@ One of the goals of normalization is to avoid data redundancy - the repetition o
 
 An example table to hold `students`' grades', with lots of redundancy.
 
-| id  | name           | email                      | assessment_title | grade |
-| :-- | :------------- | :------------------------- | :--------------- | :---- |
-| 1   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
-| 2   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
-| 3   | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
-| ... | ...            | ...                        | ...              | ...   |
+| **id** | name           | email                      | assessment_title | grade |
+| :----- | :------------- | :------------------------- | :--------------- | :---- |
+| 1      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
+| 2      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
+| 3      | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
+| ...    | ...            | ...                        | ...              | ...   |
 
 ---
 
@@ -96,12 +96,12 @@ Insertion anomalies occur when we are not able to insert certain attributes in t
 
 - For example, if we wanted to add a new student to our records, but couldn't do so because they hadn't yet taken any assessments, and we had mistakenly made the `assessment_title` and `grade` fields `NOT NULL`.
 
-| id  | name           | email                      | assessment_title | grade |
-| :-- | :------------- | :------------------------- | :--------------- | :---- |
-| 1   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
-| 2   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
-| 3   | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
-| ... | ...            | ...                        | ...              | ...   |
+| **id** | name           | email                      | assessment_title | grade |
+| :----- | :------------- | :------------------------- | :--------------- | :---- |
+| 1      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
+| 2      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
+| 3      | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
+| ...    | ...            | ...                        | ...              | ...   |
 
 ---
 
@@ -115,12 +115,12 @@ Update anomalies occur when a correct update of a record requires other actions,
 
 - For example, if we wanted to change `John I. Rivero`'s email address, but it requires us to update multiple records.
 
-| id  | name           | email                      | assessment_title | grade |
-| :-- | :------------- | :------------------------- | :--------------- | :---- |
-| 1   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
-| 2   | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
-| 3   | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
-| ... | ...            | ...                        | ...              | ...   |
+| **id** | name           | email                      | assessment_title | grade |
+| :----- | :------------- | :------------------------- | :--------------- | :---- |
+| 1      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
+| 2      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
+| 3      | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
+| ...    | ...            | ...                        | ...              | ...   |
 
 ---
 
@@ -134,12 +134,12 @@ Deletion anomalies occur when you delete a record, but because of the design of 
 
 - For example, if `Helen C. Gonzalez` has only taken one assessment, Quiz #1, but we decide to drop that grade. Deleting that record would remove her email address entirely from our student data.
 
-| id  | name              | email                         | assessment_title | grade |
-| :-- | :---------------- | :---------------------------- | :--------------- | :---- |
-| 4   | Mary G. Dickinson | MaryGDickinson@jourrapide.com | Quiz #1          | 95    |
-| 5   | JSandra B. Kile   | SandraBKile@teleworm.us       | Quiz #2          | 78    |
-| 6   | Helen C. Gonzalez | HelenCGonzalez@teleworm.us    | Quiz #1          | 82    |
-| ... | ...               | ...                           | ...              | ...   |
+| **id** | name              | email                         | assessment_title | grade |
+| :----- | :---------------- | :---------------------------- | :--------------- | :---- |
+| 4      | Mary G. Dickinson | MaryGDickinson@jourrapide.com | Quiz #1          | 95    |
+| 5      | JSandra B. Kile   | SandraBKile@teleworm.us       | Quiz #2          | 78    |
+| 6      | Helen C. Gonzalez | HelenCGonzalez@teleworm.us    | Quiz #1          | 82    |
+| ...    | ...               | ...                           | ...              | ...   |
 
 ---
 
@@ -331,12 +331,16 @@ template: third
 
 Take, for example, a table about `employees` at a company.
 
-| employee            | department | location          |
-| :------------------ | :--------- | :---------------- |
-| Henry K. Brinkman   | Accounting | Fort Myers, FL    |
-| Darlene R. Gonzalez | Marketing  | Jackson, MS       |
-| Abigail W. Wagner   | Sales      | Pleasantville, NJ |
-| ...                 | ...        | ...               |
+| **id** | employee            | department | location          |
+| :----- | :------------------ | :--------- | :---------------- |
+| 1      | Henry K. Brinkman   | Accounting | Fort Myers, FL    |
+| 2      | Darlene R. Gonzalez | Marketing  | Jackson, MS       |
+| 3      | Abigail W. Wagner   | Sales      | Pleasantville, NJ |
+| ...    | ...                 | ...        | ...               |
+
+--
+
+- Let's assume that the `location` is dependent upon the `department`, with each department having a different location.
 
 ---
 
@@ -348,7 +352,7 @@ This example does not meet the requirements of third normal form.
 
 --
 
-- The `employee` field is the key. If each department is located in one place, then the `location` field is a fact about the `department`, in addition to being a fact about the `employee`.
+- The `id` field is the primary key and represents an employee. If each department is located in one place, then the `location` field is a fact about the `department`, and not a fact about the employee.
 
 --
 
@@ -374,12 +378,12 @@ As with violations of second normal form, the solution to a violation of third n
 
 One table for `employees`:
 
-| **employee**        | department_id |
-| :------------------ | :------------ |
-| Henry K. Brinkman   | 1             |
-| Darlene R. Gonzalez | 2             |
-| Abigail W. Wagner   | 3             |
-| ...                 | ...           |
+| **id** | employee            | department_id |
+| :----- | :------------------ | :------------ |
+| 1      | Henry K. Brinkman   | 1             |
+| 2      | Darlene R. Gonzalez | 2             |
+| 3      | Abigail W. Wagner   | 3             |
+| ...    | ...                 | ...           |
 
 --
 
@@ -410,7 +414,7 @@ Fourth normal form is concerned with multi-valued facts, which we'll show by exa
 
 --
 
-- **not** contain more than one independent **multi-valued facts** about an entity.
+- **not** contain more than one independent **multi-valued fact** about an entity.
 
 ---
 
@@ -445,7 +449,7 @@ template: fourth
 
 ## Another Possibility
 
-That same data, with two or more multi-value fact fields might be represented a few different ways, including:
+That same data, with two or more multi-value fact fields, might be represented a few different ways, including:
 
 | **id** | employee          | skill | language |
 | :----- | :---------------- | :---- | :------- |
@@ -476,7 +480,7 @@ The solution to remove redundancy, ambiguity, and anomalies, as with previous no
 
 --
 
-One for employees:
+One for `employees`:
 
 | **id** | employee            |
 | :----- | :------------------ |
@@ -493,7 +497,7 @@ template: fourth
 
 The solution, as with previous normal forms, is to split the data up into multiple tables.
 
-Another for skills:
+Another for `skills`:
 
 | **id** | employee_id | skill |
 | :----- | :---------- | :---- |
@@ -510,7 +514,7 @@ template: fourth
 
 The solution, as with previous normal forms, is to split the data up into multiple tables.
 
-And a third for languages:
+And a third for `languages`:
 
 | **id** | employee_id | language |
 | :----- | :---------- | :------- |
