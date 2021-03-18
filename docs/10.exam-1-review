@@ -1,0 +1,135 @@
+---
+layout: presentation
+title: Exam 1 Review
+permalink: /exam-1-review/
+---
+
+class: center, middle
+
+# Exam 1 Review
+
+Database Design
+
+---
+
+# Agenda
+
+1. [Overview](#overview)
+1. [Plain Text Data Formats](#text)
+1. [Data Munging](#munging)
+1. [Spreadsheets](#spreadsheets)
+1. [SQL](#sql)
+1. [Normalization & Entity-Relationship Diagrams](#normalization)
+1. [Conclusions](#conclusions)
+
+---
+
+name: overview
+
+# Overview
+
+--
+
+template: overview
+
+## 
+
+---
+
+name: text
+
+# Plain Text Data Formats
+
+--
+
+template: text
+
+## Key points
+Main topics:
+- common formats: CSV, JSON, XML, HTML, fixed-width column
+- structured / fixed schema data vs loosely structured data
+- nesting values within values
+
+---
+
+name: munging
+
+# Data Munging
+
+--
+
+template: munging
+
+## Key points
+Main topics:
+- common data problems
+- reading/writing text files in Python
+- character encoding
+- useful modules
+
+---
+
+name: spreadsheets
+
+# Spreadsheets
+
+--
+
+template: spreadsheets
+
+## Key points
+Main topics:
+- row/column structure
+- import/export CSV
+- formulas
+- simple aggregate statistics
+- more complex statistics with one or more criteria
+- advanced: pivot tables and charts
+
+
+---
+
+name: sql
+
+# SQL
+
+--
+
+template: sql
+
+## Key points
+Main topics:
+- terminology: tables, records, fields
+- dot functions
+- primary key/foreign key
+- SQL CRUD tasks
+- simple aggregate statistics
+- more complex grouping, ordering
+- joins: inner and outer
+
+---
+
+name: normalization
+
+# Normalization & Entity-Relationship Diagrams
+
+--
+
+template: normalization
+
+## Key points
+Main topics:
+- the purpose of normalization and E-R diagramming
+- first through fourth normal forms
+- symbols in E-R Diagrams
+- cardinality
+
+---
+
+name: conclusions
+
+# Conclusions
+
+--
+
+Thank you. Good luck.
