@@ -1,0 +1,330 @@
+---
+layout: presentation
+title: MongoDB CRUD
+permalink: /mongodb-crud/
+---
+
+class: center, middle
+
+# MongoDB CRUD
+
+Database Design
+
+---
+
+# Agenda
+
+1. [Overview](#overview)
+1. [Example Data Set](#data-set)
+1. [Create](#create)
+1. [Read](#read)
+1. [Update](#update)
+1. [Delete](#delete)
+1. [Conclusions](#conclusions)
+
+---
+
+name: overview
+
+# Overview
+
+--
+
+## Concept
+
+The `mongo` command line client uses a Javascript command shell interpreter to allow users to issue commands to any database to which they connect.
+
+--
+
+- as with databases of all kinds, most MongoDB commands engage in some form of CRUD
+
+--
+
+    - *C*reate
+    - *R*ead
+    - *U*pdate
+    - *D*elete
+
+---
+
+name: data-set
+
+# Example Data Set
+
+--
+
+## Save the data file
+
+This set of slides shows examples using a data set about books. To follow along, save the following JSON data into a file named [books.json](../files/mongodb/books.json).
+
+```javascript
+{"title": "Northanger Abbey", "author": "Austen, Jane", "year_written": 1814, "edition": "Penguin", "price":  18.2}
+{"title": "War and Peace", "author": "Tolstoy, Leo", "year_written": 1865, "edition": "Penguin", "price":  12.7}
+{"title": "Anna Karenina", "author": "Tolstoy, Leo", "year_written": 1875, "edition": "Penguin", "price":  13.5}
+{"title": "Mrs. Dalloway", "author": "Woolf, Virginia", "year_written": 1925, "edition": "Harcourt Brace", "price":  25}
+{"title": "The Hours", "author": "Cunnningham, Michael", "year_written": 1999, "edition": "Harcourt Brace", "price":  12.35}
+{"title": "Huckleberry Finn", "author": "Twain, Mark", "year_written": 1865, "edition": "Penguin", "price":  5.76}
+{"title": "Bleak House", "author": "Dickens, Charles", "year_written": 1870, "edition": "Random House", "price":  5.75}
+{"title": "Tom Sawyer", "author": "Twain, Mark", "year_written": 1862, "edition": "Random House", "price":  7.75}
+{"title": "A Room of One's Own", "author": "Woolf, Virginia", "year_written": 1922, "edition": "Penguin", "price":  29}
+{"title": "Harry Potter", "author": "Rowling, J.K.", "year_written": 2000, "edition": "Harcourt Brace", "price":  19.95}
+{"title": "One Hundred Years of Solitude", "author": "Marquez", "year_written": 1967, "edition": "Harper  Perennial", "price":  14.00}
+{"title": "Hamlet, Prince of Denmark", "author": "Shakespeare", "year_written": 1603, "edition": "Signet  Classics", "price":  7.95}
+{"title": "Lord of the Rings", "author": "Tolkien, J.R.", "year_written": 1937, "edition": "Penguin", "price":  27.45}
+```
+
+---
+
+template: data-set
+
+## Saving the data file to a web server
+
+If you typically connect to the MongoDB database server from a web server, such as **i6** , it's easy to upload the data file to the web server using a Secure File Transfer (SFTP) application like [Cyberduck](https://cyberduck.io/).
+
+![Cyberduck login](../files/mongodb/cyberduck.png)
+
+---
+
+template: data-set
+
+## Import the data into MongoDB
+
+To import the data file into a MongoDB databae collection, go to the UNIX/Linux command line from where you typically connect to a MongoDB database, navigate to whichever folder you saved the data file into, and issue the following command:
+
+```bash
+mongoimport --db your_database_name --collection books --host database_host --username your_username --password your_password --type json --file books.json
+```
+
+--
+
+- replace `database_host`, `your_database_name`, `your_username`, and `your_password` with the correct credentials.
+
+---
+
+name: create
+
+# Create
+
+--
+
+## Collections
+
+There is no need to explicitly create a collection. Collections are created automatically as soon as the first document is saved into them.
+
+---
+
+template: create
+
+## insert()
+
+Documents can be created and stored into collections by importing from a JSON data file, as we have seen, or by using the `insert()` function.
+
+```javascript
+db.books.insert({
+  title: "Pattern Recognition",
+  author: "William Gibson",
+  year_written: 2003,
+  edition: "Penguin",
+  price: 14.99,
+});
+```
+
+- where `books` is a collection name that already exists or will be created automatically
+
+---
+
+name: read
+
+# Read
+
+--
+
+## find()
+
+The MongoDB `find()` function retrieves existing data from records in a given collection. It takes two arguments
+
+- the **criteria** - that criteria that records must match to be included in the result set
+
+  - this acts much like SQL's `WHERE` clause
+
+- the **projection** - limits which fields from the records matching the criteria will be included in the records in the result set
+  - this acts much like the list of fields to retrieve in SQL's `SELECT` query
+
+---
+
+template: read
+
+## Retrieve all documents
+
+```javascript
+db.books.find();
+```
+
+- where `books` is the collection from which to retrieve documents.
+
+---
+
+template: read
+
+## One criterion
+
+```javascript
+db.books.find({
+  author: "Leo Tolstoy",
+});
+```
+
+- retrieves all books where the `author` field has the value `Leo Tolstoy`
+
+---
+
+template: read
+
+## One criterion with an operator
+
+```javascript
+db.books.find({
+  price: {
+    $gt: 25,
+  },
+});
+```
+
+- The `$gt` operator performs a "greater than" comparison.
+
+---
+
+template: read
+
+## Two criteria
+
+```javascript
+db.books.find(
+  {
+    price: {
+      $gte: 10,
+      $lte: 20,
+    },
+    edition: "Penguin",
+  },
+  {
+    _id: 0,
+  }
+);
+```
+
+Notes:
+
+- **and** logic is implicit in the syntax of the price criteria
+- the **projection** (the second argument) indicates to not include the `_id` field in the results.
+
+---
+
+template: read
+
+## One criterion using the $or operator
+
+```javascript
+db.books.find({
+  $or: [
+    {
+      price: {
+        $gte: 20,
+      },
+    },
+    {
+      edition: "Penguin",
+    },
+  ],
+});
+```
+
+Notes:
+
+- **or** logic has to be explicitly indicated by the $or operator
+- the syntax for the `$and` operator follows the same pattern
+
+---
+
+template: read
+
+## Comparison operators
+
+A variety of operators allow criteria to be fine-tuned.
+
+- `$gt` - greater than
+- `$gte` - greater than or equal to
+- `$lt` - less than
+- `$lte` - less than or equal to
+- `$ne` - not equal to
+
+---
+
+template: read
+
+## Counting records
+
+The `count()` function can be run on any query to count results.
+
+```javascript
+db.books
+  .find({
+    edition: "Penguin",
+  })
+  .count();
+```
+
+---
+
+name: update
+
+# Update
+
+--
+
+## update()
+
+To update existing documents, use the `update()` method.
+
+```javascript
+db.books.update(
+  { year_written: { $lt: 2000 } },
+  { $set: { price: 5.99 } },
+  { multi: true }
+);
+```
+
+- the first argument specifies the criteria indicating which documents to update
+- the second argument represents the fields to be changed and their new values
+- the third argument indicates to apply this to all rows that match the criteria
+
+---
+
+name: delete
+
+# Delete
+
+--
+
+## remove()
+
+To delete existing documents, use the `remove()` method.
+
+```javascript
+db.books.remove({
+  author: "William Gibson",
+  title: "Pattern Recognition",
+});
+```
+
+- the argument sets the criteria that must be matched for any documents to be deleted
+
+---
+
+name: conclusions
+
+# Conclusions
+
+--
+
+Thank you. Bye.
