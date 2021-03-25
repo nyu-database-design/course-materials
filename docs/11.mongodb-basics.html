@@ -1,0 +1,377 @@
+---
+layout: presentation
+title: MongoDB Setup
+permalink: /mongodb-setup/
+---
+
+class: center, middle
+
+# MongoDB Setup
+
+Database Design
+
+---
+
+# Agenda
+
+1. [Overview](#overview)
+1. [Setup](#setup)
+1. [Conclusions](#conclusions)
+
+---
+
+name: overview
+
+# Overview
+
+--
+
+## Concept
+
+MongoDB is a popular "document-oriented" database.
+
+--
+
+- MongoDB records are stored as Javascript Object Notation (JSON) documents.
+
+--
+
+- commands and queries issued to the command-line MongoDB **client** program are written in Javascript.
+
+--
+
+- MongoDB integrates easily with popular programming languages, such as Javascript, Python, and others.
+
+---
+
+template: overview
+
+## Document-oriented database
+
+MongoDB is not a relational database. It does not use the SQL query language. It attempts to fill a need for document-centric databases that can scale up or down rapidly, as needed.
+
+--
+
+- no more tables, rows, or columns
+
+--
+
+- data are stored as "documents" in "collections"
+
+--
+
+- a database server can house many "collections"
+
+--
+
+- documents can contain the equivalent of primary and foreign keys
+
+---
+
+template: overview
+
+## No SQL
+
+MongoDB is part of the "NoSQL" movement of databases that do not use SQL.
+
+--
+
+- MongoDB uses its own query language, based on Javascript
+
+--
+
+- many app or web programmers know Javascript, so this should make it more approachable
+
+--
+
+- [read more about the NoSQL trend](http://www.w3resource.com/mongodb/nosql.php) in database systems
+
+---
+
+template: overview
+
+## Flexible data model
+
+Schema-less, meaning there is no fixed set of fields in any document
+
+--
+
+- Documents can have whatever fields you decide to store in them
+
+--
+
+- Even documents within the same collection can differ in their fields
+
+---
+
+template: overview
+
+## Cross-platform
+
+MongoDB can run be "installed" and "setup" on all popular platforms, including Mac, Windows, Linux, and UNIX
+
+--
+
+- "Drivers" are available to be "installed" for most popular programming languages to allow them to communicate with MongoDB databases
+
+---
+
+template: overview
+
+## Highly scalable
+
+Built-in ability to be "sharded"
+
+--
+
+- a single database can be split across many servers, or even many thousands of servers
+
+--
+
+- this allows MongoDB to potentially run thousands of times faster than if a database were on a single computer with limited processing and memory power
+
+---
+
+template: overview
+
+## Fast for large data sets
+
+MongoDB is fast for large data sets
+
+--
+
+- includes sophisticated **indexes** to "pre-sort" results before queried
+
+--
+
+- supports many aggregate functions
+
+---
+
+template: overview
+
+## Geospatial search
+
+MongoDB has built-in ability to store geospatial coordinates
+
+--
+
+- this means it can perform searches for documents "near me"
+
+--
+
+- easily performs searches within a particular radius of any location
+
+--
+
+- in other words, it can order results by how far they are from any geospatial location
+
+---
+
+template: overview
+
+## Industry-proven
+
+MongoDB is used by:
+
+--
+
+- GitHub
+
+--
+
+- Etsy
+
+--
+
+- Google
+
+--
+
+- Ebay
+
+--
+
+- Expedia
+
+--
+
+- and [many more](https://www.mongodb.com/who-uses-mongodb)
+
+---
+
+name: setup
+
+# Setup
+
+--
+
+## Using a server
+
+There are several easy ways to try out a MongoDB **server**.
+
+--
+
+- [MongoDB Community Server](https://www.mongodb.com/try/download/community) can be downloaded and tried locally on your own machine for free.
+
+--
+
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) is a cloud-hosted database service with a free tier for new users and small-scale applications.
+
+--
+
+- NYU's Computer Science Department hosts its own MongoDB server at [class-mongodb.cims.nyu.edu:27017](https://cims.nyu.edu/webapps/content/systems/userservices/databases/class-mongodb), which all students can access.
+
+--
+**We will use this.**
+
+---
+
+template: setup
+
+## Create an account on NYU CS Department's MongoDB server
+
+All students will need to initialize an account on our MongoDB server using the ["Class MongoDB Manager"](https://cims.nyu.edu/class-mongodb/manage)
+
+--
+
+- enter your `i6.cims.nyu.edu` web server username and password. You should have received an email with that password soon after registering for the course.
+
+--
+
+- if your **i6** password does not work, or you can't find it, [reset it](https://cims.nyu.edu/webapps/password/reset) and try a new one.
+
+---
+
+template: setup
+
+## Server credentials
+
+Once logged in, the Class MongoDB Manager will show you your password for the MongoDB database server - this is different from your **i6** web server password.
+
+--
+
+You will need to save the following credentials somewhere.
+
+- `database server/host` - this is `class-mongodb.cims.nyu.edu`, port `27017`
+- `your database name` - this is the same as your NYU Net ID
+- `username` - this is the same as your NYU Net ID
+- `password` - this will be displayed to you by the Manager tool
+
+---
+
+template: setup
+
+## Using a client
+
+Once set up with a server, you must access it using a **client**. There are several common ways to use a MongoDB client:
+
+--
+
+- Download and install [MongoDB's official shell](https://www.mongodb.com/try/download/shell) client, which you can run from the command line of your own machine.
+
+--
+
+- Use `ssh` to remotely log into NYU CS department's `i6.cims.nyu.edu` server, where a `mongo` shell is already installed.
+
+--
+
+- Mac users have `ssh` already installed. Windows users can use [Git for Windows](https://gitforwindows.org/), which includes `ssh` within Git Bash.
+
+--
+
+- The command, `ssh fb1258@i6.cims.nyu.edu` will remotely log in to the **i6** server.
+
+--
+
+- You will be asked to enter your **i6** server password. It will not show up on the screen as you type it - that is absolutely normal and desireable and not a cause for concern.
+
+---
+
+template: setup
+name: connect-to-mongo
+
+## Connecting to MongoDB from NYU CS Department's i6 Web Server
+
+Once logged into the **i6** web server, you can use the `mongo` command line client to connect to the MongoDB database server.
+
+--
+
+- Run the command, `module load mongodb-4.0` to load the MongoDB client.
+
+--
+This command can be automatically run every time you log into the **i6** web server... [details here](#bashrc).
+
+--
+
+- Next, use the MongoDB client to connect to the database server: `mongo fb1258 --host class-mongodb.cims.nyu.edu -u fb1258 -p`, where `fb1258` is replaced by your own NYU Net ID.
+
+--
+
+- You will be asked to supply your MongoDB server account password... do so.
+
+---
+
+template: setup
+
+## Verify that you are truly logged in
+
+Prove to yourself that you are logged into a Javascript command-line interface to MongoDB.
+
+--
+
+- Type `1 + 1` and hit Enter.
+
+--
+
+- Did it respond with `2`?
+
+--
+If so, you're ready to start using your MongoDB database.
+
+---
+
+template: setup
+name: bashrc
+
+## .bashrc files
+
+Every time you log into the **i6** web server, you must run the `module load mongodb-4.0` to [load the MongoDB client](#connect-to-mongo) before using it.
+
+--
+
+- It is possible to automatically run this command every time you log in.
+
+--
+
+- You can do this by adding this command to your **i6** account's `.bashrc` settings file.
+
+--
+
+- From the **i6** command line, run the command `emacs .bashrc` to open up this file in the [emacs](https://duckduckgo.com/?q=emacs+shortcuts&t=brave&ia=cheatsheet&iax=1) text editor.
+
+--
+
+- Add `module load mongodb-4.0` as a line in this file.
+
+--
+
+- Save this file by typing `Control-X` and then `Control-S`.
+
+--
+
+- Exit emacs by typing `Control-X` and then `Control-C`.
+
+--
+
+- Now this command will run automatically every time you log in.
+
+---
+
+name: conclusions
+
+# Conclusions
+
+--
+
+Thank you. Good luck.
