@@ -223,6 +223,27 @@ Notes:
 
 template: read
 
+## Two criteria
+
+```javascript
+db.books.find(
+  {},
+  {
+    _id: 0,
+    title: 1,
+  }
+);
+```
+
+Notes:
+
+- This will return all book documents, since the **criteria** argument is a blank object.
+- Only the `title` field will be included in the results for each document, since the **projection** argument indicates to do so.
+
+---
+
+template: read
+
 ## One criterion using the $or operator
 
 ```javascript
