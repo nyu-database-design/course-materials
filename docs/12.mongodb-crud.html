@@ -17,6 +17,7 @@ Database Design
 1. [Overview](#overview)
 1. [Example Data Set](#data-set)
 1. [Create](#create)
+1. [Operators](#operators)
 1. [Read](#read)
 1. [Update](#update)
 1. [Delete](#delete)
@@ -248,37 +249,6 @@ Notes:
 
 template: read
 
-## Comparison operators
-
-A variety of operators allow criteria to be fine-tuned.
-
-- `$gt` - greater than
-- `$gte` - greater than or equal to
-- `$lt` - less than
-- `$lte` - less than or equal to
-- `$ne` - not equal to
-
----
-
-template: read
-
-## Logic operators
-
-Some other common operations have operators as well:
-
-- `$and` - performs **and** logic
-- `$or` - performs **or** logic
-- `$in` - determines whether a value in a given field matches one of the values in an array
-- `$nin` - determines whether a value in a given field does not match one of the values in an array
-
---
-
-- [See more operator examples](https://knowledge.kitchen/Basic_MongoDB_CRUD#Operators)
-
----
-
-template: read
-
 ## Counting records
 
 The `count()` function can be run on any query to count results.
@@ -289,6 +259,187 @@ db.books
     edition: "Penguin",
   })
   .count();
+```
+
+---
+
+name: operators
+
+# Operators
+
+--
+
+## Comparisons
+
+A variety of operators allow criteria to be fine-tuned.
+
+- `$eq` - equal to
+- `$ne` - not equal to
+- `$gt` - greater than
+- `$gte` - greater than or equal to
+- `$lt` - less than
+- `$lte` - less than or equal to
+
+---
+
+template: operators
+
+## Logic
+
+Some other common operations have operators as well:
+
+- `$and` - performs **and** logic
+- `$or` - performs **or** logic
+- `$in` - determines whether a value in a given field matches one of the values in an array
+- `$nin` - determines whether a value in a given field does not match one of the values in an array
+
+---
+
+template: operators
+
+## Implicit equality
+
+The following retrieval will match books where the `edition` field has exactly the value, "Penguin".
+
+```javascript
+db.books.find({
+  edition: "Penguin",
+});
+```
+
+--
+
+- The equality operator is implicit.
+
+---
+
+template: operators
+
+## Implicit $eq
+
+The same retrieval, in a more formal style, explicitly uses the `$eq` operator.
+
+```javascript
+db.books.find({
+  edition: {
+    $eq: "Penguin",
+  },
+});
+```
+
+--
+
+- The equality `$eq` operator is explicit.
+
+---
+
+template: operators
+
+## Implicit and
+
+As we've seen, MongoDB's default operator is the **and** operator.
+
+```javascript
+db.books.find({
+  price: {
+    $gte: 10,
+    $lte: 20,
+  },
+  edition: "Penguin",
+});
+```
+
+--
+
+- There is no need to explicitly mention **and**.
+
+--
+
+- This will find books that match the `price` **and** the `edition` criteria
+
+--
+
+- The `price` criterion will match books that are greater than $10 **and** less than $20
+
+--
+
+- The `edition` criterion will match books that have exactly "Penguin" as their edition value.
+
+---
+
+template: operators
+
+## Explicit $and
+
+The **and** logic in a query could be made more explicit. We can check a field in each documents against an array of criteria.
+
+```javascript
+db.books.find({
+  $and: [
+    {
+      price: {
+        $gte: 10,
+      },
+    },
+    {
+      price: {
+        $lte: 20,
+      },
+    },
+  ],
+});
+```
+
+- This is quite a mouthful of `(`, `{`, `$`, `,`, `}`, and `)` characters.
+- The implicit **and** seems nicer, when possible.
+
+---
+
+template: operators
+
+## Explicit $or
+
+**or** logic is written in much the same way as the explicit `$and`.
+
+```javascript
+db.books.find({
+  $or: [
+    {
+      author: "Gibson, William",
+    },
+    {
+      author: "Tolstoy, Leo",
+    },
+  ],
+});
+```
+
+---
+
+template: operators
+
+## $in
+
+If checking for a single field to have one of the values from a list of values, the `$in` operator can be less verbose than the explicit $or operator.
+
+```javascript
+db.books.find({
+  author: {
+    $in: ["Gibson, William", "Tolstoy, Leo"],
+  },
+});
+```
+
+---
+
+template: operators
+
+```javascript
+db.books.find({
+  year_written: {
+    $nin: [1865, 1925, 1927, 1802, 1814, 1999],
+  },
+});
 ```
 
 ---
