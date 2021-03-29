@@ -15,7 +15,9 @@ Database Design
 # Agenda
 
 1. [Overview](#overview)
-1. [Setup](#setup)
+1. [Server Setup](#setup)
+1. [Client Setup](#client)
+1. [Automation](#automation)
 1. [Conclusions](#conclusions)
 
 ---
@@ -25,6 +27,8 @@ name: overview
 # Overview
 
 --
+
+## The Plan
 
 We will outline a few ways to gain access to a MongoDB **server** and use a MongDB **client** to issue commands to the database. Our discussion will include:
 
@@ -38,8 +42,6 @@ We will outline a few ways to gain access to a MongoDB **server** and use a Mong
 --
 , and remotely using MongDB Atlas - a cloud-hosted solution.
 
--
-
 --
 
 - running a MongoDB client locally
@@ -50,17 +52,15 @@ We will outline a few ways to gain access to a MongoDB **server** and use a Mong
 --
 , and using a **driver** with any of today's popular programming languages
 
---
+---
 
-## , and
+name: server
 
-name: setup
-
-# Setup
+# Server Setup
 
 --
 
-## Using a server
+## Choices of server
 
 There are several easy ways to try out a MongoDB **server**.
 
@@ -81,7 +81,7 @@ There are several easy ways to try out a MongoDB **server**.
 
 ---
 
-template: setup
+template: server
 
 ## Create an account on NYU CS Department's MongoDB server
 
@@ -97,9 +97,9 @@ All students will need to initialize an account on our MongoDB server using the 
 
 ---
 
-template: setup
+template: server
 
-## Server credentials
+## Credentials
 
 Once logged in, the Class MongoDB Manager will show you your password for the MongoDB database server - this is different from your **i6** web server password.
 
@@ -114,9 +114,13 @@ You will need to save the following credentials somewhere.
 
 ---
 
-template: setup
+name: client
 
-## Using a client
+# Client setup
+
+--
+
+## Choices of client
 
 Once set up with a server, you must access it using a **client**. There are several common ways to use a MongoDB client:
 
@@ -132,21 +136,37 @@ Once set up with a server, you must access it using a **client**. There are seve
 
 - Use `ssh` to remotely log into NYU CS department's `i6.cims.nyu.edu` server, where a `mongo` shell is already installed.
 
+---
+
+template: client
+
+## Logging into NYU CS Department's i6 server
+
+You will need `ssh` to remotely log into most servers, including the CS Department's i6 web server.
+
 --
 
-    - Mac users have `ssh` already installed. Windows users can use [Git for Windows](https://gitforwindows.org/), which includes `ssh` within Git Bash.
+- Mac users have `ssh` already installed.
 
 --
 
-    - The command, `ssh fb1258@i6.cims.nyu.edu` will remotely log in to the **i6** server.
+- Windows users can use [Git for Windows](https://gitforwindows.org/), which includes `ssh` within Git Bash.
 
 --
 
-- You will be asked to enter your **i6** server password. It will not show up on the screen as you type it - that is absolutely normal and desireable and not a cause for concern.
+The command, `ssh fb1258@i6.cims.nyu.edu` will remotely log in to the **i6** server.
+
+--
+
+- You will be asked to enter your **i6** server password.
+
+--
+
+- The password will not show up on the screen as you type it - that is absolutely normal and desireable and not a cause for concern.
 
 ---
 
-template: setup
+template: client
 name: connect-to-mongo
 
 ## Connecting to MongoDB from NYU CS Department's i6 Web Server
@@ -170,7 +190,7 @@ This command can be automatically run every time you log into the **i6** web ser
 
 ---
 
-template: setup
+template: client
 
 ## Verify that you are truly logged in
 
@@ -189,10 +209,13 @@ If so, you're ready to start using your MongoDB database.
 
 ---
 
-template: setup
+name: Automation
+
+# Automation
+
 name: bashrc
 
-## .bashrc files
+## The problem: typing commands manually with every login
 
 Every time you log into the **i6** web server, you must run the `module load mongodb-4.0` to [load the MongoDB client](#connect-to-mongo) before using it.
 
@@ -204,25 +227,64 @@ Every time you log into the **i6** web server, you must run the `module load mon
 
 - You can do this by adding this command to your **i6** account's `.bashrc` settings file.
 
---
+---
 
-- From the **i6** command line, run the command `emacs .bashrc` to open up this file in the [emacs](https://duckduckgo.com/?q=emacs+shortcuts&t=brave&ia=cheatsheet&iax=1) text editor.
+template: automation
 
---
+## The solution: .bashrc
 
-- Add `module load mongodb-4.0` as a line in this file.
-
---
-
-- Save this file by typing `Control-X` and then `Control-S`.
+Commands placed within the `.bashrc` file on UNIX and Linux machines are automatically executed every time a user begins a new shell session.
 
 --
 
-- Exit emacs by typing `Control-X` and then `Control-C`.
+To automatically run the `module load mongodb-4.0` command from the `.bashrc` script:
 
 --
 
-- Now this command will run automatically every time you log in.
+- trom the **i6** command line, run the command `emacs .bashrc` to open up this file in the [emacs](https://duckduckgo.com/?q=emacs+shortcuts&t=brave&ia=cheatsheet&iax=1) text editor.
+
+--
+
+- add `module load mongodb-4.0` as a line in this file.
+
+--
+
+- save this file by typing `Control-X` and then `Control-S`.
+
+--
+
+- exit emacs by typing `Control-X` and then `Control-C`.
+
+--
+
+Now this command will run automatically every time you log in.
+
+---
+
+template: automation
+
+## The problem: entering passwords with ssh
+
+It is tedious to [remember and] enter passwords every time one logs into a remote server. We can automate this away with cryptographic `ssh` keys placed locally and on the server.
+
+--
+
+- first, generate a pair of keys locally (a **public key**, which you can share and a matching **private key** which you should keep private) with the command, `ssh-keygen -t rsa`.
+
+--
+You will be asked where to save the keys - hit `Enter` to accept the default location.
+
+--
+You will also be asked whether to use a password to encrypt the keys... the decision is up to you. If you decide to use a password, please remember it.
+
+--
+
+- second, copy the public key to the server with the command, `ssh-copy-id fb1258@i6.cims.nyu.edu`, where `fb1258` is replaced with your **i6** web server username.
+
+--
+You will be asked to enter your **i6** password... do so.
+
+Once the public key is copied to the server, you should be able to log into **i6** by simply entering, `ssh fb1258@i6.cims.nyu.edu`, where `fb1258` is replaced with your own username. You will no longer be asked to enter a password.
 
 ---
 
