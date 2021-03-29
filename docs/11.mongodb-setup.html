@@ -213,6 +213,8 @@ name: automation
 
 # Automation
 
+--
+
 ## The problem: typing commands manually with every login
 
 Every time you log into the **i6** web server, you must run the `module load mongodb-4.0` to [load the MongoDB client](#connect-to-mongo) before using it.
@@ -227,8 +229,8 @@ Every time you log into the **i6** web server, you must run the `module load mon
 
 ---
 
-template: automation
 name: bashrc
+template: automation
 
 ## The solution: .bashrc
 
@@ -264,26 +266,51 @@ template: automation
 
 ## The problem: entering passwords with ssh
 
-It is tedious to [remember and] enter passwords every time one logs into a remote server. We can automate this away with cryptographic `ssh` keys placed locally and on the server.
+It is tedious to [remember and] enter passwords every time one logs into a remote server.
 
 --
 
-- first, generate a pair of keys locally (a **public key**, which you can share and a matching **private key** which you should keep private) with the command, `ssh-keygen -t rsa`.
+- We can automate this away with cryptographic `ssh` keys placed locally and on the server.
+
+---
+
+template: automation
+
+## The solution: public and private SSH keys
+
+To automatically authenticate when remotely logging in, we will first generate a pair of linked cryptographic keys locally (a **public key**, which you can share and a matching **private key** which you should keep private) and then place a copy of the public key on the server.
 
 --
-You will be asked where to save the keys - hit `Enter` to accept the default location.
+
+- run the command `ssh-keygen -t rsa` locally on your own machine to generate a key pair
 
 --
-You will also be asked whether to use a password to encrypt the keys... the decision is up to you. If you decide to use a password, please remember it.
+
+- you will be asked **where to save the keys** - hit `Enter` to accept the default location.
 
 --
 
-- second, copy the public key to the server with the command, `ssh-copy-id fb1258@i6.cims.nyu.edu`, where `fb1258` is replaced with your **i6** web server username.
+- you will also be asked **whether to use a password** to encrypt the keys... the decision is up to you. If you decide to use a password, please remember it.
+
+---
+
+template: automation
+
+## The solution: public and private SSH keys (continued)
+
+We must now copy the public key to the server. The `ssh-copy-id` command can do this automatically for us.
 
 --
-You will be asked to enter your **i6** password... do so.
 
-Once the public key is copied to the server, you should be able to log into **i6** by simply entering, `ssh fb1258@i6.cims.nyu.edu`, where `fb1258` is replaced with your own username. You will no longer be asked to enter a password.
+- run the command, `ssh-copy-id fb1258@i6.cims.nyu.edu`, where `fb1258` is replaced with your **i6** web server username.
+
+--
+
+- You will be asked to enter your **i6** password... do so.
+
+--
+
+Assuming the command above worked successfully, you should now be able to log into **i6** by simply entering, `ssh fb1258@i6.cims.nyu.edu`, where `fb1258` is replaced with your own username. You will no longer be asked to enter a password. Try logging out and then logging in again.
 
 ---
 
