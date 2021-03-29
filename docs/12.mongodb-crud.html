@@ -33,6 +33,182 @@ name: overview
 
 ## Concept
 
+MongoDB is a popular "document-oriented" database.
+
+--
+
+- MongoDB records are stored as Javascript Object Notation (JSON) documents.
+
+--
+
+- commands and queries issued to the command-line MongoDB **client** program are written in Javascript.
+
+--
+
+- MongoDB integrates easily with popular programming languages, such as Javascript, Python, and others.
+
+---
+
+template: overview
+
+## Document-oriented database
+
+MongoDB is not a relational database. It does not use the SQL query language. It attempts to fill a need for document-centric databases that can scale up or down rapidly, as needed.
+
+--
+
+- no more tables, rows, or columns
+
+--
+
+- data are stored as "documents" in "collections"
+
+--
+
+- a database server can house many "collections"
+
+--
+
+- documents can contain the equivalent of primary and foreign keys
+
+---
+
+template: overview
+
+## No SQL
+
+MongoDB is part of the "NoSQL" movement of databases that do not use SQL.
+
+--
+
+- MongoDB uses its own query language, based on Javascript
+
+--
+
+- many app or web programmers know Javascript, so this should make it more approachable
+
+--
+
+- [read more about the NoSQL trend](http://www.w3resource.com/mongodb/nosql.php) in database systems
+
+---
+
+template: overview
+
+## Flexible data model
+
+Schema-less, meaning there is no fixed set of fields in any document
+
+--
+
+- Documents can have whatever fields you decide to store in them
+
+--
+
+- Even documents within the same collection can differ in their fields
+
+---
+
+template: overview
+
+## Cross-platform
+
+MongoDB can run be "installed" and "setup" on all popular platforms, including Mac, Windows, Linux, and UNIX
+
+--
+
+- "Drivers" are available to be "installed" for most popular programming languages to allow them to communicate with MongoDB databases
+
+---
+
+template: overview
+
+## Highly scalable
+
+Built-in ability to be "sharded"
+
+--
+
+- a single database can be split across many servers, or even many thousands of servers
+
+--
+
+- this allows MongoDB to potentially run thousands of times faster than if a database were on a single computer with limited processing and memory power
+
+---
+
+template: overview
+
+## Fast for large data sets
+
+MongoDB is fast for large data sets
+
+--
+
+- includes sophisticated **indexes** to "pre-sort" results before queried
+
+--
+
+- supports many aggregate functions
+
+---
+
+template: overview
+
+## Geospatial search
+
+MongoDB has built-in ability to store geospatial coordinates
+
+--
+
+- this means it can perform searches for documents "near me"
+
+--
+
+- easily performs searches within a particular radius of any location
+
+--
+
+- in other words, it can order results by how far they are from any geospatial location
+
+---
+
+template: overview
+
+## Industry-proven
+
+MongoDB is used by:
+
+--
+
+- GitHub
+
+--
+
+- Etsy
+
+--
+
+- Google
+
+--
+
+- Ebay
+
+--
+
+- Expedia
+
+--
+
+- and [many more](https://www.mongodb.com/who-uses-mongodb)
+
+---
+
+template: overview
+
+## CRUD with the mongo client
+
 The `mongo` command line client uses a Javascript command shell interpreter to allow users to issue commands to any database to which they connect.
 
 --
@@ -45,6 +221,10 @@ The `mongo` command line client uses a Javascript command shell interpreter to a
     - *R*ead
     - *U*pdate
     - *D*elete
+
+--
+
+We will show how to do common CRUD operations using the `mongo` client.
 
 ---
 
