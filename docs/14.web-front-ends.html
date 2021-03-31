@@ -6,7 +6,7 @@ permalink: /the-web/
 
 class: center, middle
 
-# Web Front Ends
+# The Web
 
 Database Design
 
@@ -44,7 +44,7 @@ The Internet is the global interconnected network of computers that communicate 
 
 - It is sometimes referred to as a "network of networks."
 
-![Network of networks](../images/network_of_networks.png)
+![Network of networks](../files/the_web/network_of_networks.png)
 
 ---
 
@@ -58,7 +58,7 @@ Copper wires and radio signals account for a smaller fraction of the total dista
 
 The vast expanses of the Internet's reach are today enabled primarily by fiber optic cables that run locally, regionally, and across ocean floors to connect continents - see a [map of submarine cables](https://www.submarinecablemap.com/).
 
-![Submarine internet cable map](../images/submarine_internet_cable_map.png)
+![Submarine internet cable map](../files/the_web/submarine_internet_cable_map.png)
 
 ---
 
@@ -66,7 +66,7 @@ template: internet
 
 ## Origins
 
-## The Internet evolved over decades, funded primarily by the US Department of Defense
+The Internet evolved over decades, funded primarily by the US Department of Defense
 
 - 1960s - US Department of Defense networking projects explored fault-tolerant **networks resistent to nuclear attack**
 
@@ -264,7 +264,7 @@ template: clients-servers
 
 A client makes a request to a server.
 
-![Client server request](../images/client_server_request.png)
+![Client server request](../files/the_web/client_server_request.png)
 
 ---
 
@@ -274,7 +274,7 @@ template: clients-servers
 
 The server responds to the client.
 
-![Client server response](../images/client_server_response.png)
+![Client server response](../files/the_web/client_server_response.png)
 
 ---
 
@@ -284,7 +284,7 @@ template: clients-servers
 
 A single server typically handles requests from many clients.
 
-![Client server multiplicity](../images/client_server_multiplicity.png)
+![Client server multiplicity](../files/the_web/client_server_multiplicity.png)
 
 ---
 
@@ -294,7 +294,7 @@ template: clients-servers
 
 In peer-to-peer networks, such as [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent) and [Bitcoin](https://bitcoin.org/bitcoin.pdf), any machines on the network may simultaneously act as a client in one exchange while playing the role of a server in another.
 
-![Peer-to-peer networks](../images/client_server_peer_to_peer.png)
+![Peer-to-peer networks](../files/the_web/client_server_peer_to_peer.png)
 
 ---
 
@@ -326,6 +326,7 @@ HTTP request and response commands are sent as plain text over the network, foll
 ---
 
 template: http
+name: http-request-types
 
 ## Request types
 
@@ -394,7 +395,7 @@ template: http
 
 ## Example of a successsful web server response
 
-```
+```http
 HTTP/1.1 200 OK
 Date: Mon, 27 Jul 2022 12:28:53 GMT
 Server: Apache/2.2.14 (Win32)
@@ -498,7 +499,7 @@ template: front-end
 
 A web browser client receives the HTML, CSS, and Javascript code from the server, and then interprets it.
 
-![Client server responsibilities](../images/client_server_front_back_ends.png)
+![Client server responsibilities](../files/the_web/client_server_front_back_ends.png)
 
 ---
 
@@ -600,36 +601,46 @@ HTML allows web visitors to enter data into forms - there are a variety of diffe
 
 ```html
 <form action="/send" method="POST">
-  <!-- a one-line text field for their name -->
   <label for="fname">Your name:</label>
   <input type="text" name="fname" />
   <!-- a one-line text field for their email address -->
-  <label for="fname">Your email:</label>
+  <label for="femail">Your email:</label>
   <input type="email" name="femail" />
   <!-- a multi-line input for their comment -->
   <label for="fname">Your comment:</label>
-  <textarea></textarea>
+  &lt;textarea&gt;&lt;/textarea&gt;
   <!-- submit button with the words, 'Send to us!' on it -->
   <input type="submit" value="Send to us!" />
 </form>
 ```
 
+---
+
+template: html
+name: html-5
+
+## Forms (continued)
+
+Some important and required form tag attributes:
+
+```html
+<form action="/send" method="POST">...</form>
+```
+
 --
 
-- `action="/send"` indicates that when the user submits the form, the web browser will send a request to the server's `/send` route. Presumably the server is set up properly to receive the data at this route and do something useful with it.
+- `action="/send"` indicates that when the user submits the form, the web browser will send a request to the server's `/send` route. Presumably the server is set up properly to receive the form data at this route and do something useful with it.
 
 --
 
-- `method="POST"` indicates that the web browser will submit the data as an HTTP `POST` to the server, rather than an HTTP `GET` request, which is the browser's default.
+- `method="POST"` indicates that the web browser will submit the data as an HTTP `POST` to the server, rather than an HTTP `GET` request, which is the browser's default, [remember](#http-request-types)?
 
 ---
 
 template: html
-name: html-4
+name: html-5
 
 ## That's it.
-
-Actually, we're more-or-less finished explaining HTML in 3 slides. This is the fourth.
 
 What you just learned is how to code for content that will be displayed in the `body` of a web page - the part of an HTML document that represents the visible content.
 
@@ -728,7 +739,7 @@ template: back-end
 
 The server can be programmed to modify the HTML, CSS, and Javascript code that is sent to the client in response to the request.
 
-![Client server responsibilities](../images/client_server_front_back_ends.png)
+![Client server responsibilities](../files/the_web/client_server_front_back_ends.png)
 
 ---
 
@@ -784,6 +795,34 @@ The choice of frameworks to simplify the process of writing server-side code dep
 
 ---
 
+template: back-end
+
+## Example
+
+This example, written in Python with `flask` and `pymongo` modules, would save data submitted by [an HTML form](#html-4) into a MongoDB database document.
+
+```python
+@app.route('/save', methods=['POST'])
+def save_message():
+    name = request.form['fname'] # retrieve the data the user entered into the fname field
+    name = request.form['femail'] # retrieve the data the user entered into the femail field
+    message = request.form['fmessage'] # retrieve the data the user entered into the fmessage field
+
+    # create a new document with the data the user entered, plus the current date & time
+    doc_to_insert = {
+        "name": name,
+        "email": email,
+        "message": message,
+        "created_at": datetime.datetime.utcnow() # the time right now, in UTC time
+    }
+    collection = app.db["exampleapp"] # select the collection where we want to save this document
+    mongoid = collection.insert_one(doc_to_insert) # insert a new document, store the new document's _id value
+
+    return render_template('show.html', mongoid=mongoid, doc=doc_to_insert) # render an HTML page with the new post displayed
+```
+
+---
+
 name: databases
 
 # Databases
@@ -805,7 +844,7 @@ template: databases
 
 The server-side code usually communicates with the database to save new data sent from the client, or to retrieve existing data and use it to determine how to respond.
 
-![Client-server-database](../images/client_server_databases.png)
+![Client-server-database](../files/the_web/client_server_databases.png)
 
 ---
 
@@ -844,7 +883,7 @@ template: databases
 
 A growing market is the "serverless database", where the server provides the initial front-end code to the client, but further data is sent/received by front-end Javascript directly to/from the database.
 
-![Serverless databases](../images/client_server_databases_serverless.png)
+![Serverless databases](../files/the_web/client_server_databases_serverless.png)
 
 ---
 
