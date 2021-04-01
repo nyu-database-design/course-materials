@@ -18,6 +18,7 @@ Database Design
 1. [Virtual Environments](#venv)
 1. [Pymongo](#pymongo)
 1. [Flask](#flask)
+1. [Pymongo + Flask](#combined)
 1. [Conclusions](#conclusions)
 
 ---
@@ -163,6 +164,8 @@ db = connection["your_db_name"]
 ```
 
 --
+
+name: pymongo-connection
 
 The variable `db` can now be used to perform the standard database **CRUD** operations.
 
@@ -409,6 +412,7 @@ from flask import Flask, render_template, request, redirect, abort, url_for, mak
 ---
 
 template: flask
+name: flask-instantiation
 
 ## Instantiate the app
 
@@ -561,6 +565,8 @@ def show_cheeses():
 ```
 
 --
+
+name: flask-template-iteration
 
 This array could be iterated through in the template, `templates`/`cheeses.html`:
 
@@ -733,6 +739,61 @@ For example, here is a template named `templates`/`baz.html`, which will automat
 </p>
 &#123;% endblock %&#125;
 ```
+
+---
+
+name: combined
+
+# Pymongo + Flask
+
+--
+
+## Concept
+
+A modern web application inevitably involves:
+
+--
+
+- front-end code (always HTML and CSS, usually with some Javascript)
+
+--
+
+- back-end code (in our case Python with `flask`)
+
+--
+
+- database (in our case MongoDB connected from Python with `pymongo`)
+
+---
+
+template: combined
+
+## Routes with database integration
+
+It is, of course, possible to develop `flask` routes that interact with a MongoDB database using `pymongo`.
+
+--
+
+For example, here is a route that pulls documents from a database and passes them to a template:
+
+```python
+@app.route('/read')
+def read():
+    docs = db.collection_name.find({})
+    return render_template('read.html', docs=docs) # render the read template, passing it the list of documents
+```
+
+--
+
+- this assumes that `app` has alrady been [defined as a Flask app](#flask-instantiation) and `db` has been defined as a [connection to a database](#pymongo-connection).
+
+--
+
+- the template can now [iterate through the list](#flask-template-iteration) of documents and output some details about them as HTML.
+
+--
+
+- ... and much more.
 
 ---
 
