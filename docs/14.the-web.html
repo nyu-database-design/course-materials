@@ -448,10 +448,12 @@ Used to indicate the content and semantic _meaning_ of the content on a web page
 
 ```html
 <article>
-    <h1>Jaberwocky</h1>
-    <p id="p1">Twas brillig and the slithy toves did gyre and gimble in the wabe:</p>
-    <a id="more" href="#">click to see more</p>
-    <p id="p2">All mimsy were the borogoves, and the mome raths outgrabe.</p>
+  <h1>Jaberwocky</h1>
+  <p id="p1">
+    Twas brillig and the slithy toves did gyre and gimble in the wabe:
+  </p>
+  <a id="more" href="#">click to see more</a>
+  <p id="p2">All mimsy were the borogoves, and the mome raths outgrabe.</p>
 </article>
 ```
 
@@ -600,15 +602,15 @@ name: html-4
 HTML allows web visitors to enter data into forms - there are a variety of different [user interface components specific to forms](https://www.w3schools.com/html/html_forms.asp). For example:
 
 ```html
-<form action="/send" method="POST">
+<form action="/save" method="POST">
   <label for="fname">Your name:</label>
   <input type="text" name="fname" />
   <!-- a one-line text field for their email address -->
   <label for="femail">Your email:</label>
   <input type="email" name="femail" />
   <!-- a multi-line input for their comment -->
-  <label for="fname">Your comment:</label>
-  &lt;textarea&gt;&lt;/textarea&gt;
+  <label for="fmessage">Your comment:</label>
+  &lt;textarea name="fmessage" &gt;&lt;/textarea&gt;
   <!-- submit button with the words, 'Send to us!' on it -->
   <input type="submit" value="Send to us!" />
 </form>
