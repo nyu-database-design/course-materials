@@ -482,11 +482,11 @@ def show_home():
 
 --
 
-- the `request` variable refers to an object that contains information about the incoming request
+- within any route function, the [request](https://flask.palletsprojects.com/en/1.1.x/quickstart/#accessing-request-data) object contains data from the incoming HTTP request, and the [response](https://flask.palletsprojects.com/en/1.1.x/api/#response-objects) object's properties can be modified to control features of the response.
 
 --
 
-- the **return value** of a route function determines the response to the web browser that initiated the request.
+- the **return value** of a route function determines the **body** of the response to the web browser that initiated the request.
 
 ---
 
