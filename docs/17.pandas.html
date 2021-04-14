@@ -18,7 +18,6 @@ Database Design
 1. [numpy](#numpy)
 1. [Series](#series)
 1. [Dataframe(#dataframe)]
-1. [Examples](#examples)
 1. [Conclusions](#conclusions)
 
 ---
@@ -336,7 +335,9 @@ A [Series](https://pandas.pydata.org/docs/reference/api/pandas.Series.html) in `
 
 template: series
 
-## Creating a series
+## Examples
+
+See [this example Jupyter Notebook](../files/jupyter/pandas_series.ipynb) for examples exhibiting some of the core Series concepts.
 
 ---
 
@@ -344,19 +345,31 @@ name: dataframe
 
 # Dataframe
 
+A DataFrame is the main data type that users of `pandas` interact with.
+
+--
+
+- DataFrames hold data in a row/column format similar to a spreadsheet
+
+--
+
+- Each column is represented as a pandas Series, and each row is also represented as a pandas Series.
+
+--
+
+- Each row has an index - a unique identifier of that row.
+
 --
 
 ## Concept
 
 ---
 
-name: examples
+template: dataframe
 
-# Examples
+## Examples
 
---
-
-## Concept
+See [this example Jupyter Notebook](../files/jupyter/pandas_dataframe.ipynb) for examples exhibiting some of the core DataFrame concepts.
 
 ---
 
