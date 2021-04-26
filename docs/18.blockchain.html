@@ -1,0 +1,309 @@
+---
+layout: presentation
+title: Blockchain
+permalink: /blockchain/
+---
+
+class: center, middle
+
+# Blockchain
+
+Database Design
+
+---
+
+# Agenda
+
+1. [Overview](#overview)
+1. [Concepts](#concepts)
+1. [Bitcoin](#bitcoin)
+1. [Ethereum](#ethereum)
+1. [Conclusions](#conclusions)
+
+---
+
+name: overview
+
+# Overview
+
+--
+
+## Concept
+
+A **blockchain** is mechanism for storing data with a few properties that make it unusual.
+
+--
+
+- It does not require centralization. There is no need for a central server or a central organization controlling it.
+
+--
+
+- It operates in a trustless environment, yet the data held within it is trustworthy.
+
+--
+
+- It depends upon some form of reward for those who help maintain it.
+
+--
+
+- The data held within it is immutable.
+
+--
+
+- All data is public and verifiable.
+
+---
+
+template: overview
+
+## Creation myth
+
+The true indentity of the inventor of blockchain is not known.
+
+--
+
+- On October 31st 2008, a user by the name of Satoshi Nakomoto, published [the Bitcoin white paper](https://bitcoin.org/bitcoin.pdf) on a cryptography-focused email list.
+
+--
+
+- A few likely suspects include [Hal Finney](https://en.wikipedia.org/wiki/Hal_Finney) (inventor of 'proof of work'), [Wei Dai](https://en.wikipedia.org/wiki/Wei_Dai) (inventor of b-money), [Nick Szabo](https://en.wikipedia.org/wiki/Nick_Szabo) (inventor of bit gold), and [Craig Wright](https://en.wikipedia.org/wiki/Craig_Steven_Wright#Bitcoin)
+
+--
+
+- Finney, Dai, and Szabo have all denied being Satoshi Nakomoto
+
+--
+
+- Wright has claimed that he is Satoshi Nakomoto and that he created Bitcoin with the help of [Dave Kleiman](https://en.wikipedia.org/wiki/Dave_Kleiman), although he has evaded requests to provide proof of this claim.
+
+--
+Kleinman's family are currently embroiled in a [farcical legal dispute with Wright](https://chainbulletin.com/timeline-craig-wrights-story/) over ownership of Satoshi's bitcoins.
+
+--
+
+- Several notable crypto-celebrities, including Vitalik Buterin (founder of Ethereum), [CZ](https://en.wikipedia.org/wiki/Changpeng_Zhao) (CEO of Binance), and Roger Ver (self-proclaimed 'Bitcoin Jesus') have called Wright a fraud.
+
+---
+
+name: concepts
+
+# Concepts
+
+---
+
+template: concepts
+
+## Hash
+
+A cryptographic hashing function is a algorithm that can take data of an arbitrary length and produce a unique fixed-length 'digest' form of the data - the **hash** of the data.
+
+--
+
+- The same data, when run multiple times through the same hashing function, will always produce the same hash. These functions are **deterministic**.
+
+--
+
+- It is infeasible for any two different pieces of data, when run through the same hashing function, to produce the same hash. Hashes are thus **unique** to the data from which they are derived.
+
+--
+
+- It is infeasible to be able to discover the original data from its hash. Hashing functions are **one-way**.
+
+--
+
+- Hash functions are computationally simple and **fast**.
+
+---
+
+template: concepts
+
+## Hash (continued)
+
+Hashes have two important use cases:
+
+--
+
+- **Authenticity**: a sender can send both a message and the hash of the message to a recipient.
+
+--
+The recipient can then run the message through the hashing function, and compare the hash to the hash received from the sender. If the two match, then the message has not been tampered with by a 3rd party.
+
+--
+
+- **Proof of work**: it is not possible to predict what the hash of any given data will look like.
+
+--
+Thus, if trying to find data that produces a hash with specific attributes, a **brute force** approach must be taken, where a message is modified and hashed repeatedly until a hash with the desired attributes is encountered.
+
+--
+Proof of work systems require that a message sender have performed a particular amount of computational work by rejecting messages that do not contain a hash meeting specific requirements.
+
+--
+The first such system, created in 1997, was called [Hashcash](https://en.wikipedia.org/wiki/Hashcash), and was intended to make spam unprofitable by requiring emails to show proof of work.
+
+---
+
+template: concepts
+
+## Nonce
+
+A **nonce** is arbitrary data added to a message in order to change the hash of that message so as to hopefully meet the hash requirements of a proof of work system.
+
+--
+
+- the word, [nonce](https://www.merriam-webster.com/dictionary/nonce), originated in the 13th century, meaning "occurring, used, or made only once or for a special occasion".
+
+--
+
+- if the message plus the nonce do not produce a hash with the desired attributes, a different nonce must be used, thus expending work.
+
+---
+
+template: concepts
+
+## Mining
+
+**Mining** is the process of trying out different nonces over and over again until one is found which, when added to the data in the message such that the requirements of the proof of work system are met.
+
+--
+
+- The difficulty of mining depends upon the difficulty of the requirements of the proof of work scheme.
+
+--
+
+- In cryptocurrencies that follow a proof of work system, miners that find a successful nonce are rewarded with newly-minted cryptocurrency coins.
+
+--
+
+- Thus, while minining requires continual use of computing power and energy resources, it offers a chance of a reward.
+
+---
+
+template: concepts
+
+## Public key cryptography
+
+[Public key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography#History) is a set of technologies for proving ownership of digital data. Two mathematically interrelated keys (text strings) are involved:
+
+--
+
+- a **private key**, which should be kept private.
+
+--
+
+- a **public key**, which can be shared publicly without concern.
+
+---
+
+template: concepts
+
+## Public key cryptography (continued)
+
+There are two main uses of public key cryptography:
+
+--
+
+- **Privacy** - any digital message can be encrypted with the intended recipient's public key.
+
+--
+Only the recipient, who holds the corresponding private key, will be able to decrypt the message.
+
+--
+
+- **Authentication** - a sender of a message can use their own private key to "sign" the message, producing a **digital signature** that can safely sent with the message.
+
+--
+The recipient can use the sender's public key to verify the authenticity of that signature, and thus the message.
+
+---
+
+template: concepts
+
+## Merkle tree
+
+A **Merkle Tree**, or hash tree, is a hash of hashes, where the top-most hash can be considered a fixed-length digest of the data beneath it.
+
+--
+
+- The data in the leaf nodes is hashed, and those hashes are hashed, until all hashes convege at the top-most hash, the Merkle Root.
+
+--
+
+- It is possible to verify that a given piece of data in a leaf node is present in a given hash tree without re-hashing all data in the tree.
+
+---
+
+template: concepts
+
+## Merkle tree (continued)
+
+![Merkle Tree](../files/crypto/merkle_tree.svg)
+
+---
+
+template: concepts
+
+## Block
+
+At last, we come to the foundational concept of the blockchain - the block! Each block includes:
+
+--
+
+- the **hash of the previous block**, thus creating a **chain** where each block references the previous block.
+
+--
+
+- a **nonce** that, when combined with the other data in the block, successfully produces a hash that meets specific requirements in a proof of work scheme.
+
+--
+
+- a **Merkle Root** that is the top of a hash tree.
+
+--
+
+- a set of individual **transactions**, which make up the data in the hash tree.
+
+---
+
+template: concepts
+
+## Block (continued)
+
+![A block](../files/crypto/block.svg)
+
+---
+
+template: concepts
+
+## Block (continued again)
+
+![A block](../files/crypto/blockchain.svg)
+
+---
+
+template: concepts
+
+## Block (continued once more)
+
+Since each new block includes the hash of the previous block, any tampering with data in previous blocks (which would change their hashes) would invalidate subsequent blocks.
+
+--
+
+- Since the blockchain is public, any computer running the blockchain software can validate the blocks and detect fraudulent changes to any blocks.
+
+--
+
+- Since the proof of work scheme requires that a block's hash meet certain specific requirements which are time-consuming to meet, in the Bitcoin system, it typically takes about 10 minutes for a computer on the network to produce a viable block.
+
+--
+In Bitcoin, the difficulty of the proof of work requirements is adjusted every 2 weeks to keep this pace, even as the number of computers on the network and the strength of their processing power is in continual flux.
+
+---
+
+name: conclusions
+
+# Conclusions
+
+--
+
+Thank you. Bye.
