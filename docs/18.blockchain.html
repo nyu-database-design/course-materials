@@ -15,7 +15,8 @@ Database Design
 # Agenda
 
 1. [Overview](#overview)
-1. [Concepts](#concepts)
+1. [Bitcoin basics](#concepts)
+1. [Smart Contracts](#smart-contracts)
 1. [Conclusions](#conclusions)
 
 ---
@@ -85,7 +86,7 @@ Kleinman's family are currently embroiled in a [farcical legal dispute with Wrig
 
 name: concepts
 
-# Concepts
+# Bitcoin basics
 
 ---
 
@@ -217,6 +218,18 @@ The recipient can use the sender's public key to verify the authenticity of that
 
 template: concepts
 
+## Addresses
+
+In blockchains, each user has an **address** from which they can send or receive cryptocurrency transactions.
+
+--
+
+- This address is nothing but a shortened form of a public key, to which the user keeps secret the corresponding private key.
+
+---
+
+template: concepts
+
 ## Merkle tree
 
 A **Merkle Tree**, or hash tree, is a hash of hashes, where the top-most hash can be considered a fixed-length digest of the data beneath it.
@@ -287,7 +300,7 @@ Since each new block includes the hash of the previous block, any tampering with
 
 --
 
-- Since the blockchain is public, any computer running the blockchain software can validate the blocks and detect fraudulent changes to any blocks.
+- Any computer running the full blockchain software validates all blocks and detects fraudulent blocks.
 
 --
 
@@ -299,19 +312,19 @@ template: concepts
 
 ## Block (continued yet again)
 
-Since the proof of work scheme requires that a block's hash meet certain specific requirements which are time-consuming to achieve, there is a latency to the system.
+Since the proof of work scheme requires that a block's hash meet certain specific requirements which are time-consuming to achieve, there is an intentional latency to the system.
 
 --
 
-- in the Bitcoin system, it typically takes about **10 minutes** for one of the computers on the network to produce a viable block.
+- in the Bitcoin system, it typically takes about _10 minutes_ for one of the computers on the network to produce a viable block.
 
 --
 
-- the difficulty of the proof of work requirements is automatically adjusted every 2 weeks to keep this pace, even as the number of computers on the network and the strength of their processing power is in continual flux.
+- the difficulty of the proof of work requirements is automatically _adjusted every 2 weeks_ to keep this pace, even as the number of computers on the network and the strength of their processing power is in continual flux.
 
 --
 
-- a typical computer on the network will solve the hashing problem once every 2 years on average.
+- a typical computer on the network will solve the hashing problem once every _2 years, on average_.
 
 ---
 
@@ -342,7 +355,7 @@ The authenticity of this signature can be validated by anyone, by simply using t
 
 --
 
-- If the sum of `inputs` funds is more than the sum being sent to the `outputs`, then the sender can choose to return the excess balance to themselves, or provide it as a as a reward to the miners.
+- If the sum of `inputs` funds is more than the sum being sent to the `outputs`, then the sender can choose to return the excess balance to themselves, or provide it as _a tip for the miners_.
 
 ---
 
@@ -357,12 +370,135 @@ Computers running the full version of the blockchain software (a.k.a. 'full node
 - Each full node picks a set of transactions from a shared list of pending transactions (the _mempool_) that all nodes pass around the network.
 
 --
+They tend to pick those transactions that offer them the highest tip, if any are available.
+
+--
 
 - The first computer to produce a hash that meets the proof of work requirements is able to publish their block by sending it around to the other full nodes on the network, and is rewarded with newly-minted cryptocurrency.
 
 --
 
-- The other full nodes will accept the new block once they validate its hash.
+- The other full nodes will accept the new block once they validate that its hash meets the proof of work requirements.
+
+---
+
+name: smart-contracts
+
+# Smart Contracts
+
+--
+
+## Concept
+
+While Bitcoin included a limited scripting language that allowed some programmable logic to be placed inside of any transaction, [Ethereum](https://en.wikipedia.org/wiki/Ethereum) is the blockchain that took this concept to the next level.
+
+--
+
+- A "**smart contract**", a term coined by Nick Szabo, is a program.
+
+--
+
+- Smart contracts have addresses, just like use accounts, and can send or receive cryptocurrency to/from other accounts.
+
+--
+
+- Like everything on the blockchain, smart contracts are public and validated and executed by all full nodes on the network.
+
+--
+The entire network is considered a single **virtual machine** execution environment.
+
+--
+
+- Any account - be it a user account or a smart contract - can send cryptocurrency to a smart contract to trigger one of its functions to be executed.
+
+--
+
+- Functions in a smart contract typically transfer cryptocurrency or **tokens** to or from addresses on the blockchain.
+
+---
+
+template: smart-contracts
+
+## Dapps
+
+_Decentralized applications_, similar to the apps that most people are familiar with on the web, can be hosted on a blockchain, in combination with related decentralized platforms.
+
+--
+
+- From a user's perspective, dapps appear to operate just like regular apps.
+
+--
+
+- Decentralized file storage services, like [IPFS](https://ipfs.io/), allow files to be stored across the entire network rather than on a single server.
+
+--
+
+- Smart contracts allow the application logic to be hosted on a blockchain, rather than on a single server.
+
+--
+
+- Native integration with cryptocurrency allows users of dapps to trigger exchanges of cryptocurrency or tokens.
+
+--
+
+- Check out [some examples](https://duckduckgo.com/?q=examples+of+dapps)
+
+---
+
+template: smart-contracts
+
+## Tokens
+
+Tokens are arbitrary representations of value.
+
+--
+
+- Tokens can be created (i.e. 'minted') by smart contracts and sent and received to or from any address on the blockchain.
+
+--
+
+- Ethereum's [ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/), [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/), and other standards attempt to standardize which functions and behaviors should be included in smart contracts that issue _fungible_ and _non-fungible_ tokens.
+
+--
+This standardization allows for interoperability among smart contracts and even between different blockchains.
+
+--
+
+- The value of a token is determined by what you can do with that token or by what else you might be trade that token for.
+
+--
+
+- Some tokens _act like reputation points_ within social networks and gaming environments.
+
+--
+Other tokens act as _symbolic representations of ownership or possession_ of physical goods.
+
+--
+Still other tokens are _useless_ except for the fact that _you can trade them_ for other tokens or _fiat currency_.
+
+---
+
+template: smart-contracts
+
+## DeFi
+
+The world of [decentralized finance](https://www.nasdaq.com/articles/decentralized-finance-defi%3A-an-emerging-giant-2021-01-15) (DeFi) - finance on the blockchain - has become extremely popular within the last year.
+
+--
+
+- DeFi is growing to become a parallel financial system, with all kinds of financial instruments, old and new, on offer: borrowing, lending, crowdfunding, buying shares, taking long or short positions on the market, trading on "foreign currency" exchanges, providing _liquidity_, _farming_, and more.
+
+--
+
+- Cryptocurrency as "[programmable money](https://www.bissresearch.com/what-actually-is-programmable-money/)", allows people, funds, smart contracts and bots to perform any financial operation imaginable with little-to-no regulation.
+
+--
+
+- Warning: this environment is rife with speculators trying to make quick fortunes by inventing or betting on, and _shilling_ cryptocurrencies or tokens with little-to-no inherent value. Beware of [rug pulls](https://www.coingecko.com/en/glossary/rug-pulled).
+
+--
+
+- [#MOON!](https://www.reddit.com/r/SafeMoon/)
 
 ---
 
