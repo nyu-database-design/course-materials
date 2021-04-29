@@ -57,7 +57,7 @@ template: overview
 
 ## Creation myth
 
-The true indentity of the inventor of blockchain is not known.
+The true indentity of the inventor of blockchain is either unknown or disputed.
 
 --
 
@@ -65,7 +65,7 @@ The true indentity of the inventor of blockchain is not known.
 
 --
 
-- A few likely suspects include [Hal Finney](https://en.wikipedia.org/wiki/Hal_Finney) (inventor of 'proof of work'), [Wei Dai](https://en.wikipedia.org/wiki/Wei_Dai) (inventor of b-money), [Nick Szabo](https://en.wikipedia.org/wiki/Nick_Szabo) (inventor of bit gold), and [Craig Wright](https://en.wikipedia.org/wiki/Craig_Steven_Wright#Bitcoin) (eccentric Australian polymath and businessman)
+- A few likely suspects include [Hal Finney](https://en.wikipedia.org/wiki/Hal_Finney) (inventor of '[proof of work](https://en.wikipedia.org/wiki/Proof_of_work)'), [Wei Dai](https://en.wikipedia.org/wiki/Wei_Dai) (inventor of [b-money](https://en.bitcoin.it/wiki/B-money)), [Nick Szabo](https://en.wikipedia.org/wiki/Nick_Szabo) (inventor of [bit gold](https://unenumerated.blogspot.com/2005/12/bit-gold.html)), and [Craig Wright](https://en.wikipedia.org/wiki/Craig_Steven_Wright#Bitcoin) (fiery Australian polymath and businessman)
 
 --
 
@@ -73,14 +73,14 @@ The true indentity of the inventor of blockchain is not known.
 
 --
 
-- Wright has claimed that he is Satoshi Nakomoto and that he created Bitcoin with the help of [Dave Kleiman](https://en.wikipedia.org/wiki/Dave_Kleiman), although he has evaded requests to provide proof of this claim.
+- Wright claims that he is Satoshi Nakomoto and that he created Bitcoin with the help of [Dave Kleiman](https://en.wikipedia.org/wiki/Dave_Kleiman), although he has evaded requests to provide proof of this claim.
 
 --
-Kleinman's family are currently embroiled in a [farcical legal dispute with Wright](https://chainbulletin.com/timeline-craig-wrights-story/) over ownership of Satoshi's bitcoins.
+Kleinman's family are currently embroiled in a [farcical legal dispute with Wright](https://chainbulletin.com/timeline-craig-wrights-story/).
 
 --
 
-- Several notable crypto-celebrities, including Vitalik Buterin (founder of Ethereum), [CZ](https://en.wikipedia.org/wiki/Changpeng_Zhao) (CEO of Binance), and Roger Ver (self-proclaimed 'Bitcoin Jesus') have called Wright a fraud.
+- Several notable crypto-celebrities, including [Vitalik Buterin](https://en.wikipedia.org/wiki/Vitalik_Buterin) (founder of Ethereum), [CZ](https://en.wikipedia.org/wiki/Changpeng_Zhao) (CEO of Binance), and Roger Ver (self-proclaimed 'Bitcoin Jesus') have called Wright a "fraud".
 
 ---
 
@@ -94,7 +94,7 @@ template: concepts
 
 ## Example code
 
-Some of the basic cryptography concepts mentioned in this section, including hashes and digital signatures, are exhibited in code in [a companion Jupyter Notebook](../files/crypto/cryptography.ipynb)
+Some of the basic cryptography concepts mentioned in this section, including hashes and digital signatures, are exhibited in Python code in [a companion Jupyter Notebook](../files/crypto/cryptography.ipynb)
 
 ---
 
@@ -119,6 +119,14 @@ A cryptographic hashing function is a algorithm that can take data of an arbitra
 --
 
 - Hash functions are computationally simple and **fast**.
+
+---
+
+template: concepts
+
+## Hash (continued)
+
+![Hash SHA256](../files/crypto/hash.svg)
 
 ---
 
@@ -168,6 +176,14 @@ A **nonce** is arbitrary data added to a message in order to change the hash of 
 
 template: concepts
 
+## Nonce (continued)
+
+![Nonce](../files/crypto/nonce.svg)
+
+---
+
+template: concepts
+
 ## Mining
 
 **Mining** is the process of trying out different nonces over and over again until one is found which, when added to the data in the message such that the requirements of the proof of work system are met.
@@ -188,6 +204,14 @@ template: concepts
 
 template: concepts
 
+## Mining (continued)
+
+![Mining](../files/crypto/mining.svg)
+
+---
+
+template: concepts
+
 ## Public key cryptography
 
 [Public key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography#History) is a set of technologies for proving ownership of digital data. Two mathematically interrelated keys (text strings) are involved:
@@ -199,6 +223,9 @@ template: concepts
 --
 
 - a **public key**, which can be shared publicly without concern.
+
+--
+It is derived from the private key by a one-way mathematical function.
 
 ---
 
@@ -221,6 +248,22 @@ Only the recipient, who holds the corresponding private key, will be able to dec
 
 --
 The recipient can use the sender's public key to verify the authenticity of that signature, and thus the message.
+
+---
+
+template: concepts
+
+## Privacy
+
+![Public key encryption for privacy](../files/crypto/encrypt.svg)
+
+---
+
+template: concepts
+
+## Authentication
+
+![Public key encryption for authentication](../files/crypto/authenticity.svg)
 
 ---
 
@@ -280,7 +323,7 @@ At last, we come to the foundational concept of the blockchain - the block! Each
 
 --
 
-- a set of individual **transactions**, which make up the data in the hash tree.
+- a set of individual **transactions**, each digitally signed by the sender using their private key, which together make up the data in the leaf nodes of the hash tree.
 
 ---
 
@@ -324,7 +367,7 @@ Since the proof of work scheme requires that a block's hash meet certain specifi
 
 --
 
-- in the Bitcoin system, it typically takes about _10 minutes_ for one of the computers on the network to produce a viable block.
+- in the Bitcoin system, it takes on average about _10 minutes_ for one of the computers on the network to produce a viable block.
 
 --
 
@@ -406,7 +449,7 @@ While Bitcoin included a limited scripting language that allowed some programmab
 
 --
 
-- Smart contracts have addresses, just like use accounts, and can send or receive cryptocurrency to/from other accounts.
+- In Ethereum, smart contracts have addresses, just like use accounts, and can send or receive cryptocurrency to/from other accounts.
 
 --
 
@@ -437,15 +480,15 @@ _Decentralized applications_, similar to the apps that most people are familiar 
 
 --
 
-- Decentralized file storage services, like [IPFS](https://ipfs.io/), allow files to be stored across the entire network rather than on a single server.
+- Decentralized file storage services, like [IPFS](https://ipfs.io/), allow the files that make up the app to be stored across the entire network rather than on a single server.
 
 --
 
-- Smart contracts allow the application logic to be hosted on a blockchain, rather than on a single server.
+- Smart contracts allow the coin- or token-related functions to be hosted on a blockchain, rather than on a single server.
 
 --
 
-- Native integration with cryptocurrency allows users of dapps to trigger exchanges of cryptocurrency or tokens.
+- Integration with cryptocurrency wallets allows users of dapps to digitally sign transfers of cryptocurrency or tokens to authenticate them.
 
 --
 
@@ -539,9 +582,17 @@ View the [Cambridge Center for Alternative Finance's comparisons](https://cbeci.
 - Isn't blockchain designed to let criminals evade the government?
 
 --
-[Watch self-proclaimed Satoshi, Craig Wright, denounce decentralization](https://www.youtube.com/watch?v=0JvDauIX5lg) as "a lie".
+[Watch self-proclaimed Satoshi, Craig Wright, denounce decentralization](https://www.youtube.com/watch?v=0JvDauIX5lg) as "a lie" and the [Brookings Institute tout its crime-fighting properties](.edu/blog/future-development/2018/02/01/can-cryptocurrencies-and-blockchain-help-fight-corruption/).
 
 --
+
+- Can't the government just kill it once it becomes too big?
+
+--
+Nobody is really sure if this is possible.
+
+--
+Some nations, like China, are [trying to subvert it](https://www.bloomberg.com/news/articles/2020-06-01/china-is-making-cryptocurrency-to-challenge-bitcoin-and-dollar).
 
 ---
 
