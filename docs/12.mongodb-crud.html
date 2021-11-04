@@ -288,6 +288,25 @@ mongoimport --db your_database_name --collection books --host database_host --us
 
 - MongoDB can import both JSON and CSV plain text data formats, although JSON is much more closely related to MongoDB's internal data structure and can be considered its native format.
 
+--
+
+- note that the `mongoimport` command is not run from within the `mongo` client.
+
+---
+
+template: data-set
+
+## Connect to the database with the mongo client
+
+Once the data has been imported, you can log in to the database server using the `mongo` client:
+
+`mongo your_database_name --host your_hostname -u your_username -p`
+
+- replace `your_database_name` with your own NYU Net ID
+- replace `your_hostname` with `class-mongodb.cims.nyu.edu`
+- replace `your_username` with your own NYU Net ID
+- you will be prompted to enter your MongoDB server password... do so... this is not the same as your i6 password
+
 ---
 
 name: create
