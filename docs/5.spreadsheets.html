@@ -7,6 +7,7 @@ permalink: /spreadsheets/
 class: center, middle
 
 # Spreadsheets
+
 Database Design
 
 ---
@@ -30,7 +31,8 @@ name: overview
 template: overview
 
 ## Intro
-Microsoft Excel, Apple Numbers, Google Sheets, and their spreadsheet software ilk organize data sets into *rows* and *columns*. 
+
+Microsoft Excel, Apple Numbers, Google Sheets, and their spreadsheet software ilk organize data sets into _rows_ and _columns_.
 
 --
 
@@ -38,20 +40,20 @@ Microsoft Excel, Apple Numbers, Google Sheets, and their spreadsheet software il
 
 --
 
-- Each row and column has a *unique identifier* - rows numbers and column letters.  
---
-These indices are attached to the spreadsheet, not the data.
+- ## Each row and column has a _unique identifier_ - rows numbers and column letters.
+  These indices are attached to the spreadsheet, not the data.
 
 --
 
-- At the intersection of each row and column is a *data cell*, where data of a variety of types can either be *manually input* or *formulaically calculated*.
+- At the intersection of each row and column is a _data cell_, where data of a variety of types can either be _manually input_ or _formulaically calculated_.
 
 ---
 
 template: overview
 
 ## Programming environment
-Behind the scenes in any spreadsheet software is a sophisticated *programming environment* which can be accessed most simply by calling *built-in functions* from the text within a data cell. 
+
+Behind the scenes in any spreadsheet software is a sophisticated _programming environment_ which can be accessed most simply by calling _built-in functions_ from the text within a data cell.
 
 --
 
@@ -62,7 +64,8 @@ Behind the scenes in any spreadsheet software is a sophisticated *programming en
 template: overview
 
 ## Programming environment
-Users who are familiar with high-level computer programming concepts can write *custom functions* using a spreadsheet software's *Integrated Development Environment* (IDE).
+
+Users who are familiar with high-level computer programming concepts can write _custom functions_ using a spreadsheet software's _Integrated Development Environment_ (IDE).
 
 ![Spreadsheet integrated development environment](../files/data_formats/spreadsheet_ide.png)
 
@@ -71,31 +74,32 @@ Users who are familiar with high-level computer programming concepts can write *
 template: overview
 
 ## Programming environment
+
 The following spreadsheet softwares have integrated IDEs:
 
 --
 
 - **Microsoft Excel** has the Visual Basic for Applications Editor (VBA editor) .
-    - Access from the `Developer` menu.  
-    - Programs are written in the Visual Basic programming language.
+  - Access from the `Developer` menu.
+  - Programs are written in the Visual Basic programming language.
 
 --
 
 - **Google Sheets** has the Script Editor.
-    - Access from the `Tools`->`Script Editor` menu.
-    - Programs are written in Javascript.
+  - Access from the `Tools`->`Script Editor` menu.
+  - Programs are written in Javascript.
 
 --
 
 - **Apple Numbers** integrates with Apple's automation language, AppleScript.
-    - Access via Apple's Script Editor app.
-    - Programs are written in AppleScript.
+  - Access via Apple's Script Editor app.
+  - Programs are written in AppleScript.
 
 --
 
 - **LibreOffice Calc** provides several scripting options.
-    - Access in the `Tools`->`Customize` menu.
-    - Program can written in Javascript, Python, LibreOffice Basic, and BeanShell.
+  - Access in the `Tools`->`Customize` menu.
+  - Program can written in Javascript, Python, LibreOffice Basic, and BeanShell.
 
 ---
 
@@ -103,41 +107,40 @@ template: overview
 
 ## Spreadsheets as databases
 
-Spreadsheet software can be considered a type of database and, in fact, have much in common with more sophisticated *relational databases*.
-
-
---
-
-- each sheet holds data about a single *entity* - a kind of thing
+Spreadsheet software can be considered a type of database and, in fact, have much in common with more sophisticated _relational databases_.
 
 --
 
-- sheets hold *records* - data about one instance of the entity (i.e. one of the things)
+- each sheet holds data about a single _entity_ - a kind of thing
 
 --
 
-- each record has the same fixed set of *fields* (i.e. there is a fixed schema)
-
-
---
-
-- each *field* represents one attribute of the record
+- sheets hold _records_ - data about one instance of the entity (i.e. one of the things)
 
 --
 
-- sheets are shown as *tables*, records are stored in *rows*, fields are in *columns*
+- each record has the same fixed set of _fields_ (i.e. there is a fixed schema)
 
 --
 
-- automated *functions* allow you to filter the data and perform analysis
+- each _field_ represents one attribute of the record
+
+--
+
+- sheets are shown as _tables_, records are stored in _rows_, fields are in _columns_
+
+--
+
+- automated _functions_ allow you to filter the data and perform analysis
 
 ---
 
 template: overview
 
 ## Data munging
-Using a spreadsheet does not absolve one of doing data munging.  
---
+
+## Using a spreadsheet does not absolve one of doing data munging.
+
 Some data munging tasks common to spreadsheets:
 
 --
@@ -165,7 +168,8 @@ name: example
 --
 
 ## Raw data
-We will look into data on the number of COVID-19 cases *aggregated*, updated daily, and *published* by the New York Times in Comma-Separated Values (CSV) format.
+
+We will look into data on the number of COVID-19 cases _aggregated_, updated daily, and _published_ by the New York Times in Comma-Separated Values (CSV) format.
 
 --
 
@@ -184,7 +188,8 @@ We will look into data on the number of COVID-19 cases *aggregated*, updated dai
 template: example
 
 ## Import into spreadsheet
-This particular data set contains *a million or more records* (thousands of new records are added each day).  Upon importing the raw data file into a spreadsheet, we immediately hit a problem with spreadsheet software...
+
+This particular data set contains a few _million records_ (thousands of new records are added each day). Upon importing the raw data file into a spreadsheet, we immediately hit a problem with spreadsheet software...
 
 --
 
@@ -200,7 +205,7 @@ This particular data set contains *a million or more records* (thousands of new 
 
 --
 
-- If you must use a web-based spreadsheet for a large data set, use a plain text editor to first chop up the CSV file into a bunch of smaller CSV files and then import each smaller file into its own sheet (*not recommended*).
+- If you must use a web-based spreadsheet for a large data set, use a plain text editor to first chop up the CSV file into a bunch of smaller CSV files and then import each smaller file into its own sheet (_not recommended_).
 
 ---
 
@@ -208,23 +213,24 @@ template: example
 
 ## A sheet for an entity
 
-Once imported into a spreadsheet, the data appears in a typical nicely-aligned *row/column structure*.
+Once imported into a spreadsheet, the data appears in a typical nicely-aligned _row/column structure_.
 
 ![Spreadsheet with rows and columns](../files/data_formats/spreadsheet_structure.png)
 
 --
 
-- Each *row* is a *record* with *fields* in the *columns* describing various attributes of *one particular instance of the entity*.
+- Each _row_ is a _record_ with _fields_ in the _columns_ describing various attributes of _one particular instance of the entity_.
 
 --
 
-- In this example, each row represents *COVID-19 stats for one day in one US county* during the pandemic.
+- In this example, each row represents _COVID-19 stats for one day in one US county_ during the pandemic.
 
 ---
 
 template: example
 
 ## Sorting rows
+
 If we simply wanted to sort the rows by the number of cases or the number of deaths, we can do that with the click of a button.
 
 --
@@ -239,11 +245,11 @@ template: example
 
 ## Simple statistics
 
-Spreadsheets are great for simple statistical analysis, such as finding the *sum*, *average*, *minimum*, *maximum*, *standard deviation*, of a series of values.
+Spreadsheets are great for simple statistical analysis, such as finding the _sum_, _average_, _minimum_, _maximum_, _standard deviation_, of a series of values.
 
 --
 
-- To do this, we will run formulas using the spreadsheet's *built-in functions*.
+- To do this, we will run formulas using the spreadsheet's _built-in functions_.
 
 --
 
@@ -251,7 +257,7 @@ Spreadsheets are great for simple statistical analysis, such as finding the *sum
 
 --
 
--  To calculate total deaths, enter `=SUM( F1 : F1030786 )` into column `F` of a new row at the very end of the spreadsheet, where `F1` is the first cell in the deaths column, and `F1030786` is the last value in that column - your last row number will differ.  Hit the `enter/return` key when done.
+- To calculate total deaths, enter `=SUM( F1 : F2200221 )` into column `F` of a new row at the very end of the spreadsheet, where `F1` is the first cell in the deaths column, and `F2200221` is the last value in that column - your last row number will differ. Hit the `enter/return` key when done.
 
 ![Sum of spreadsheet column](../files/data_formats/spreadsheet_sum_formula.png)
 
@@ -260,19 +266,20 @@ Spreadsheets are great for simple statistical analysis, such as finding the *sum
 template: example
 
 ## Passing the smell test
-Always use your common sense to think about whether the raw data and your analysis of that data make sense... the so-called *smell test*.
+
+Always use your common sense to think about whether the raw data and your analysis of that data make sense... the so-called _smell test_.
 
 --
 
-- Summing the values in the deaths column leads to a result of about *65 million deaths from COVID-19 in the US* at the time of this writing.
+- Summing the values in the deaths column leads to a result of about _296 million deaths from COVID-19 in the US_ at the time of this writing.
 
 --
 
-- [Authoritative reports](https://coronavirus.jhu.edu/map.html) put that number at about *486,000 deaths* at the time of this writing.
+- [Authoritative reports](https://coronavirus.jhu.edu/map.html) put that number at about _901,000 deaths_ at the time of this writing.
 
 --
 
-- Something does not smell good!  
+- Something does not smell good!
 
 --
 
@@ -282,27 +289,26 @@ Always use your common sense to think about whether the raw data and your analys
 
 - What went wrong?!
 
-
 ---
 
 template: example
 
 ## The meaning of the data
-Upon further inspection, it seem that each row in the data set represents the *cumulative data for that county*.
+
+Upon further inspection, it seem that each row in the data set represents the _cumulative data for that county_.
 
 --
 
-- So we have misunderstood the meaning of the data 
---
-- *a very very common problem*!
+- ## So we have misunderstood the meaning of the data
+- _a very very common problem_!
 
 --
 
-- Since each record includes a cumulative count of the deaths, in order to calculate total US deaths, we simply have to *sum the death counts for all counties on the most recent day available in the data set*: `=SUM( F1027540 : F1030786 )` (your row row numbers may differ if viewing more recent data)
+- Since each record includes a cumulative count of the deaths, in order to calculate total US deaths, we simply have to _sum the death counts for all counties on the most recent day available in the data set_: `=SUM( F1027540 : F1030786 )` (your row row numbers may differ if viewing more recent data)
 
 --
 
-- This results in a *total US death count of 485,154* (as of January 15th 2021)... a better-smelling number.
+- This results in a _total US death count of 911,072_ (as of February 9th 2022)... a better-smelling number.
 
 --
 
@@ -314,6 +320,7 @@ template: example
 name: assumptions
 
 ## Assumptions
+
 In doing such a simple calculation, we have made a series of assumptions that we should be aware of, in case they prove to be false.
 
 --
@@ -322,7 +329,7 @@ In doing such a simple calculation, we have made a series of assumptions that we
 
 --
 
-- We have assumed that no deaths are counted simultaneously in two or more different US counties 
+- We have assumed that no deaths are counted simultaneously in two or more different US counties
 
 --
 
@@ -341,15 +348,16 @@ name: criteria
 --
 
 ## Analyzing a subset of records
-What if we wanted to count only *total COVID-19 cases in New York's Hudson Valley region*, which is composed of 11 of New York State's 62 counties..
+
+What if we wanted to count only _total COVID-19 cases in New York's Hudson Valley region_, which is composed of 11 of New York State's 62 counties..
 
 --
 
-- Basic statistical functions, such as `SUM()`, `AVERAGE()`, `MIN()`, `MAX()`, `STDEV()` work as we have seen when calculating total deaths.  But they cannot filter the records for us.
+- Basic statistical functions, such as `SUM()`, `AVERAGE()`, `MIN()`, `MAX()`, `STDEV()` work as we have seen when calculating total deaths. But they cannot filter the records for us.
 
 --
 
-- Remember, the counts are cumulative. So let's copy just the records for the most recent date and *put them into their own sheet*.  This will speed up the program massively and is now small enough to be shared in a web-based spreadsheet - see [here](https://docs.google.com/spreadsheets/d/1ddVWvL9O4uFPir5XGVP21n0_jhZItq--Fu7psPE4mrM/edit?usp=sharing).
+- Remember, the counts are cumulative. So let's copy just the records for the most recent date and _put them into their own sheet_. This will speed up the program massively and is now small enough to be shared in a web-based spreadsheet - see [here](https://docs.google.com/spreadsheets/d/1ddVWvL9O4uFPir5XGVP21n0_jhZItq--Fu7psPE4mrM/edit?usp=sharing).
 
 --
 
@@ -357,14 +365,15 @@ What if we wanted to count only *total COVID-19 cases in New York's Hudson Valle
 
 --
 
-- Rather, we should use the *spreadsheet's filtering abilities* to extract data from the rows representing the counties of interest to us, and then run our statistics functions on just those filtered results.
+- Rather, we should use the _spreadsheet's filtering abilities_ to extract data from the rows representing the counties of interest to us, and then run our statistics functions on just those filtered results.
 
 ---
 
 template: criteria
 
 ## Filtering records
-To calculate *total COVID-19 case counts in New York's Hudson Valley region*, we will go step-by-step, rather than try to do everything at once.
+
+To calculate _total COVID-19 case counts in New York's Hudson Valley region_, we will go step-by-step, rather than try to do everything at once.
 
 --
 
@@ -377,7 +386,8 @@ To calculate *total COVID-19 case counts in New York's Hudson Valley region*, we
 template: criteria
 
 ## Filtering records (continued)
-Now add a formula into the `Case count` field corresponding to the first county: `=SUMIF( B:B, H2, E:E )`.  Note the use of `SUMIF` to add criteria.
+
+Now add a formula into the `Case count` field corresponding to the first county: `=SUMIF( B:B, H2, E:E )`. Note the use of `SUMIF` to add criteria.
 
 --
 
@@ -385,11 +395,11 @@ Now add a formula into the `Case count` field corresponding to the first county:
 
 --
 
-- Copy this formula into the `Case counts` field for each county.  Be sure to update `H2` to be the correct cell identifier for each county.
+- Copy this formula into the `Case counts` field for each county. Be sure to update `H2` to be the correct cell identifier for each county.
 
 --
 
-- You can use the spreadsheet's *autofill* feature to do this copying for you.
+- You can use the spreadsheet's _autofill_ feature to do this copying for you.
 
 --
 
@@ -400,11 +410,12 @@ Now add a formula into the `Case count` field corresponding to the first county:
 template: criteria
 
 ## Filtering records (continued again)
-We now have total case counts for each county of interest.  If we add them all up, we will have *total case counts for the entire Hudson Valley*.
+
+We now have total case counts for each county of interest. If we add them all up, we will have _total case counts for the entire Hudson Valley_.
 
 --
 
-- In our custom `Case counts` column, in a row below the last county of interest, enter a function to calculate the `SUM` of all case counts.  A bit more than `600,000` as of January 9.
+- In our custom `Case counts` column, in a row below the last county of interest, enter a function to calculate the `SUM` of all case counts. A bit more than `600,000` as of January 9.
 
 ![Extraction summation](../files/data_formats/spreadsheet_extraction_column_total.png)
 
@@ -413,11 +424,12 @@ We now have total case counts for each county of interest.  If we add them all u
 template: criteria
 
 ## Mashing up data sets
+
 We know how many COVID-19 cases there have been in the Hudson Valley... but what percent of the population does this represent?
 
 --
 
-- Finding a reputable population estimate for each county is not difficult... ([for example](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html#par_textimage_739801612)).  `Cases as % of population` is only a simple formula away.
+- Finding a reputable population estimate for each county is not difficult... ([for example](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html#par_textimage_739801612)). `Cases as % of population` is only a simple formula away.
 
 ![Data mashup](../files/data_formats/spreadsheet_mashup.png)
 
@@ -426,15 +438,16 @@ We know how many COVID-19 cases there have been in the Hudson Valley... but what
 template: criteria
 
 ## Results
+
 The completed spreadsheet is available [here](https://docs.google.com/spreadsheets/d/1f4Qm0OIbeynTZbXUujslEX5L3FXJ5bi2GOXguJFMLQw/edit?usp=sharing).
 
-Our data and initial analysis suggest that *more than 25% of the population in New York's Hudson Valley have had COVID-19*... that's 1 in every 5 people.
+Our data and initial analysis suggest that _more than 25% of the population in New York's Hudson Valley have had COVID-19_... that's 1 in every 5 people.
 
 --
 
 - Does this smell good?
-    - Look over the numbers and do a sanity check.  
-    - Compare your results to other reputable sources of information and analysis.
+  - Look over the numbers and do a sanity check.
+  - Compare your results to other reputable sources of information and analysis.
 
 --
 
@@ -449,8 +462,9 @@ Our data and initial analysis suggest that *more than 25% of the population in N
 template: criteria
 
 ## Results
-We have made a mistake  
---
+
+## We have made a mistake
+
 of course.
 
 --
@@ -463,9 +477,8 @@ of course.
 
 --
 
-- We didn't consider that perhaps there might be counties with the same names in different states.  
---
-There are.
+- ## We didn't consider that perhaps there might be counties with the same names in different states.
+  There are.
 
 --
 
@@ -473,9 +486,8 @@ There are.
 
 --
 
-- Whereas the `SUMIF` function can only apply one criterion, the `SUMIFS` function can apply multiple criteria.  
---
-Look up documentation and try it out.
+- ## Whereas the `SUMIF` function can only apply one criterion, the `SUMIFS` function can apply multiple criteria.
+  Look up documentation and try it out.
 
 ---
 
@@ -488,6 +500,7 @@ name: further-exploration
 template: further-exploration
 
 ## Time series
+
 It might be interesting to see how COVID-19 case counts vary over time.
 
 --
@@ -500,21 +513,21 @@ It might be interesting to see how COVID-19 case counts vary over time.
 
 --
 
-- If we wanted to show case counts over time for only counties in the Hudson Valley, we would use `SUMIFS` to apply three criteria: 
+- If we wanted to show case counts over time for only counties in the Hudson Valley, we would use `SUMIFS` to apply three criteria:
 
 --
 
     - matching a specified date
---
-    -  matching a specified county name
---
-    -  matching the state of New York
+
+-- - matching a specified county name
+-- - matching the state of New York
 
 ---
 
 template: further-exploration
 
 ## Time series
+
 In order to easily do a time series analysis, it helps to line up our fixed values nicely.
 
 ![Set up for time series](../files/spreadsheets/covid-19-time-series-setup.png)
@@ -522,6 +535,7 @@ In order to easily do a time series analysis, it helps to line up our fixed valu
 --
 
 - Then fill in the empty data cells with formulae in the following pattern:
+
 ```excel
 =SUMIFS($E:$E, $C:$C, "New York", $A:$A, J$3,  $B:$B, $I4)
 ```
@@ -535,6 +549,7 @@ In order to easily do a time series analysis, it helps to line up our fixed valu
 template: further-exploration
 
 ## Time series
+
 At the end, we can easily click the spreadsheet's line chart button to produce:
 
 ![Hudson Valley COVID-19 cumulative cases per month](../files/spreadsheets/covid-19-time-series-chart.png)
@@ -544,6 +559,7 @@ At the end, we can easily click the spreadsheet's line chart button to produce:
 template: further-exploration
 
 ## Time series
+
 We have produced an easy-to-understand chart of cumulative case counts in the Hudson Valley since the start of the pandemic.
 
 --
@@ -563,7 +579,8 @@ We have produced an easy-to-understand chart of cumulative case counts in the Hu
 template: further-exploration
 
 ## Visualizations
-Visualizations can help people infer insights that may not be obvious by staring at numbers.  
+
+Visualizations can help people infer insights that may not be obvious by staring at numbers.
 
 --
 
@@ -598,6 +615,7 @@ Spreadsheets are remarkably good at generating simple visualizations, such as:
 template: further-exploration
 
 ## Pivot tables
+
 Pivot tables are a very powerful feature of spreadsheets that allow us to group together records based on one or more shared field values, and then automatically perform aggregate statistics on each group.
 
 --
@@ -628,5 +646,4 @@ name: conclusions
 
 --
 
-Thank you.  Bye.
-
+Thank you. Bye.
