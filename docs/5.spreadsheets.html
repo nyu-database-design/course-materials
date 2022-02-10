@@ -34,7 +34,19 @@ template: overview
 
 Microsoft Excel, Apple Numbers, Google Sheets, and their spreadsheet software ilk organize data sets into _rows_ and _columns_.
 
---
+---
+
+template: overview
+
+## Example files
+
+The examples outlined on these slides is implemented in the following additional documents:
+
+- New York Times' COVID-19 data by US county by day since the start of the pandemic - raw data in [CSV format](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv)
+- A subset of that data for only 9 February, 2020 - [available in Google Sheets](https://docs.google.com/spreadsheets/d/15ZMOzKe1bLB9bB6k87HVCpXX66Qnzy9vRx3f0osRvwI/edit#gid=0)
+- A breakdown of that data for only New York's Hudson Valley region - [available in Google Sheets](https://docs.google.com/spreadsheets/d/1Q4J2NgwArqa-f-t-deEEEobmfQwKaEcFwseue8vAkUw/edit#gid=0)
+- A breakdown of that data by state as of 9 February 2020 - [available in Google Sheets](https://docs.google.com/spreadsheets/d/1PS15N7Ixyt9Se5sM47YNMe_VBPJ5MZvQk1LUX91xenU/edit#gid=0)
+- A time series breakdown of that data for New York's Hudson Valley - [available to download in Microsoft Excel's .xlsx format](./files/spreadsheets/covid-19-us-counties.xlsx)
 
 ![Spreadsheet with rows and columns](../files/data_formats/spreadsheet_structure.png)
 
@@ -362,7 +374,7 @@ What if we wanted to count only _total COVID-19 cases in New York's Hudson Valle
 
 --
 
-- Remember, the counts are cumulative. So let's copy just the records for the most recent date and _put them into their own sheet_. This will speed up the program massively and is now small enough to be shared in a web-based spreadsheet - see [here](https://docs.google.com/spreadsheets/d/1ddVWvL9O4uFPir5XGVP21n0_jhZItq--Fu7psPE4mrM/edit?usp=sharing).
+- Remember, the counts are cumulative. So let's copy just the records for the most recent date and _put them into their own sheet_. This will speed up the program massively and is now small enough to be shared in a web-based spreadsheet - see [here](https://docs.google.com/spreadsheets/d/15ZMOzKe1bLB9bB6k87HVCpXX66Qnzy9vRx3f0osRvwI/edit#gid=0).
 
 --
 
@@ -444,7 +456,7 @@ template: criteria
 
 ## Results
 
-The completed spreadsheet is available [here](https://docs.google.com/spreadsheets/d/1f4Qm0OIbeynTZbXUujslEX5L3FXJ5bi2GOXguJFMLQw/edit?usp=sharing).
+The completed spreadsheet is available [here](https://docs.google.com/spreadsheets/d/1Q4J2NgwArqa-f-t-deEEEobmfQwKaEcFwseue8vAkUw/edit#gid=0).
 
 Our data and initial analysis suggest that _about 25% of the population in New York's Hudson Valley have had COVID-19_... that's 1 in every 5 people.
 
@@ -526,8 +538,13 @@ It might be interesting to see how COVID-19 case counts vary over time.
 
     - matching a specified date
 
--- - matching a specified county name
--- - matching the state of New York
+--
+
+    - matching a specified county name
+
+--
+
+    - matching the state of New York
 
 ---
 
@@ -643,7 +660,7 @@ For example, using a pivot table, we might easily group all counties in our data
 
 --
 
-See [an example of this data with a pivot table and a map chart](https://docs.google.com/spreadsheets/d/1PS15N7Ixyt9Se5sM47YNMe_VBPJ5MZvQk1LUX91xenU/edit?usp=sharing).
+See [an example of this data with a pivot table and a map chart](https://docs.google.com/spreadsheets/d/1PS15N7Ixyt9Se5sM47YNMe_VBPJ5MZvQk1LUX91xenU/edit#gid=0).
 
 ---
 
