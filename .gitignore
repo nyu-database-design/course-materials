@@ -131,3 +131,7 @@ typings/
 ## Jekyll artifacts
 **/.jekyll-cache
 **/_site/
+
+# Excel artifacts
+~*.xls
+~*.xlsx
