@@ -63,12 +63,13 @@ One of the goals of normalization is to avoid data redundancy - the repetition o
 
 An example table to hold `students`' grades', with lots of redundancy.
 
-| **id** | name           | email                      | assessment_title | grade |
-| :----- | :------------- | :------------------------- | :--------------- | :---- |
-| 1      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
-| 2      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
-| 3      | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
-| ...    | ...            | ...                        | ...              | ...   |
+| **id** | name             | email                      | assessment_title | grade |
+| :----- | :--------------- | :------------------------- | :--------------- | :---- |
+| 1      | John I. Rivero   | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
+| 2      | John I. Rivero   | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
+| 3      | John I. Rivero   | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
+| 4      | Susan C. Anthony | AnthonySusan@bmoney.com    | Quiz #2          | 64    |
+| ...    | ...              | ...                        | ...              | ...   |
 
 ---
 
@@ -96,12 +97,13 @@ Insertion anomalies occur when we are not able to insert certain attributes in t
 
 - For example, if we wanted to add a new student to our records, but couldn't do so because they hadn't yet taken any assessments, and we had mistakenly made the `assessment_title` and `grade` fields `NOT NULL`.
 
-| **id** | name           | email                      | assessment_title | grade |
-| :----- | :------------- | :------------------------- | :--------------- | :---- |
-| 1      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
-| 2      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
-| 3      | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
-| ...    | ...            | ...                        | ...              | ...   |
+| **id** | name             | email                      | assessment_title | grade |
+| :----- | :--------------- | :------------------------- | :--------------- | :---- |
+| 1      | John I. Rivero   | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
+| 2      | John I. Rivero   | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
+| 3      | John I. Rivero   | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
+| 4      | Susan C. Anthony | AnthonySusan@bmoney.com    | Quiz #2          | 64    |
+| ...    | ...              | ...                        | ...              | ...   |
 
 ---
 
@@ -115,12 +117,13 @@ Update anomalies occur when a correct update of a record requires other actions,
 
 - For example, if we wanted to change `John I. Rivero`'s email address, but it requires us to update multiple records.
 
-| **id** | name           | email                      | assessment_title | grade |
-| :----- | :------------- | :------------------------- | :--------------- | :---- |
-| 1      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
-| 2      | John I. Rivero | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
-| 3      | John I. Rivero | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
-| ...    | ...            | ...                        | ...              | ...   |
+| **id** | name             | email                      | assessment_title | grade |
+| :----- | :--------------- | :------------------------- | :--------------- | :---- |
+| 1      | John I. Rivero   | JohnIRivero@jourrapide.com | Quiz #1          | 95    |
+| 2      | John I. Rivero   | JohnIRivero@jourrapide.com | Quiz #2          | 78    |
+| 3      | John I. Rivero   | JohnIRivero@jourrapide.com | Midterm Exam     | 82    |
+| 4      | Susan C. Anthony | AnthonySusan@bmoney.com    | Quiz #2          | 64    |
+| ...    | ...              | ...                        | ...              | ...   |
 
 ---
 
@@ -136,9 +139,10 @@ Deletion anomalies occur when you delete a record, but because of the design of 
 
 | **id** | name              | email                         | assessment_title | grade |
 | :----- | :---------------- | :---------------------------- | :--------------- | :---- |
-| 4      | Mary G. Dickinson | MaryGDickinson@jourrapide.com | Quiz #1          | 95    |
-| 5      | JSandra B. Kile   | SandraBKile@teleworm.us       | Quiz #2          | 78    |
-| 6      | Helen C. Gonzalez | HelenCGonzalez@teleworm.us    | Quiz #1          | 82    |
+| 4      | Susan C. Anthony  | AnthonySusan@bmoney.com       | Quiz #2          | 64    |
+| 5      | Mary G. Dickinson | MaryGDickinson@jourrapide.com | Quiz #1          | 95    |
+| 6      | JSandra B. Kile   | SandraBKile@teleworm.us       | Quiz #2          | 78    |
+| 7      | Helen C. Gonzalez | HelenCGonzalez@teleworm.us    | Quiz #1          | 82    |
 | ...    | ...               | ...                           | ...              | ...   |
 
 ---
@@ -336,6 +340,7 @@ Take, for example, a table about `employees` at a company.
 | 1      | Henry K. Brinkman   | Accounting | Fort Myers, FL    |
 | 2      | Darlene R. Gonzalez | Marketing  | Jackson, MS       |
 | 3      | Abigail W. Wagner   | Sales      | Pleasantville, NJ |
+| 4      | Norella T. Walker   | Accounting | Fort Myers, FL    |
 | ...    | ...                 | ...        | ...               |
 
 --
@@ -383,6 +388,7 @@ One table for `employees`:
 | 1      | Henry K. Brinkman   | 1             |
 | 2      | Darlene R. Gonzalez | 2             |
 | 3      | Abigail W. Wagner   | 3             |
+| 4      | Norella T. Walker   | 1             |
 | ...    | ...                 | ...           |
 
 --
@@ -437,6 +443,7 @@ A single employee who has multiple skills and/or multiple languages (two indepen
 | 3      | Henry K. Brinkman |       | French   |
 | 4      | Henry K. Brinkman |       | German   |
 | 5      | Henry K. Brinkman |       | Greek    |
+| 6      | Norella T. Walker | type  |
 | ...    | ...               | ...   | ...      |
 
 --
@@ -456,11 +463,12 @@ That same data, with two or more multi-value fact fields, might be represented a
 | 1      | Henry K. Brinkman | cook  | French   |
 | 2      | Henry K. Brinkman | type  | German   |
 | 3      | Henry K. Brinkman | type  | Greek    |
+| 4      | Norella T. Walker | type  | None     |
 | ...    | ...               | ...   | ...      |
 
 --
 
-- In this representation, we have removed the null values, but we still have **redundancy** and therefore difficulty maintaining data.
+- In this representation, we have removed the null values, but we still have **redundancy** and therefore difficulty maintaining data, and what to do with employees who either have no language or no skill?
 
 --
 
@@ -487,6 +495,7 @@ One for `employees`:
 | 1      | Henry K. Brinkman   |
 | 2      | Darlene R. Gonzalez |
 | 3      | Abigail W. Wagner   |
+| 4      | Norella T. Walker   |
 | ...    | ...                 |
 
 ---
@@ -497,14 +506,17 @@ template: fourth
 
 The solution, as with previous normal forms, is to split the data up into multiple tables.
 
-Another for `skills`:
+Another for `employees_skills`:
 
-| **id** | employee_id | skill |
-| :----- | :---------- | :---- |
-| 1      | 1           | cook  |
-| 2      | 1           | type  |
-| 3      | 1           | type  |
-| ...    | ...         | ...   |
+| **employee_id** | **skill** |
+| :-------------- | :-------- |
+| 1               | cook      |
+| 1               | type      |
+| 2               | type      |
+| 4               | type      |
+| ...             | ...       |
+
+- Note, here we use a compound primary key to make sure the employee-skill combinations are unique.
 
 ---
 
@@ -514,14 +526,16 @@ template: fourth
 
 The solution, as with previous normal forms, is to split the data up into multiple tables.
 
-And a third for `languages`:
+And a third for `employees_languages`:
 
-| **id** | employee_id | language |
-| :----- | :---------- | :------- |
-| 1      | 1           | French   |
-| 2      | 1           | German   |
-| 3      | 1           | Greek    |
-| ...    | ...         | ...      |
+| **employee_id** | **language** |
+| :-------------- | :----------- |
+| 1               | French       |
+| 1               | German       |
+| 1               | Greek        |
+| ...             | ...          |
+
+- Note, here we use a compound primary key to make sure the employee-language combinations are unique.
 
 ---
 
