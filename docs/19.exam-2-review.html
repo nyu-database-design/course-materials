@@ -1,0 +1,287 @@
+---
+layout: presentation
+title: Exam 2 Review
+permalink: /exam-2-review/
+---
+
+class: center, middle
+
+# Exam 2 Review
+
+Database Design
+
+---
+
+# Agenda
+
+1. [Overview](#overview)
+1. [MongoDB](#mongodb)
+1. [Web Apps](#web-apps)
+1. [Pandas](#pandas)
+1. [Conclusions](#conclusions)
+
+---
+
+name: overview
+
+# Overview
+
+---
+
+template: overview
+
+## Format
+
+The exam will be composed of two parts:
+
+--
+
+- A Google Form, similar to a Quiz
+
+--
+
+- A GitHub Classroom repository, similar to an assignment
+
+---
+
+template: overview
+
+## Time
+
+Start anytime and submit anytime within a 24 hour window.
+
+---
+
+template: overview
+
+## Topics covered
+
+The topics covered on the exam:
+
+--
+
+- Do you really need a slide about this?
+
+---
+
+template: overview
+
+## Weighting
+
+All topics will be weighted equally in grading.
+
+---
+
+name: mongodb
+
+# MongoDB
+
+--
+
+template: mongodb
+
+## Key points
+
+Main topics:
+
+--
+
+- an example of a _NoSQL_ database
+
+--
+
+- easily imports `CSV` and `JSON` file formats
+
+--
+
+- _document-oriented_ - records stored as Javascript objects written with JSON
+
+--
+
+- Javascript objects support nesting of values
+
+--
+
+- normal forms need not apply
+
+---
+
+template: mongodb
+
+## CRUD
+
+CRUD is still cruddy
+
+--
+
+- **C**reate: `db.collection.insert(document)` -
+
+--
+
+- **R**ead: `db.collection.find(criteria, projection)`
+
+--
+
+- **U**pdate: `db.collection.update(criteria, changes, one_or_many)`,
+
+--
+
+- **D**elete: `db.collection.remove(criteria)`.
+
+---
+
+template: mongodb
+
+## Basic statistics
+
+As with all database systems, MongoDB can easily do some basic statistical operations:
+
+- Count: `db.collection.find(criteria).count()`
+
+--
+
+The _aggregation pipeline_ is used to calculate most other statistics...
+
+---
+
+template: mongodb
+
+## Basic statistics (continued)
+
+E.g., calculate average of all values in the `salary_range_to` field with no grouping:
+
+```javascript
+db.collection.aggregate([
+  {
+    $group: {
+      _id: null,
+      avg_val: { $avg: "$salary_range_to" },
+    },
+  },
+]);
+```
+
+--
+
+Calculate average of all values in the `salary_range_to` field, grouping by `agency`:
+
+```javascript
+db.collection.aggregate([
+  {
+    $group: {
+      _id: "$agency",
+      avg_val: { $avg: "$salary_range_to" },
+    },
+  },
+]);
+```
+
+--
+
+Other statistics are calculated very similarly.
+
+---
+
+name: web-apps
+
+# Web Apps
+
+--
+
+## Key points
+
+Main topics:
+
+--
+
+- the web is the use of the `HTTP` protocol that allows a web browser to browse _hypertext_ documents
+
+--
+
+- a client (e.g. web browser) makes requests (e.g. `HTTP` `GET` or `POST` requests), and a server (e.g. web server) issues responses to those requests (e.g. `HTTP` `200` `OK`).
+
+--
+
+- `HTTP` `POST` requests can contain a payload of body data, such as when the user submits a form. `GET` requests (the default type) cannot.
+
+--
+
+- `flask` is a Python web server module to help detect incoming requests and respond to them
+
+--
+
+- `flask` allows us to set up server-side _routes_ - functions that run automatically when a browser requests a certain web address.
+
+--
+
+- `flask` also makes it easy to generate templates: static `HTML` documents with data injected into them dynamically.
+
+--
+
+- `pymongo` is a Python module that helps the server code communicate with a MongoDB databases.
+
+---
+
+template: web-apps
+
+## HTML, CSS, Javascript
+
+Web browsers can only "understand"/interpret 3 languages: `HTML`, `CSS`, Javascript`.
+
+--
+
+- HTML is used to indicate the content and semantic meaning of the content of a given web page.
+
+--
+
+- CSS is used to indicate the styling of the content on a given web page.
+
+--
+
+- Javascript is used to indicate any interactive behaviors of a given web page (changes to make on user `click`, `mouseover`, `keyPressed`, etc).
+
+---
+
+name: pandas
+
+# Pandas
+
+--
+
+## Key points
+
+Main topics:
+
+--
+
+- powerful Python-based data analysis library
+
+--
+
+- stores data in `Series` and `DataFrame` data structures
+
+--
+
+- vector math!
+
+--
+
+- relies on `numpy`, wraps around `matplotlib`
+
+--
+
+- includes tools to help munge/cleanup the data.
+
+--
+
+- supports basic data analysis: statistical analysis including grouping.
+
+---
+
+name: conclusions
+
+# Conclusions
+
+--
+
+Thank you. Good luck.
