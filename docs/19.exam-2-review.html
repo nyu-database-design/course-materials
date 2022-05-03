@@ -176,9 +176,26 @@ db.collection.aggregate([
 ]);
 ```
 
---
+---
 
-Other statistics are calculated very similarly.
+template: mongodb
+
+## Aggregation pipeline
+
+The aggregation pipeline allows for multi-stage transformations, where the output of each stage becomes the input for the following stage.
+
+--
+Stages may include operations such as:
+
+- `$match` - to filter documents by criteria
+
+- `$count` - to count the number documents at this stage
+
+- `$project` - to calculate or select particular fields
+
+- `$group` - to group documents by a common attribute
+
+- `$sort` - sort the results by a given field(s)
 
 ---
 
@@ -206,19 +223,7 @@ Main topics:
 
 --
 
-- `flask` is a Python web server module to help detect incoming requests and respond to them
-
---
-
-- `flask` allows us to set up server-side _routes_ - functions that run automatically when a browser requests a certain web address.
-
---
-
-- `flask` also makes it easy to generate templates: static `HTML` documents with data injected into them dynamically.
-
---
-
-- `pymongo` is a Python module that helps the server code communicate with a MongoDB databases.
+- `flask` and `pymongo` are useful Python modules when creating web apps.
 
 ---
 
@@ -239,6 +244,50 @@ Web browsers can only "understand"/interpret 3 languages: `HTML`, `CSS`, `Javasc
 --
 
 - Javascript is used to indicate any interactive behaviors of a given web page (changes to make on user `click`, `mouseover`, `keyPressed`, etc).
+
+--
+
+All web servers must respond to incoming HTTP requests from a web browser with code in one or more of these types.
+
+---
+
+template: web-apps
+
+## flask
+
+`flask` is a Python web server module to help detect incoming requests and respond to them
+
+--
+
+- `flask` allows us to set up server-side _routes_ - functions that run automatically when a browser requests a certain web address.
+
+--
+
+- `flask` routes give us easy programmatic access to information in the incoming HTTP requests, such as any form data
+
+--
+
+- `flask` makes it easy to generate templates: static `HTML` documents with data injected into them dynamically.
+
+---
+
+template: web-apps
+
+## pymongo
+
+`pymongo` is a Python module that helps the server code communicate with a MongoDB databases.
+
+--
+
+- allows for all typical _CRUD_ operations to be handled on a MongoDB database using simple Python code.
+
+--
+
+- for example, when a web browser requests a web page, a `flask`-based server app can... fetch data from a database using `pymongo` and inject it into an HTML template that is placed into the HTTP response.
+
+--
+
+- another example, when a user fills in a form and clicks submit, the browser can make an HTTP POST request to a server, where a route in a `flask` app receives the form data, packages it up nicely into a document, and saves it into a MongoDB database.
 
 ---
 
@@ -275,6 +324,26 @@ Main topics:
 --
 
 - supports basic data analysis: statistical analysis including grouping.
+
+---
+
+template: pandas
+
+## Jupyter Notebooks
+
+A convenient web-based IDE widely-used in the scientific Python community for writing and sharing code.
+
+--
+
+- code cells and Markdown cells
+
+--
+
+- ability to run cells in the web browser
+
+--
+
+- supported by many platforms, including GitHub, Visual Studio Code, JupyterLab, etc.
 
 ---
 
