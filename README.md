@@ -4,7 +4,7 @@ Materials used to teach a survey of the nuts and bolts of using databases.
 
 ## Deployed site
 
-View the [schedule](https://nyu-database-design.github.io/course-materials/) and [syllabus](https://nyu-database-design.github.io/course-materials/syllabus/), which contain links to all deployed course materials.
+View the [schedule](https://nyu-database-design.github.io/course-materials/) and [syllabus](https://nyu-database-design.github.io/course-materials/syllabus), which contain links to all deployed course materials.
 
 ## Running locally
 
