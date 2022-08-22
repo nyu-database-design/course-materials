@@ -1,14 +1,14 @@
 # Database Design
 
-Slides used to teach a survey of the nuts and bolts of using databases.
+Materials used to teach a survey of the nuts and bolts of using databases.
 
-## Publishing slides
+## Deployed site
 
-Slides are auto-generated from the materials in the `slides` folder using Git Pages.
-
-- view any slide deck online at https://nyu-database-design.github.io/course-materials/slide-name, where _slide-name_ is replaced by the _permalink_ indicated at the top of each slide markdown file in the `slides` folder.
+View the [schedule](https://nyu-database-design.github.io/course-materials/) and [syllabus](https://nyu-database-design.github.io/course-materials/syllabus/), which contain links to all deployed course materials.
 
 ## Running locally
+
+The code in this repository is used to generate the course website using [jekyll](https://jekyllrb.com/) and continuously deploy it using [GitHub Pages](https://pages.github.com). To generate the web site locally...
 
 - Install [Jekyll](https://jekyllrb.com/) globally
 - `cd` into the `docs` directory
