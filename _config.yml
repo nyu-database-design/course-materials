@@ -1,0 +1,7 @@
+github-org-name: nyu-database-design
+baseurl: /course-materials
+title: Database Design & Implementation
+description: >
+  A fantastic voyage through designing databases for practical implementation
+copyright: GNU General Public License, Version 3
+layouts_dir: assets/jekyll/_layouts/
