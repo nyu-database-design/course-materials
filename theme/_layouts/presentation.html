@@ -10,7 +10,7 @@
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="{{ site.baseurl | strip_html }}/assets/favicon.ico"
+      href="{{ site.baseurl | strip_html }}/theme/favicon.ico"
     />
     <style>
       @import url(//fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -86,12 +86,36 @@
         padding-right: 10px;
         color: #fadf68;
       }
+
+      /* CUSTOM STYLES FOR BREADCRUMB */
+      header.slides {
+        color: #505050;
+        position: fixed;
+        left: 20px;
+        top: 20px;
+      }
+      header.slides a {
+        color: #505050;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
+    <header class="slides">
+      <small>
+        <a href="https://github.com/{{ site.github.owner_name }}">
+          {{ site.github.owner_name | downcase | strip_html }}
+        </a>
+        /
+        <a href="{{ site.baseurl | strip_html }}/">
+          <!-- {{ site.github-org-name }} -->
+          {{ site.github.repository_name | strip_html }}
+        </a>
+      </small>
+    </header>
     <textarea id="source">{{ content }}</textarea>
     <script
-      src="{{ site.baseurl | strip_html }}/assets/js/remark.js"
+      src="{{ site.baseurl | strip_html }}/theme/js/remark.js"
       type="text/javascript"
     ></script>
     <script type="text/javascript">
