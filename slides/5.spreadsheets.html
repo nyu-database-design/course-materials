@@ -34,8 +34,8 @@ template: overview
 
 The examples outlined on these slides is implemented in the following additional documents:
 
-- New York Times' COVID-19 data by US county by day since the start of the pandemic - raw data in [CSV format](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv)
-- A subset of that data for only 9 February, 2020 - [available in Google Sheets](https://docs.google.com/spreadsheets/d/15ZMOzKe1bLB9bB6k87HVCpXX66Qnzy9vRx3f0osRvwI/edit#gid=0)
+- [New York Times' COVID-19 data](https://github.com/nytimes/covid-19-data/) by US county by day since the start of the pandemic - raw data in CSV format.
+- A subset of that data for only 19 September, 2022 - [available in Google Sheets](https://docs.google.com/spreadsheets/d/15ZMOzKe1bLB9bB6k87HVCpXX66Qnzy9vRx3f0osRvwI/edit#gid=0)
 - A breakdown of that data for only New York's Hudson Valley region - [available in Google Sheets](https://docs.google.com/spreadsheets/d/1Q4J2NgwArqa-f-t-deEEEobmfQwKaEcFwseue8vAkUw/edit#gid=0)
 - A breakdown of that data by state - [available in Google Sheets](https://docs.google.com/spreadsheets/d/1PS15N7Ixyt9Se5sM47YNMe_VBPJ5MZvQk1LUX91xenU/edit#gid=0)
 - A time series breakdown of that data for New York's Hudson Valley - [available in Microsoft Excel's .xlsx format](https://github.com/nyu-database-design/course-materials/raw/master/slides/files/spreadsheets/covid-19-us-counties.xlsx)
@@ -191,7 +191,7 @@ We will look into data on the number of COVID-19 cases _aggregated_, updated dai
 
 --
 
-- Access the raw data in CSV form [here](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv); more about this data set [here](https://github.com/nytimes/covid-19-data).
+- Access the raw data in CSV form [here](https://github.com/nytimes/covid-19-data/).
 
 --
 
@@ -271,7 +271,7 @@ Spreadsheets are great for simple statistical analysis, such as finding the _sum
 
 --
 
-- To calculate total deaths, enter `=SUM( F1 : F2200221 )` into column `F` of a new row at the very end of the spreadsheet, where `F1` is the first cell in the deaths column, and `F2200221` is the last value in that column - your last row number will differ. Hit the `enter/return` key when done.
+- To calculate total deaths, enter `=SUM( F1 : F852846 )` into column `F` of a new row at the very end of the spreadsheet, where `F1` is the first cell in the deaths column, and `F852846` is the last value in that column - your last row number will differ. Hit the `enter/return` key when done.
 
 ![Sum of spreadsheet column](../files/data_formats/spreadsheet_sum_formula.png)
 
@@ -285,11 +285,11 @@ Always use your common sense to think about whether the raw data and your analys
 
 --
 
-- Summing the values in the deaths column leads to a result of about _296 million deaths from COVID-19 in the US_ at the time of this writing.
+- Summing the values in the deaths column leads to a result of about _256 million deaths from COVID-19 in the US_ at the time of this writing.
 
 --
 
-- [Authoritative reports](https://coronavirus.jhu.edu/map.html) put that number at about _901,000 deaths_ at the time of this writing.
+- [Authoritative reports](https://coronavirus.jhu.edu/map.html) put that number at about _1,053,840 deaths_ at the time of this writing.
 
 --
 
@@ -321,11 +321,11 @@ Upon further inspection, it seem that each row in the data set represents the _c
 
 --
 
-- Since each record includes a cumulative count of the deaths, in order to calculate total US deaths, we simply have to _sum the death counts for all counties on the most recent day available in the data set_: `=SUM( F1027540 : F1030786 )` (your row row numbers may differ if viewing more recent data)
+- Since each record includes a cumulative count of the deaths, in order to calculate total US deaths, we simply have to _sum the death counts for all counties on the most recent day available in the data set_: `= SUM( F849589 : F852846 )` (your row row numbers may differ if viewing more recent data)
 
 --
 
-- This results in a _total US death count of 911,072_ (as of February 9th 2022)... a better-smelling number.
+- This results in a _total US death count of 1,050,282_ (as of September 19th 2022)... a better-smelling number.
 
 --
 
@@ -596,7 +596,7 @@ We have produced an easy-to-understand chart of cumulative case counts in the Hu
 
 --
 
-- [Download an example Excel file](https://github.com/nyu-database-design/course-materials/raw/master/slides/files/spreadsheets/covid-19-us-counties.xlsx) to see these explorations for yourself.
+- [Download an example Excel file](https://docs.google.com/spreadsheets/d/1WjUeIkvWSsfJ-Yf8ibszzwp1gjNHYy4q/edit?usp=sharing&ouid=103688061522095437051&rtpof=true&sd=true) to see these explorations for yourself.
 
 ---
 
