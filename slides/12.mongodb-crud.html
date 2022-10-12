@@ -8,13 +8,15 @@ class: center, middle
 
 # MongoDB CRUD
 
-Database Design
+The dirty work of database data management.
 
 ---
 
 # Agenda
 
 1. [Overview](#overview)
+1. [Servers](#servers)
+1. [Clients](#clients)
 1. [Example Data Set](#data-set)
 1. [Create](#create)
 1. [Operators](#operators)
@@ -211,9 +213,9 @@ Despite this MongoDB marketing, you can be sure that these organizations also us
 
 template: overview
 
-## CRUD with the mongo client
+## CRUD with the mongo shell client
 
-The `mongo` command line client uses a Javascript command shell interpreter to allow users to issue commands to any database to which they connect.
+The `mongosh` command line client uses a Javascript command shell interpreter to allow users to issue commands to any database to which they connect.
 
 --
 
@@ -228,7 +230,108 @@ The `mongo` command line client uses a Javascript command shell interpreter to a
 
 --
 
-We will show how to do common CRUD operations using the `mongo` client.
+We will show how to do common CRUD operations using the `mongosh` client.
+
+---
+
+name: servers
+
+# Servers
+
+--
+
+## Overview
+There are a variety of options for accessing a MongoDB server.
+- cloud-based servers
+- university servers
+- personal hosted servers
+---
+
+template: servers
+
+## Cloud-based servers
+[MongoDB Atlas](https://www.mongodb.com/cloud/atlas) 
+- cloud-based service that provides a free tier for small databases
+
+---
+
+template: servers
+
+## University servers
+[NYU CIMS MongoDB server](https://cims.nyu.edu/webapps/content/systems/userservices/databases/class-mongodb)
+- accessible to NYU students in courses related to databases.
+
+---
+
+template: servers
+
+## Local installation
+[MongoDB Community Server](https://www.mongodb.com/download-center/community) 
+- a free, open-source server that can be installed on your own computer
+
+---
+
+template: servers
+name: docker
+
+## Local installation (continued)
+[Docker image](https://hub.docker.com/_/mongo)
+- Docker containers are small-footprint portable software environments
+- MongoDB maintains a Docker container image that can be used to run a MongoDB server locally in a container.
+
+To use...
+- install and run [docker desktop](https://www.docker.com/get-started)
+- create a [dockerhub](https://hub.docker.com/signup) account
+- run command, `docker run --name mongodb_dockerhub -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=secret -d mongo:latest`
+- connect to the database server from the command line: `docker exec -ti mongodb_dockerhub mongosh -u admin -p secret`
+- show the available databases: `show dbs`
+- select the database used by this app: `use your_db_name`... this will create a new database if one does not exist by that name
+- exit the database shell whenever you have had your fill: `exit`
+
+---
+
+name: clients
+
+# Clients
+
+--
+
+## Overview
+Connecting to a MongoDB server requires some sort of client program, typically either a shell program that you run locally.
+
+---
+
+template: clients
+name: mongosh
+
+## Mongo Shell
+To access a MongoDB server from the command line, one needs to install [mongosh](https://www.mongodb.com/docs/mongodb-shell/).
+- connect to a server: `mongosh your_database_name --host your_hostname -u your_username -p`.
+- e.g. `mongosh example --host class-mongodb.cims.nyu.edu -u fb1258 -p`...  after running this command, you will be asked for your password and then let in.
+
+Note that if running a MongoDB server [within a local Docker container](#docker), you already have `mongosh` available within the container.
+
+
+---
+
+template: clients
+
+## MongoDB Database Tools
+If connecting to a server from your local machine...
+- install [mongosh](#mongosh)
+- install `mongoimport` and other utilities in the [MongoDB Database Tools](https://www.mongodb.com/docs/database-tools/).
+
+---
+
+template: clients
+
+## Graphical User Interfaces
+
+[MongoDB Compass](https://www.mongodb.com/products/compass)
+- free GUI client for MongoDB by MongoDB
+
+[Studio 3T](https://studio3t.com/free/)
+- free GUI client for MongoDB
 
 ---
 
@@ -240,7 +343,7 @@ name: data-set
 
 ## Save the data file
 
-This set of slides shows examples using a data set about books. To follow along, save the following JSON data into a file named [books.json](../files/mongodb/books.json).
+This set of slides shows examples using a data set about books. To follow along, save the following JSON data into a file named [books.json](({{ site.baseurl }}/slides/files/mongodb/books.json).
 
 ```javascript
 {"title": "Northanger Abbey", "author": "Austen, Jane", "year_written": 1814, "edition": "Penguin", "price":  18.2}
@@ -266,7 +369,7 @@ template: data-set
 
 If you typically connect to the MongoDB database server from a web server, such as **i6** , it's easy to upload the data file to the web server using a Secure File Transfer (SFTP) application like [Cyberduck](https://cyberduck.io/).
 
-![Cyberduck login](../files/mongodb/cyberduck.png)
+![Cyberduck login]({{ site.baseurl }}/slides/images/cyberduck.png)
 
 ---
 
@@ -275,7 +378,7 @@ template: data-set
 ## Import the data into MongoDB
 
 To import the data file into a MongoDB database collection, go to the UNIX/Linux command line from where you typically connect to a MongoDB database, navigate to whichever folder you saved the data file into, and issue the following command:
-
+- Note that this requires the `mongoimport` utility - see [installation instructions](https://www.mongodb.com/docs/database-tools/mongoimport/#installation) if the command is not found on your system.
 ```bash
 mongoimport --db your_database_name --collection books --host database_host --username your_username --password your_password --type json --file books.json
 ```
@@ -283,6 +386,10 @@ mongoimport --db your_database_name --collection books --host database_host --us
 --
 
 - replace `database_host`, `your_database_name`, `your_username`, and `your_password` with the correct credentials.
+
+--
+
+- Note also that if running MongoDB within a Docker container, you may have to modify this command - [see discussion](https://stackoverflow.com/questions/49895447/i-want-to-execute-mongoimport-on-a-docker-container).
 
 --
 
@@ -296,11 +403,11 @@ mongoimport --db your_database_name --collection books --host database_host --us
 
 template: data-set
 
-## Connect to the database with the mongo client
+## Connect to the database with the mongo shell client
 
 Once the data has been imported, you can log in to the database server using the `mongo` client:
 
-`mongo your_database_name --host your_hostname -u your_username -p`
+`mongosh your_database_name --host your_hostname -u your_username -p`
 
 - replace `your_database_name` with your own NYU Net ID
 - replace `your_hostname` with `class-mongodb.cims.nyu.edu`
