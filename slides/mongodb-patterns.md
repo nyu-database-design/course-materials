@@ -117,7 +117,7 @@ Before going into aggregation, let's check basic queries on the database to ensu
 --
 
 ```bash
-mongo your_database_name --host database_host -u your_username -p
+mongosh your_database_name --host database_host -u your_username -p
 ```
 
 - replace `your_database_name`, `database_host`, and `your_username` with the correct credentials.
@@ -171,7 +171,7 @@ Let's try a few simple retrievals of documents from the `jobs` collection.
 - Retrieve just one document:
 
 ```javascript
-db.jobs.findOne();
+db.jobs.findOne()
 ```
 
 --
@@ -179,7 +179,7 @@ db.jobs.findOne();
 Retrieve `10` documents:
 
 ```javascript
-db.jobs.find().limit(10);
+db.jobs.find().limit(10)
 ```
 
 --
@@ -187,7 +187,7 @@ db.jobs.find().limit(10);
 Retrieve all documents:
 
 ```javascript
-db.jobs.find();
+db.jobs.find()
 ```
 
 --
@@ -195,7 +195,7 @@ db.jobs.find();
 Count documents in the result set:
 
 ```javascript
-db.jobs.find().count();
+db.jobs.find().count()
 ```
 
 ---
@@ -211,7 +211,7 @@ The `db.collection.distinct()` function allows us to retrieve distinct values fo
 - find the distinct values in the `Agency` field:
 
 ```javascript
-db.jobs.distinct("Agency");
+db.jobs.distinct("Agency")
 ```
 
 --
@@ -219,7 +219,7 @@ db.jobs.distinct("Agency");
 - find the distinct values in the `Full-Time/Part-Time indicator` field:
 
 ```javascript
-db.jobs.distinct("Full-Time/Part-Time indicator");
+db.jobs.distinct("Full-Time/Part-Time indicator")
 ```
 
 ---
@@ -231,7 +231,7 @@ template: sanity-check
 The `db.collection.find().sort()` function sorts results. For example, sort all documents by the `Job ID` field, and show just the top `3` results, and show the documents in a pretty format.
 
 ```javascript
-db.jobs.find().sort({ "Job ID": 1 }).limit(3).pretty();
+db.jobs.find().sort({ "Job ID": 1 }).limit(3).pretty()
 ```
 
 --
@@ -239,8 +239,8 @@ db.jobs.find().sort({ "Job ID": 1 }).limit(3).pretty();
 - same as above, but only retrieve the `Job ID`, `Agency`, and `Business Title` fields:
 
 ```javascript
-let fields = { _id: 0, "Job ID": 1, Agency: 1, "Business Title": 1 };
-db.jobs.find({}, fields).sort({ "Job ID": 1 }).limit(3).pretty();
+let fields = { _id: 0, "Job ID": 1, Agency: 1, "Business Title": 1 }
+db.jobs.find({}, fields).sort({ "Job ID": 1 }).limit(3).pretty()
 ```
 
 --
@@ -248,8 +248,8 @@ db.jobs.find({}, fields).sort({ "Job ID": 1 }).limit(3).pretty();
 - same as above, but only retrieve documents that have `POLICE DEPARTMENT` in the `Agency` field, with no limit.
 
 ```javascript
-let filter = { Agency: "POLICE DEPARTMENT" };
-db.jobs.find(filter, fields).sort({ "Job ID": 1 }).pretty();
+let filter = { Agency: "POLICE DEPARTMENT" }
+db.jobs.find(filter, fields).sort({ "Job ID": 1 }).pretty()
 ```
 
 ---
@@ -269,10 +269,10 @@ let fields = {
   "Business Title": 1,
   "Posting Date": 1,
   "Salary Range To": 1,
-};
+}
 
-let orderBy = { "Salary Range To": -1 };
-db.jobs.find({}, fields).sort(orderBy).limit(20).pretty();
+let orderBy = { "Salary Range To": -1 }
+db.jobs.find({}, fields).sort(orderBy).limit(20).pretty()
 ```
 
 --
@@ -328,7 +328,7 @@ The aggregation pipeline is a multi-stage process that transforms documents into
 To start an aggregation, we call the `aggregate()` function on a collection:
 
 ```javascript
-db.collection.aggregate();
+db.collection.aggregate()
 ```
 
 ---
@@ -430,7 +430,7 @@ The `$match` operator filters documents in the pipeline. Here is the operator un
 ```javascript
 {
   $match: {
-    city: "Brooklyn";
+    city: "Brooklyn"
   }
 }
 ```
@@ -449,7 +449,7 @@ As the name implies, `$count` counts the number of documents incoming from the p
 
 ```javascript
 {
-  $count: "countPolicyAnalysts";
+  $count: "countPolicyAnalysts"
 }
 ```
 
@@ -461,7 +461,7 @@ For example, if the `$match` and `$count` operators were placed within a pipelin
 db.jobs.aggregate([
   { $match: { "Business Title": "Policy Analyst" } },
   { $count: "countPolicyAnalysts" },
-]);
+])
 ```
 
 ---
@@ -490,8 +490,8 @@ The `$project` stage can modify the shape of a document by adding, suppressing a
 For example,
 
 ```javascript
-let fields = { _id: 0, "Job ID": 1, "Business Title": 1 };
-db.jobs.aggregate([{ $project: fields }]);
+let fields = { _id: 0, "Job ID": 1, "Business Title": 1 }
+db.jobs.aggregate([{ $project: fields }])
 ```
 
 ---
@@ -507,8 +507,8 @@ let projection = {
   _id: 0,
   "Job ID": 1,
   title: { $toUpper: "$Business Title" },
-};
-db.jobs.aggregate([{ $project: projection }]);
+}
+db.jobs.aggregate([{ $project: projection }])
 ```
 
 ---
@@ -529,7 +529,7 @@ var projection = {
   "Job ID": 1,
   ptype: "$Posting Type",
   title: { $toUpper: "$Business Title" },
-};
+}
 ```
 
 --
@@ -540,7 +540,7 @@ Pipe the external job postings to this projection:
 db.jobs.aggregate([
   { $match: { "Posting Type": "External" } },
   { $project: projection },
-]);
+])
 ```
 
 ---
@@ -585,7 +585,7 @@ Additional operations… and expressions, include:
 
 ```javascript
 {
-  $subtract: ["$field1", "$field2"]; // i.e. field1 - field2
+  $subtract: ["$field1", "$field2"] // i.e. field1 - field2
 }
 ```
 
@@ -646,9 +646,9 @@ template: pipeline-examples
 Filter such that the minimum `Salary Range From` in our results is $200,000:
 
 ```javascript
-let min_from = { $match: { "Salary Range From": { $gt: 200000 } } };
+let min_from = { $match: { "Salary Range From": { $gt: 200000 } } }
 
-db.jobs.aggregate([min_from]);
+db.jobs.aggregate([min_from])
 ```
 
 --
@@ -664,7 +664,7 @@ template: pipeline-examples
 For all positions that are paid annually (see `Salary Frequency`), show the top `10` positions that have the largest range of possible salaries.
 
 ```javascript
-let salaryGap = { $subtract: ["$Salary Range To", "$Salary Range From"] };
+let salaryGap = { $subtract: ["$Salary Range To", "$Salary Range From"] }
 
 let fields = {
   $project: {
@@ -672,18 +672,18 @@ let fields = {
     "Business Title": 1,
     "Salary Gap": salaryGap,
   },
-};
+}
 
 let annualExternal = {
   $match: {
     "Salary Frequency": "Annual",
     "Posting Type": "External",
   },
-};
+}
 
-let sortGapDesc = { $sort: { "Salary Gap": -1 } };
+let sortGapDesc = { $sort: { "Salary Gap": -1 } }
 
-db.jobs.aggregate([annualExternal, fields, sortGapDesc, { $limit: 10 }]);
+db.jobs.aggregate([annualExternal, fields, sortGapDesc, { $limit: 10 }])
 ```
 
 ---
@@ -695,7 +695,7 @@ template: pipeline-examples
 Same as previous example, but only show the positions where the salary range is lower than $5,000, but not $0.
 
 ```javascript
-let salaryGap = { $subtract: ["$Salary Range To", "$Salary Range From"] };
+let salaryGap = { $subtract: ["$Salary Range To", "$Salary Range From"] }
 
 let fields = {
   $project: {
@@ -703,18 +703,18 @@ let fields = {
     "Business Title": 1,
     "Salary Gap": salaryGap,
   },
-};
+}
 
 let annualExternal = {
   $match: {
     "Salary Frequency": "Annual",
     "Posting Type": "External",
   },
-};
+}
 
-let maxDiff = { $match: { "Salary Gap": { $lt: 5000, $gt: 0 } } };
+let maxDiff = { $match: { "Salary Gap": { $lt: 5000, $gt: 0 } } }
 
-db.jobs.aggregate([annualExternal, fields, maxDiff]);
+db.jobs.aggregate([annualExternal, fields, maxDiff])
 ```
 
 ---
@@ -726,22 +726,22 @@ template: pipeline-examples
 Let's calculate the average each city agency pays for the low end of the salary range for Career Level "`Entry-Level`", without including agencies with an average lower than $30,000.
 
 ```javascript
-let matchEntryLevel = { $match: { "Career Level": "Entry-Level" } };
+let matchEntryLevel = { $match: { "Career Level": "Entry-Level" } }
 
 let avgSalaryAgencyGroup = {
   $group: {
     _id: "$Agency",
     avgSalaryFrom: { $avg: "$Salary Range From" },
   },
-};
+}
 
 let match30K = {
   $match: {
     avgSalaryFrom: { $gte: 30000 },
   },
-};
+}
 
-db.jobs.aggregate([matchEntryLevel, avgSalaryAgencyGroup, match30K]);
+db.jobs.aggregate([matchEntryLevel, avgSalaryAgencyGroup, match30K])
 ```
 
 ---
@@ -753,15 +753,15 @@ template: pipeline-examples
 Let's see how many jobs were posted for every year
 
 ```javascript
-let extractYear = { $arrayElemAt: [{ $split: ["$Posting Date", "/"] }, -1] };
+let extractYear = { $arrayElemAt: [{ $split: ["$Posting Date", "/"] }, -1] }
 
-let fields = { $project: { year: extractYear } };
+let fields = { $project: { year: extractYear } }
 
-let countByYear = { $group: { _id: "$year", count: { $sum: 1 } } };
+let countByYear = { $group: { _id: "$year", count: { $sum: 1 } } }
 
-let orderByYear = { $sort: { _id: -1 } };
+let orderByYear = { $sort: { _id: -1 } }
 
-db.jobs.aggregate([fields, countByYear, orderByYear]);
+db.jobs.aggregate([fields, countByYear, orderByYear])
 ```
 
 ---
