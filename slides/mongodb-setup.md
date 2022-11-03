@@ -130,7 +130,7 @@ Once set up with a server, you must access it using a **client**. There are seve
 
 --
 
-- Download and install [MongoDB's official shell](https://www.mongodb.com/try/download/shell) client, which you can run from the command line of your own machine.
+- Download and install `mongosh`, [MongoDB's official shell](https://www.mongodb.com/try/download/shell) client, which you can run from the command line of your own machine.
 
 --
 
@@ -138,7 +138,7 @@ Once set up with a server, you must access it using a **client**. There are seve
 
 --
 
-- Use `ssh` to remotely log into NYU CS department's `i6.cims.nyu.edu` server, where a `mongo` shell is already installed.
+- Use `ssh` to remotely log into NYU CS department's `i6.cims.nyu.edu` server, where a `mongosh` shell is already installed.
 
 ---
 
@@ -175,7 +175,7 @@ name: connect-to-mongo
 
 ## Connecting to MongoDB from NYU CS Department's i6 Web Server
 
-Once logged into the **i6** web server, you can use the `mongo` command line client to connect to the MongoDB database server.
+Once logged into the **i6** web server, you can use the `mongosh` (or an older version named just `mongo`) command line client to connect to the MongoDB database server.
 
 --
 
@@ -186,7 +186,7 @@ This command can be automatically run every time you log into the **i6** web ser
 
 --
 
-- Next, use the MongoDB client to connect to the database server: `mongo fb1258 --host class-mongodb.cims.nyu.edu -u fb1258 -p`, where `fb1258` is replaced by your own NYU Net ID.
+- Next, use the MongoDB client to connect to the database server: `mongosh fb1258 --host class-mongodb.cims.nyu.edu -u fb1258 -p`, where `fb1258` is replaced by your own NYU Net ID.
 
 --
 
