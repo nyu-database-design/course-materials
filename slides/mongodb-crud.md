@@ -505,7 +505,7 @@ template: read
 
 ```javascript
 db.books.find({
-  author: "Leo Tolstoy",
+  author: "Tolstoy, Leo",
 })
 ```
 
