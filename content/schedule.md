@@ -49,6 +49,6 @@ permalink: /
 
 Material that is not currently included in the course, but may be of interest to some:
 
-| Date | Class | Topics     | Notes                                   | Reading/viewing due | Quiz due                                          | Exercise due |
-| :--- | :---- | :--------- | :-------------------------------------- | :------------------ | :------------------------------------------------ | :----------- |
-| n/a  | n/a   | Blockchain | [Blockchain slides](slides/blockchain/) |                     | [Blockchain](https://forms.gle/3To1N54ct9gbAgpn9) |              |
+| Date | Class | Topics     | Notes                                                                                                                                     | Reading/viewing due | Quiz due                                          | Exercise due |
+| :--- | :---- | :--------- | :---------------------------------------------------------------------------------------------------------------------------------------- | :------------------ | :------------------------------------------------ | :----------- |
+| n/a  | n/a   | Blockchain | - [Blockchain slides](slides/blockchain/)<br />- [Cryptography code examples](https://github.com/nyu-database-design/blockchain-concepts) |                     | [Blockchain](https://forms.gle/3To1N54ct9gbAgpn9) |              |
