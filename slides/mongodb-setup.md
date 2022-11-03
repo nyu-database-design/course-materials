@@ -74,6 +74,10 @@ There are several easy ways to try out a MongoDB **server**.
 
 --
 
+- [Docker image of MongoDB](https://hub.docker.com/_/mongo) can be used to run a MongoDB server in a Docker container.
+
+--
+
 - NYU's Computer Science Department hosts its own MongoDB server at [class-mongodb.cims.nyu.edu:27017](https://cims.nyu.edu/webapps/content/systems/userservices/databases/class-mongodb), which all students can access.
 
 --
