@@ -215,7 +215,7 @@ template: overview
 
 ## CRUD with the mongo shell client
 
-The `mongosh` command line client uses a Javascript command shell interpreter to allow users to issue commands to any database to which they connect.
+The `mongosh` command line client (called `mongo` in older versions) uses a Javascript command shell interpreter to allow users to issue commands to any database to which they connect.
 
 --
 
