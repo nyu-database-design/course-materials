@@ -425,7 +425,7 @@ template: data-set
 
 ## Connect to the database with the mongo shell client
 
-Once the data has been imported, you can log in to the database server using the `mongo` client:
+Once the data has been imported, you can log in to the database server using the `mongosh` (or `mongo` on older systems) client:
 
 `mongosh your_database_name --host your_hostname -u your_username -p`
 
