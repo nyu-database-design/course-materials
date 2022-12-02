@@ -8,9 +8,11 @@ View the [schedule](https://nyu-database-design.github.io/course-materials/) and
 
 ## Running locally
 
-The code in this repository is used to generate the course website using [jekyll](https://jekyllrb.com/) and continuously deploy it using [GitHub Pages](https://pages.github.com). To generate the web site locally...
+The code in this repository is used to generate the course website using [jekyll](https://jekyllrb.com/) and continuously deploy it using [GitHub Pages](https://pages.github.com).
 
+It is possible to run the website locally on your own machine.
+
+- Assuming [Ruby](https://www.ruby-lang.org/en/documentation/installation/) is installed...
 - Install [Jekyll](https://jekyllrb.com/) globally
-- `cd` into the `docs` directory
-- run `jekyll serve`
-- a `server address` will be displayed - visit this address in your web browser
+- Install the dependencies listed in the `Gemfile` by running the command, `bundle`.
+- run `bundle exec jekyll serve` or simply `jekyll serve` if that doesn't work.
